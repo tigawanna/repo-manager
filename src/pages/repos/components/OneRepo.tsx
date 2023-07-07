@@ -1,19 +1,25 @@
 import React from "react";
-import { sample_repos } from "@/state/providers/repos/sample_repos";
-import { Card, CardMedia} from "@mui/material";
+import { Card, CardMedia } from "@mui/material";
 import { Edit, GitFork, Lock } from "lucide-react";
-
 import { MuiModal } from "@/components/shared/MuiModal";
-import {Chip} from '@mui/material';
+import { Chip } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
-
+import { sample_repos } from "@/state/providers/repos/sample_repos";
+import { useParams } from "react-router-dom";
 
 interface OneRepoProps {}
 
 export function OneRepo({}: OneRepoProps) {
-  const [repo, setRepos] = React.useState(sample_repos.viewer.repositories.edges[3].node);
+  const params = useParams()
+  console.log("params ==== ",params)
+  const sample_repos_list = sample_repos.viewer.repositories.edges
+  const one_repo=sample_repos_list.filter((repo)=>repo.node.id==params.id)[0]
+  const [repo, setRepos] = React.useState(one_repo.node);
+
+
+
   const [open, setOpen] = React.useState<boolean>(false);
   return (
     <Card className="min-h-screen w-full  flex flex-col">
@@ -64,17 +70,13 @@ export function OneRepo({}: OneRepoProps) {
               <h4 className="text-sm md:text-base font-medium">{repo.description}</h4>
               <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
                 {repo.repositoryTopics.nodes.map((topic) => {
-                  return (
-                  <Chip key={topic.id}  variant="outlined" label={topic.topic.name}/>
-                  );
+                  return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
               </div>
             </div>
           </div>
 
-          {/* <IconButton aria-label="settings">
-                  <MoreVertIcon />
-              </IconButton> */}
+
 
           <CardMedia
             component="img"
@@ -87,11 +89,18 @@ export function OneRepo({}: OneRepoProps) {
         </div>
       </div>
 
-      <MuiModal 
-        open={open} setOpen={setOpen}>
-          {/* @ts-expect-error */}
-          <UpdateRepoForm input={repo} />
+      <MuiModal open={open} setOpen={setOpen}>
+        {/* @ts-expect-error */}
+        <UpdateRepoForm input={repo} />
       </MuiModal>
+      {/* <div className="w-full h-full flex flex-wrap items-center justify-start gap-5">
+        {stars.map((star) => {
+          return (
+            <div>{star.node.email} </div>
+          )
+        })}
+      </div> */}
+
     </Card>
   );
 }

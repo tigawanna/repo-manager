@@ -1,11 +1,11 @@
-
 import { UpdateRepoForm } from "./UpdateRepoForm";
 import React from "react";
-import { Checkbox,MenuItem, Chip,Card,CardMedia,CardContent } from "@mui/material";
+import { Checkbox, MenuItem, Chip, Card, CardMedia, CardContent } from "@mui/material";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { CardMenu } from "@/components/shared/CardMenu";
 import { ItemList, RepositoriesEdge } from "@/state/providers/repos/types";
-
+import { Link } from "react-router-dom";
+import { Star, GitFork } from "lucide-react";
 
 interface RepoCard {
   viewer_repos: RepositoriesEdge;
@@ -15,14 +15,14 @@ interface RepoCard {
   unselectItem: (item: ItemList) => void;
 }
 
-export function RepoCard({ viewer_repos,selectItem,selected,unselectItem,editing }: RepoCard) {
-const [repo, setRepos] = React.useState(viewer_repos.node);
-const [open,setOpen]=React.useState(false)
+export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, editing }: RepoCard) {
+  const [repo, setRepos] = React.useState(viewer_repos.node);
+  const [open, setOpen] = React.useState(false);
+  const topics = repo.repositoryTopics.nodes;
+  const stars = repo.stargazerCount;
+  const forks = repo.forkCount;
 
-const topics = repo.repositoryTopics.nodes;
-const many_topics_card_styles=""
-
-//  console.log("repo === ",repo.repositoryTopics);
+  //  console.log("repo === ",repo.repositoryTopics);
   return (
     <Card
       sx={{
@@ -53,9 +53,11 @@ const many_topics_card_styles=""
             />
           )}
 
-          <div className="w-[100%] flex flex-col justify-between line-clamp-2">
-            <h1 className="text-lg font-bold line-clamp-1">{repo.name}</h1>
-            <h3 className="line-clamp-1 text-sm">{repo.nameWithOwner}</h3>
+          <div className="w-[100%] flex  items-center">
+            <div className="w-[100%] flex flex-col justify-between">
+              <h1 className="text-lg font-bold line-clamp-1">{repo.name}</h1>
+              <h3 className="line-clamp-1 text-sm">{repo.nameWithOwner}</h3>
+            </div>
           </div>
 
           <CardMenu>
@@ -84,7 +86,7 @@ const many_topics_card_styles=""
         </div>
       </div>
 
-      <div className="flex flex-col h-full">
+      <Link to={"/repos/show/" + repo.id} className="flex flex-col h-full">
         <CardMedia
           component="img"
           height={50}
@@ -95,11 +97,26 @@ const many_topics_card_styles=""
         />
         <CardContent style={{ padding: 1 }} className="w-fit p-1">
           <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">{repo.description}</h4>
+          <div className="flex rounded-full border shadow shadow-slate-500 w-fit">
+            {stars > 0 && (
+              <div className="flex gap-1 text-sm items-center justify-center px-2">
+                {stars}
+                <Star className="w-4 h-4 fill-yellow-400" />
+              </div>
+            )}
+            {forks > 0 && (
+              <div className="flex gap-1 text-sm items-center justify-center px-2">
+                {forks}
+                <GitFork className="w-4 h-4 text-purple-600" />
+              </div>
+            )}
+          </div>
         </CardContent>
-      </div>
+      </Link>
 
       <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-        {topics.length < 1 && <Chip variant="outlined" label="No topics" size="small" />}
+        {topics.length < 1 && <Chip variant="outlined" label="Add topic" size="small" />}
+
         {topics.map((topic) => {
           return <Chip key={topic.id} variant="outlined" label={topic.topic.name} size="small" />;
         })}

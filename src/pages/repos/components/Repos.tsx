@@ -55,6 +55,8 @@ const deselectAll=()=>{
 }
 
 const query = useQuery({queryKey: ["viewerRepos"], queryFn: getViewerRepos})
+// const query = useList({ dataProviderName: "repos" });
+
 const repos = query.data&&query.data.viewer.repositories.edges
 const is_all_selected = selected && selected.length === repos?.length?true:false
 
