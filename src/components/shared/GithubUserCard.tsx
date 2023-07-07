@@ -10,7 +10,14 @@ interface GithubUserCardProps {
 export function GithubUserCard({ github_user }: GithubUserCardProps) {
     const [shouldFollox,setShoulFollow] = useState(!github_user.viewerIsFollowing)
   return (
-    <Card className="w-full h-full flex items-center justify-center gap-2">
+    <Card 
+    variant="elevation"
+    className="w-full h-full flex items-center justify-center gap-2 hover:brightness-110 p-5 
+    rounded "
+    sx={{
+      boxShadow: 10
+    }}
+    >
       <CardMedia
         component="img"
         width={"50px"}

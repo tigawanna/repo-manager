@@ -67,7 +67,7 @@ export function OneRepo({}: OneRepoProps) {
               </div>
             </div>
             <div>
-              <h4 className="text-sm md:text-base font-medium">{repo.description}</h4>
+              <h4 className="text-sm md:text-base  p-2">{repo.description}</h4>
               <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
               {repo.repositoryTopics.nodes.map((topic) => {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
@@ -93,9 +93,8 @@ export function OneRepo({}: OneRepoProps) {
         {/* @ts-expect-error */}
         <UpdateRepoForm input={repo} />
       </MuiModal>
-
-      <div className="w-full h-full flex flex-wrap items-center justify-start gap-5">
-        starts
+        {stars.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}        
+      <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2  gap-5">
         {stars.map((star) => {
           return (
             <GithubUserCard key={star.node.url} github_user={star.node as any}/>

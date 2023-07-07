@@ -14,7 +14,7 @@ export async function followOrUnfollowUser({username,shouldFollow}:FollowUserMua
             method,
             headers: {
                 Authorization:`Bearer ${import.meta.env.VITE_GH_PAT}`,
-                "Content-Length": "0",
+                "Content-Type": "application/json",
             },
         });
 

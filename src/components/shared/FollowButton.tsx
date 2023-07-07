@@ -17,7 +17,7 @@ return (
     size="small"
     variant="outlined"
     className="w-fit"
-    sx={{ fontSize: "7px" , width:"100px"}}
+    sx={{ fontSize: "7px" , width:"150px"}}
     onClick={() => mutation.mutate({ username, shouldFollow: true })}>
     {shouldFollowback ? "Follow Back" : "Follow"}
   </Button>
@@ -28,7 +28,7 @@ return (
     size="small"
     variant="outlined"
     className="text-xs"
-    sx={{ fontSize: "7px", width: "100px" }}
+    sx={{ fontSize: "7px", width: "150px" }}
     onClick={() => mutation.mutate({ username, shouldFollow: false })}>
     Unfollow
   </Button>
