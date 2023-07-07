@@ -11,6 +11,8 @@ import authProvider from "./authProvider";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { supabaseClient } from "./utility";
 import { AllRoutes } from "./pages";
+import { reposDataProvider } from "@/state/providers/repos/dataProvider";
+
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -23,13 +25,16 @@ function App() {
 
   return (
     <BrowserRouter>
-    <RefineKbarProvider>
+      <RefineKbarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
           <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
           <RefineSnackbarProvider>
             <Refine
-              dataProvider={dataProvider(supabaseClient)}
+              dataProvider={{
+                default: dataProvider(supabaseClient),
+                repos: reposDataProvider(),
+              }}
               liveProvider={liveProvider(supabaseClient)}
               authProvider={authProvider}
               routerProvider={routerBindings}
@@ -56,13 +61,23 @@ function App() {
                     canDelete: true,
                   },
                 },
+                {
+                  name: "repos",
+                  list: "/repos",
+                  create: "/repos/create",
+                  edit: "/repos/edit/:id",
+                  show: "/repos/show/:id",
+                  meta: {
+                    canDelete: true,
+                    dataProviderName: "repos",
+                  },
+                },
               ]}
               options={{
                 syncWithLocation: true,
                 warnWhenUnsavedChanges: true,
-              }}
-            >
-              <AllRoutes/>
+              }}>
+              <AllRoutes />
 
               <RefineKbar />
               <UnsavedChangesNotifier />
