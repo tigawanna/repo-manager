@@ -130,7 +130,7 @@ export interface StargazersEdge {
     node: StargazersNode
 }
 
-export interface StargazersNode {
+export interface GithubUser{
     email: string
     avatarUrl: string
     isFollowingViewer: boolean
@@ -143,3 +143,4 @@ export interface StargazersNode {
     login: string
     location?: string
 }
+export type StargazersNode = GithubUser;

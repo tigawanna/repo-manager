@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
 import { sample_repos } from "@/state/providers/repos/sample_repos";
 import { useParams } from "react-router-dom";
+import { GithubUserCard } from "@/components/shared/GithubUserCard";
 
 interface OneRepoProps {}
 
@@ -17,8 +18,7 @@ export function OneRepo({}: OneRepoProps) {
   const sample_repos_list = sample_repos.viewer.repositories.edges
   const one_repo=sample_repos_list.filter((repo)=>repo.node.id==params.id)[0]
   const [repo, setRepos] = React.useState(one_repo.node);
-
-
+  const stars = repo.stargazers.edges
 
   const [open, setOpen] = React.useState<boolean>(false);
   return (
@@ -69,7 +69,7 @@ export function OneRepo({}: OneRepoProps) {
             <div>
               <h4 className="text-sm md:text-base font-medium">{repo.description}</h4>
               <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
-                {repo.repositoryTopics.nodes.map((topic) => {
+              {repo.repositoryTopics.nodes.map((topic) => {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
               </div>
@@ -93,13 +93,15 @@ export function OneRepo({}: OneRepoProps) {
         {/* @ts-expect-error */}
         <UpdateRepoForm input={repo} />
       </MuiModal>
-      {/* <div className="w-full h-full flex flex-wrap items-center justify-start gap-5">
+
+      <div className="w-full h-full flex flex-wrap items-center justify-start gap-5">
+        starts
         {stars.map((star) => {
           return (
-            <div>{star.node.email} </div>
+            <GithubUserCard key={star.node.url} github_user={star.node as any}/>
           )
         })}
-      </div> */}
+      </div>
 
     </Card>
   );
