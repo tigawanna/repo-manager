@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button, FormControlLabel, Checkbox, Stack } from "@mui/material";
-import { UpdateRepositoryInput, updateRepository } from "@/state/providers/repos/mutation/updateRepo";
-
-import { RepositoriesNode } from "@/state/providers/repos/types";
+import { Button, Checkbox, Stack } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
-import {TextField,Box} from "@mui/material";
+import { TextField, Box } from "@mui/material";
+import { RepositoriesNode } from "@/state/providers/repos/types";
+import {
+  UpdateRepositoryInput,
+  updateRepository,
+} from "@/state/providers/repos/mutation/updateRepo";
 
 interface UpdateRepoFormProps {
   input: RepositoriesNode;
@@ -48,63 +50,47 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
     } else {
       throw new Error("repository id required");
     }
-
-    // Handle form submission logic here
   };
 
   return (
     <Box
       component="form"
-      className="flex flex-col w-full p-5 rounded"
+      className="flex flex-col w-full p-6 rounded-lg bg-slate-900"
+      onSubmit={handleSubmit}
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        backgroundColor:"background",
-        }}
-      
-      noValidate
-  
-      autoComplete="off"
-    >
-      <h1 className="font-bold p-1 mt-3">Update {input.nameWithOwner} repository </h1>
+        "& .MuiTextField-root": { m: 1, width: "100%", fontSize: "10px" },
+      }}
+  >
+      <h1 className="font-bold text-lg p-1 m-1 border-b">Update {input.nameWithOwner} repository </h1>
       <TextField
         id="anme"
         name="name"
         placeholder="Repository name"
+        className="w-full"
         value={formData.name}
         onChange={handleChange}
         size="small"
-        sx={{
-          fontSize: 14,
-          width: "90%",
-        
-        }}
         helperText="repository name"
       />
       <TextField
-        id="anme"
+        id="description"
         name="description"
+        size="small"
         placeholder="Repository description"
         value={formData.description}
         onChange={handleChange}
-        sx={{
-          height: 100,
-          fontSize: 14,
-        }}
         helperText="repository description"
       />
+
       <TextField
-        id="anme"
+        id="homepageUrl"
         name="homepageUrl"
+        size="small"
         value={formData.homepageUrl}
         onChange={handleChange}
         type="url"
-        sx={{
-          fontSize: 14,
-        }}
         helperText="repository homepage url"
       />
-
-
 
       <Stack direction="row" className="w-full gap- flex flex-wrap justify-center items-center">
         {updateRepoBooleans.map((boolean) => (
@@ -125,7 +111,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
         variant="outlined"
         color="secondary"
         style={{ width: "100%", marginTop: "20px" }}>
-        {mutation.isLoading ? <Loader /> : "Update"}
+        {mutation.isLoading ? <Loader className="w-4 h-4 animate-spin"/> : "Update"}
       </Button>
     </Box>
   );

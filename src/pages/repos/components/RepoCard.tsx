@@ -35,14 +35,13 @@ const many_topics_card_styles=""
         },
       }}
       className="sm:h-[350px] w-full sm:w-[45%] lg:w-[30%] flex flex-col  gap-0 "
-      
       variant="elevation">
-      
       <div className="w-full flex flex-wrap lg:flex-row  justify-between p-3 gap-2 ">
-        <div className="w-full flex justify-between items-center gap-2">
+        <div className="w-full flex justify-between items-center gap-1">
           {editing && (
             <Checkbox
-              className="border-2 border-purple-600 mr-2"
+              className=" border-purple-600 mr-1"
+              size="small"
               checked={selected}
               onClick={() => {
                 if (selected) {
@@ -54,12 +53,11 @@ const many_topics_card_styles=""
             />
           )}
 
-          <div className="w-[90%] flex flex-col justify-between line-clamp-2">
-            <h1 className="text-xl font-bold line-clamp-1">{repo.name}</h1>
-            <h3 className="line-clamp-1">{repo.nameWithOwner}</h3>
+          <div className="w-[100%] flex flex-col justify-between line-clamp-2">
+            <h1 className="text-lg font-bold line-clamp-1">{repo.name}</h1>
+            <h3 className="line-clamp-1 text-sm">{repo.nameWithOwner}</h3>
           </div>
 
-     
           <CardMenu>
             <MenuItem
               sx={{
@@ -95,13 +93,13 @@ const many_topics_card_styles=""
           alt={repo.nameWithOwner}
           width={50}
         />
-        <CardContent style={{ padding:1 }} className="w-fit p-1">
+        <CardContent style={{ padding: 1 }} className="w-fit p-1">
           <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">{repo.description}</h4>
         </CardContent>
       </div>
 
       <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-        {topics.length<1 && <Chip variant="outlined" label="No topics" size="small" />} 
+        {topics.length < 1 && <Chip variant="outlined" label="No topics" size="small" />}
         {topics.map((topic) => {
           return <Chip key={topic.id} variant="outlined" label={topic.topic.name} size="small" />;
         })}
