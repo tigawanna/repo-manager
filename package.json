@@ -56,7 +56,9 @@
     "dev": "refine dev",
     "build": "tsc && refine build",
     "preview": "refine start",
-    "refine": "refine"
+    "refine": "refine",
+    "i":"npm run install",
+    "pp": "npm run"
   },
   "browserslist": {
     "production": [
