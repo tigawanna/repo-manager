@@ -5,12 +5,12 @@ import React from "react";
 import { Checkbox, Chip } from "@mui/material";
 import { Edit,Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
-import { RepositoriesEdge, RepositoriesNode } from "@/state/providers/repos/types";
+import { RepositoriesEdge } from "@/state/providers/repos/types";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
-import { getViewerRepositories } from "@/state/providers/repos/query/viewer_repos";
-import { useList } from "@refinedev/core";
 import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
+import { useList,useInfiniteList } from "@refinedev/core";
+
 
 interface ReposProps {
 
@@ -61,13 +61,42 @@ const deselectAll=()=>{
 //   first: 100
 // })})
 
-const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
+// const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
+    const { data, isError, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+      useInfiniteList<IRepositoriesEdge>({
+        resource: "repos",
+        pagination: {
+          pageSize: 10,
+        },
+        queryOptions: {
+          getNextPageParam: (lastPage) => {
+            if (lastPage) {
+              return lastPage.data[lastPage.data.length - 1].cursor;
+            }
+          }
+        }
+      });
 
 
 // const query = useList({ dataProviderName: "repos" });
 // const repos = query.data&&query.data.viewer.repositories.edges
-const repos= list.data?.data
+
+ if (isLoading) {
+   return <p>Loading</p>;
+ }
+ if (isError) {
+   return <p>Something went wrong</p>;
+ }
+ if(!data){
+   return <p>No data</p>
+ }
+
+
+
+const pages = data.pages 
+const repos= pages.flatMap((page) => page.data)
 const is_all_selected = selected && selected.length === repos?.length?true:false
+
 
 return (
   <div className="w-full h-full flex flex-col items-center justify-center gap-5 p-2">
@@ -89,10 +118,10 @@ return (
             }
           }}
         />
-        )
-        }
-          {(editing&&selected&&selected?.length>0) && <Chip variant="outlined" label={selected?.length} size="small" />}
-
+      )}
+      {editing && selected && selected?.length > 0 && (
+        <Chip variant="outlined" label={selected?.length} size="small" />
+      )}
 
       <div className="flex items-center justify-center gap-3">
         {selected && selected.length > 0 && (
@@ -123,6 +152,17 @@ return (
           );
         })}
     </div>
+
+    <div>
+      <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
+        {isFetchingNextPage
+          ? "Loading more..."
+          : hasNextPage
+          ? "Load More"
+          : "Nothing more to load"}
+      </button>
+    </div>
+    <div>{isLoading && !isFetchingNextPage ? "Fetching..." : null}</div>
   </div>
 );
 }
