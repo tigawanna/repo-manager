@@ -1,18 +1,22 @@
 import { MuiModal } from "@/components/shared/MuiModal";
+import { UpdateRepoTagsInput, updateRepoTags } from "@/state/providers/repos/mutation/updateRepoTags";
 import { RepositoryTopicsNode } from "@/state/providers/repos/types";
 import { Chip, TextField } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 import { Check, Edit, X } from "lucide-react";
 import { useState } from "react";
 
 interface RepotopicsFormProps {
   repo_topics: RepositoryTopicsNode[];
+  resourceId:string
 }
 
-export function RepoTopicsForm({ repo_topics }: RepotopicsFormProps) {
+export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
-
+    const old_topics = topics.map((topic) => topic.topic.name);
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
       if (editing) {
@@ -39,14 +43,20 @@ export function RepoTopicsForm({ repo_topics }: RepotopicsFormProps) {
       })}
 
       {(topics.length < 1 || editing) && (
-        <Chip variant="outlined" 
-        onClick={() => setOpen(true)}
-        className="hover:text-purple-600" label="Add topic" size="small" />
+        <Chip
+          variant="outlined"
+          onClick={() => setOpen(true)}
+          className="hover:text-purple-600"
+          label="Add topic"
+          size="small"
+        />
       )}
-      <RepoTopicInput open={open} setOpen={setOpen} />
+      <RepoTopicInput open={open} setOpen={setOpen} resourceId={resourceId} old_topics={old_topics}/>
     </div>
   );
 }
+
+
 
 interface RepoTopicChipProps {
   name: string;
@@ -65,10 +75,12 @@ export function RepoTopicChip({ editing, name }: RepoTopicChipProps) {
 interface RepoTopicInputProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  resourceId: string;
+  old_topics:string[]
 }
 
-export function RepoTopicInput({ open, setOpen }: RepoTopicInputProps) {
-  const [topics, setTopics] = useState<string[]|null>(null);
+export function RepoTopicInput({ open, setOpen,resourceId,old_topics }: RepoTopicInputProps) {
+  const [topics, setTopics] = useState<string[]|null>(old_topics);
   const [topic, setTopic] = useState("");
 
   const removeTopic = (idx: number) => {
@@ -83,6 +95,10 @@ export function RepoTopicInput({ open, setOpen }: RepoTopicInputProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTopic(e.target.value);
   };
+    const mutation  = useMutation({
+      mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
+    });
+
   const handleSubmit = () => {
     // e.preventDefault();
     setTopics((prev) => {
@@ -127,7 +143,16 @@ export function RepoTopicInput({ open, setOpen }: RepoTopicInputProps) {
             />
             <Check className="h-6 w-6 hover:text-purple-600"size={5} onClick={()=>handleSubmit()}/>
           </div>
-          <button className="w-full rounded-md border hover:border-purple-400 hover:text-purple-400">submit</button>
+          
+       {topics&&<button 
+           onClick={()=>mutation.mutate({input:{
+            repositoryId:resourceId,
+            topicNames:topics
+           }})}
+          className="w-full rounded-md flex items-center justify-center p-2
+           border hover:border-purple-400 hover:text-purple-400">
+            {mutation.isLoading ?<Loader className="w-5 h-5 animate-spin" /> :"submit"}
+        </button>}
         </div>
       </MuiModal>
     </div>

@@ -44,6 +44,7 @@ if (isError) {
 
   const repo = data?.data.viewer.repository
   const topics = repo?.repositoryTopics.nodes;
+
   return (
     <Card className="min-h-screen w-full  flex flex-col">
       <div className="w-full flex flex-col md:flex-row  justify-between p-3 gap-2 ">
@@ -97,7 +98,7 @@ if (isError) {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
               </div> */}
-          {topics.length>0&&<RepoTopicsForm repo_topics={topics} />}
+              {topics.length > 0 && <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />}
             </div>
           </div>
 
