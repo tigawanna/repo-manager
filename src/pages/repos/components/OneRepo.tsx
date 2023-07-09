@@ -17,8 +17,8 @@ export function OneRepo({}: OneRepoProps) {
   console.log("params ==== ",params)
   const sample_repos_list = sample_repos.viewer.repositories.edges
   const one_repo=sample_repos_list.filter((repo)=>repo.node.id==params.id)[0]
-  const [repo, setRepos] = React.useState(one_repo.node);
-  const stars = repo.stargazers.edges
+  const [repo, setRepos] = React.useState(one_repo);
+
 
   const [open, setOpen] = React.useState<boolean>(false);
   return (

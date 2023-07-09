@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getViewerRepos } from "@/state/providers/repos/getViewerRepos";
+
 import { RepoCard } from "./RepoCard";
 import React from "react";
 import { Checkbox, Chip } from "@mui/material";
@@ -8,6 +8,7 @@ import { DeleteRepo } from "./DeleteRepo";
 import { RepositoriesEdge, RepositoriesNode } from "@/state/providers/repos/types";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
+import { getViewerRepositories } from "@/state/providers/repos/query/viewer_repos";
 
 interface ReposProps {
 
@@ -54,7 +55,9 @@ const deselectAll=()=>{
   setSelected(null)
 }
 
-const query = useQuery({queryKey: ["viewerRepos"], queryFn: getViewerRepos})
+const query = useQuery({queryKey: ["viewerRepos"], queryFn:()=>getViewerRepositories({
+  first: 100
+})})
 // const query = useList({ dataProviderName: "repos" });
 
 const repos = query.data&&query.data.viewer.repositories.edges
