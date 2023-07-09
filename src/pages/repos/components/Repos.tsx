@@ -65,7 +65,6 @@ const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
 
 
 // const query = useList({ dataProviderName: "repos" });
-
 // const repos = query.data&&query.data.viewer.repositories.edges
 const repos= list.data?.data
 const is_all_selected = selected && selected.length === repos?.length?true:false
@@ -108,7 +107,7 @@ return (
         <DeleteRepo selected={selected} setOpen={setOpenDelete} />
       </MuiModal>
     </div>
-    <div className="w-full h-full flex flex-wrap items-center justify-start gap-5 p-2 ">
+    <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2 ">
       {repos &&
         repos.map((repo, i) => {
           return (
