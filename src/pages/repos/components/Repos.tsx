@@ -9,6 +9,8 @@ import { RepositoriesEdge, RepositoriesNode } from "@/state/providers/repos/type
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { getViewerRepositories } from "@/state/providers/repos/query/viewer_repos";
+import { useList } from "@refinedev/core";
+import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
 
 interface ReposProps {
 
@@ -55,12 +57,17 @@ const deselectAll=()=>{
   setSelected(null)
 }
 
-const query = useQuery({queryKey: ["viewerRepos"], queryFn:()=>getViewerRepositories({
-  first: 100
-})})
+// const query = useQuery({queryKey: ["viewerRepos"], queryFn:()=>getViewerRepositories({
+//   first: 100
+// })})
+
+const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
+
+
 // const query = useList({ dataProviderName: "repos" });
 
-const repos = query.data&&query.data.viewer.repositories.edges
+// const repos = query.data&&query.data.viewer.repositories.edges
+const repos= list.data?.data
 const is_all_selected = selected && selected.length === repos?.length?true:false
 
 return (
