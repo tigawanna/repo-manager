@@ -3,13 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { RepoCard } from "./RepoCard";
 import React from "react";
 import { Checkbox, Chip } from "@mui/material";
-import { Edit,Trash } from "lucide-react";
+import { Edit,Loader,Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
 import { RepositoriesEdge } from "@/state/providers/repos/types";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
 import { useList,useInfiniteList } from "@refinedev/core";
+import { InfiniteButton } from "../../../components/shared/InfiniteButton";
 
 
 interface ReposProps {
@@ -62,7 +63,7 @@ const deselectAll=()=>{
 // })})
 
 // const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
-    const { data, isError, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    const query  =
       useInfiniteList<IRepositoriesEdge>({
         resource: "repos",
         pagination: {
@@ -77,16 +78,24 @@ const deselectAll=()=>{
         }
       });
 
-
+const { data, isError, isLoading,error }=query
 // const query = useList({ dataProviderName: "repos" });
 // const repos = query.data&&query.data.viewer.repositories.edges
 
- if (isLoading) {
-   return <p>Loading</p>;
- }
- if (isError) {
-   return <p>Something went wrong</p>;
- }
+if (isLoading) {
+  return (
+    <div className="w-full h-full min-h-screen flex items-center justify-center">
+      <Loader className="w-5 h-5 animate-spin" />
+    </div>
+  );
+}
+if (isError) {
+  return (
+    <div className="w-full h-full min-h-screen flex items-center justify-center">
+      <p className="test-sm w-[80%] bg-red-300 text-red-950">{error&&error.message}</p>
+    </div>
+  );
+}
  if(!data){
    return <p>No data</p>
  }
@@ -153,16 +162,7 @@ return (
         })}
     </div>
 
-    <div>
-      <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
-        {isFetchingNextPage
-          ? "Loading more..."
-          : hasNextPage
-          ? "Load More"
-          : "Nothing more to load"}
-      </button>
-    </div>
-    <div>{isLoading && !isFetchingNextPage ? "Fetching..." : null}</div>
+  <InfiniteButton query={query} />
   </div>
 );
 }

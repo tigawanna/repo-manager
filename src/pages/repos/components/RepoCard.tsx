@@ -88,7 +88,7 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
 
       <Link
         to={"/repos/show/" + repo.name}
-        className="flex flex-col h-full hover:brightness-50 hover:border-4 hover:border-purple-500">
+        className="flex flex-col h-full hover:brightness-50 h">
         <CardMedia
           component="img"
           height={50}

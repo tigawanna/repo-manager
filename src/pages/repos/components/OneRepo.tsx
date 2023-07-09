@@ -16,15 +16,25 @@ interface OneRepoProps {}
 export function OneRepo({}: OneRepoProps) {
 const params = useParams()
 // console.log("params === ",params)
-const {data,isLoading} = useOne<IViewerOneRepo>({resource:"repos",id:params.id})
+const query = useOne<IViewerOneRepo>({resource:"repos",id:params.id})
 const [open, setOpen] = React.useState<boolean>(false);
+const { data, isLoading,isError,error} = query
 
-
-if(isLoading){
-  return <div className="min-h-screen w-full  flex flex-col">
-      <Loader className="w-5 h-5 animate-spin"/>
-      </div>
-  } 
+if (isLoading) {
+  return (
+    <div className="w-full h-full min-h-screen flex items-center justify-center">
+      <Loader className="w-5 h-5 animate-spin" />
+    </div>
+  );
+}
+if (isError) {
+  return (
+    <div className="w-full h-full min-h-screen flex items-center justify-center">
+      {/* @ts-expect-error */}
+      <p className="test-sm w-[80%] bg-red-300 text-red-950">{error  && error?.message}</p>
+    </div>
+  );
+}
   if(!data){
     return <div className="min-h-screen w-full  flex flex-col">
       no data
