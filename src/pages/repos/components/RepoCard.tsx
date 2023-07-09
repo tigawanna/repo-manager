@@ -6,6 +6,7 @@ import { CardMenu } from "@/components/shared/CardMenu";
 import { ItemList, RepositoriesEdge } from "@/state/providers/repos/types";
 import { Link } from "react-router-dom";
 import { Star, GitFork } from "lucide-react";
+import { RepoTopicsForm } from "./RepotopicsForm";
 
 interface RepoCard {
   viewer_repos: RepositoriesEdge;
@@ -118,10 +119,11 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
 
       <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
         {topics.length < 1 && <Chip variant="outlined" label="Add topic" size="small" />}
-
         {topics.map((topic) => {
           return <Chip key={topic.id} variant="outlined" label={topic.topic.name} size="small" />;
         })}
+
+
       </div>
 
       <MuiModal open={open} setOpen={setOpen}>

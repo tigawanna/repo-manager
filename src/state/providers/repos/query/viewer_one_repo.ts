@@ -36,6 +36,7 @@ export const ViewerOneRepositoryQuery = gql`
         url
         openGraphImageUrl
         updatedAt
+                    homepageUrl
         isFork
         isPrivate
         isTemplate

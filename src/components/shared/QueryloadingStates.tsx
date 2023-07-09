@@ -13,7 +13,7 @@ if(isloading){
 }
   if(isError){
     return <div className="w-full h-full min-h-screen flex items-center justify-center">
-        <p className="test-sm w-[80%] bg-red-300 text-red-950">{error.message}</p>
+        <p className="test-sm w-[80%] bg-red-950 text-red-50">{error.message}</p>
     </div>;
 }
 return null

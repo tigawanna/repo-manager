@@ -1,5 +1,5 @@
 import { DataProvider } from "@refinedev/core";
-import { getViewerRepositories } from "./query/viewer_repos";
+import { RepoQueryVariables, getViewerRepositories } from "./query/viewer_repos";
 import { getViewerOneRepository } from "./query/viewer_one_repo";
 
 
@@ -7,7 +7,10 @@ import { getViewerOneRepository } from "./query/viewer_one_repo";
 export const reposDataProvider = (): Pick<Required<DataProvider>, "getList"|"getOne"> => ({
     getList: async ({ resource, pagination, filters, sorters, meta }) => {
     // console.log("repos getall params === ", { resource, meta, pagination, filters, sorters, });
-    const repos = await getViewerRepositories({first: 10,after:pagination?.current as any}) as any
+    const {first,affiliations,isFork,last,orderBy,privacy} = sorters as  unknown as RepoQueryVariables
+
+    const repos = await getViewerRepositories({first,orderBy,after:pagination?.current as any}) as any
+    // const repos = await getViewerRepositories({first: 10,after:pagination?.current as any}) as any
     const data = repos.viewer.repositories.edges
     // console.log("viewer response data provider=== ",data)
      return {

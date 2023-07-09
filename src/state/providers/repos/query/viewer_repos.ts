@@ -4,19 +4,13 @@ import { gql_request_helper, graphQLClient } from "../../graphqlClient";
 import { IViewerRepositoriesQuery } from "./viwer_repo_types";
 import { Variables } from "graphql-request";
 
-enum RepositoryOrder {
-  CREATED_AT = "CREATED_AT",
-  UPDATED_AT = "UPDATED_AT",
-  PUSHED_AT = "PUSHED_AT",
-  NAME = "NAME",
-  STARGAZERS = "STARGAZERS",
-}
+
 
 export interface RepoQueryVariables extends Variables {
   first: number | null;
   orderBy?: {
     field: "CREATED_AT" | "UPDATED_AT" | "PUSHED_AT" | "NAME" | "STARGAZERS";
-    order: "ASC" | "DESC";
+    direction: "ASC" | "DESC";
   };
   before?: string | null;
   after?: string | null;
@@ -26,6 +20,7 @@ export interface RepoQueryVariables extends Variables {
   privacy?: "PUBLIC" | "PRIVATE";
 }
 
+
 export async function getViewerRepositories(variables: RepoQueryVariables) {
   try {
     // const data = sample_repos
@@ -34,7 +29,7 @@ export async function getViewerRepositories(variables: RepoQueryVariables) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    console.log("viewer response === ", data);
+    // console.log("viewer response === ", data);
     return data;
   } catch (error) {
     console.log("error getting viewer repos", error);
@@ -75,6 +70,7 @@ export const ViewerRepositoriesQuery = gql`
             url
             openGraphImageUrl
             updatedAt
+            homepageUrl
 
             isFork
             isPrivate

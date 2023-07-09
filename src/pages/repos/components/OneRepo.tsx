@@ -10,6 +10,7 @@ import { sample_repos } from "@/state/providers/repos/sample_repos";
 import { useParams } from "react-router-dom";
 import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
+import { RepoTopicsForm } from "./RepotopicsForm";
 
 interface OneRepoProps {}
 
@@ -42,6 +43,7 @@ if (isError) {
   }
 
   const repo = data?.data.viewer.repository
+  const topics = repo?.repositoryTopics.nodes;
   return (
     <Card className="min-h-screen w-full  flex flex-col">
       <div className="w-full flex flex-col md:flex-row  justify-between p-3 gap-2 ">
@@ -89,15 +91,15 @@ if (isError) {
             </div>
             <div>
               <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
-              <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
+
+              {/* <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
               {repo?.repositoryTopics.nodes.map((topic) => {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
-              </div>
+              </div> */}
+          {topics.length>0&&<RepoTopicsForm repo_topics={topics} />}
             </div>
           </div>
-
-
 
           <CardMedia
             component="img"
@@ -114,7 +116,7 @@ if (isError) {
         {/* @ts-expect-error */}
         <UpdateRepoForm input={repo} />
       </MuiModal>
-        {/* {stars?.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}         */}
+      {/* {stars?.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}         */}
       {/* <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2  gap-5">
         {stars?.map((star) => {
           return (
@@ -122,7 +124,6 @@ if (isError) {
           )
         })}
       </div> */}
-
     </Card>
   );
 }

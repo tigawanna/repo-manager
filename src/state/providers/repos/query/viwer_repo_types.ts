@@ -23,6 +23,7 @@ export interface IRepositoriesNode {
     description?: string
     url: string
     openGraphImageUrl: string
+    homepageUrl: string
     updatedAt: string
     isFork: boolean
     isPrivate: boolean

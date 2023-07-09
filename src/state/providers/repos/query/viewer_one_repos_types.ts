@@ -13,6 +13,7 @@ export interface IViewerOneRepoRepository {
     nameWithOwner: string
     description: string
     url: string
+    homepageUrl:string
     openGraphImageUrl: string
     updatedAt: string
     isFork: boolean

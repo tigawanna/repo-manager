@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { RepoCard } from "./RepoCard";
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox, Chip } from "@mui/material";
 import { Edit,Loader,Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
@@ -11,6 +11,8 @@ import { MuiModal } from "@/components/shared/MuiModal";
 import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
 import { useList,useInfiniteList } from "@refinedev/core";
 import { InfiniteButton } from "../../../components/shared/InfiniteButton";
+import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
+import { ReposSortSection } from "./ReposSortSection";
 
 
 interface ReposProps {
@@ -22,6 +24,16 @@ export function Repos({}:ReposProps){
 const [editing,setEditing]=React.useState(true)
 const [selected, setSelected] = React.useState<ItemList[] | null>(null);
 const [opendelete,setOpenDelete]=React.useState(false)
+
+const [repovars,setRepoVars]=useState<RepoQueryVariables>({
+  first:10,
+  orderBy:{
+   field:"PUSHED_AT",
+   direction:"DESC" 
+  },
+  isFork:false
+
+})
 
 const selectItem = (item:ItemList) => {
   setSelected((prev) => {
@@ -58,17 +70,14 @@ const deselectAll=()=>{
   setSelected(null)
 }
 
-// const query = useQuery({queryKey: ["viewerRepos"], queryFn:()=>getViewerRepositories({
-//   first: 100
-// })})
-
-// const list = useList<IRepositoriesEdge>({ dataProviderName: "repos" });
-    const query  =
+const query  =
       useInfiniteList<IRepositoriesEdge>({
         resource: "repos",
         pagination: {
           pageSize: 10,
         },
+        // @ts-expect-error
+        sorters:repovars,
         queryOptions: {
           getNextPageParam: (lastPage) => {
             if (lastPage) {
@@ -79,9 +88,6 @@ const deselectAll=()=>{
       });
 
 const { data, isError, isLoading,error }=query
-// const query = useList({ dataProviderName: "repos" });
-// const repos = query.data&&query.data.viewer.repositories.edges
-
 if (isLoading) {
   return (
     <div className="w-full h-full min-h-screen flex items-center justify-center">
@@ -109,7 +115,7 @@ const is_all_selected = selected && selected.length === repos?.length?true:false
 
 return (
   <div className="w-full h-full flex flex-col items-center justify-center gap-5 p-2">
-    <div className="w-full flex items-center gap-3">
+    <div className="w-full flex items-center gap-3 sticky top-[10%]">
       <Edit
         onClick={() => setEditing(!editing)}
         className={editing ? "h-5 w-5 text-purple-600" : "h-5 w-5 hover:text-purple-600"}
@@ -144,7 +150,9 @@ return (
         {/* @ts-expect-error */}
         <DeleteRepo selected={selected} setOpen={setOpenDelete} />
       </MuiModal>
+      <ReposSortSection repovars={repovars} setRepoVars={setRepoVars} />
     </div>
+
     <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2 ">
       {repos &&
         repos.map((repo, i) => {
