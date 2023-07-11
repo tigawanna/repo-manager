@@ -1,31 +1,28 @@
-
-import {Button,Typography} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { ItemList } from "@/state/providers/repos/types";
 import { deleteRepos } from "@/state/providers/repos/mutation/deleteRepos";
 import { useMutation } from "@tanstack/react-query";
-
 
 interface DeleteRepoProps {
   selected: ItemList[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function DeleteRepo({selected,setOpen}:DeleteRepoProps) {
-  
-
-const mutation  =useMutation({
-  mutationFn:()=>deleteRepos(selected),
-  onSuccess: () => {
-    console.log("succesfully deleted repos");
-    setOpen(false)
-  }
-})
+export function DeleteRepo({ selected, setOpen }: DeleteRepoProps) {
+  const mutation = useMutation({
+    mutationFn: () => deleteRepos(selected),
+    onSuccess: () => {
+      console.log("succesfully deleted repos");
+      setOpen(false);
+    },
+  });
   return (
-    <div 
-    style={{
-      border:mutation.isError?"2px solid #990000":"",
-    }}
-    className="w-full flex flex-col items-center justify-center gap-5">
+    <div
+      style={{
+        border: mutation.isError ? "2px solid #990000" : "",
+      }}
+      className="w-full flex flex-col items-center justify-center gap-5"
+    >
       <div className="w-full mt-6 flex flex-col gap-2">
         <div>
           <Typography variant="h2" fontSize="lg" sx={{ mb: 0.5 }}>
@@ -57,8 +54,9 @@ const mutation  =useMutation({
             color="primary"
             aria-label="Delete Repositories"
             sx={{ ml: "auto", fontWeight: 600, padding: "0.8rem" }}
-            onClick={() => mutation.mutate()}>
-          {mutation.isLoading ? "Deleting..." :  "Delete"}
+            onClick={() => mutation.mutate()}
+          >
+            {mutation.isLoading ? "Deleting..." : "Delete"}
           </Button>
         </div>
         <div>
@@ -67,16 +65,23 @@ const mutation  =useMutation({
             size="small"
             color="error"
             aria-label="Cancel Repository deletion"
-            sx={{ ml: "auto", fontWeight: 600, width: "fit", padding: "0.8rem" }}>
+            sx={{
+              ml: "auto",
+              fontWeight: 600,
+              width: "fit",
+              padding: "0.8rem",
+            }}
+          >
             cancel
           </Button>
         </div>
       </div>
-  {mutation.isError && 
-<Typography  fontSize="sm" sx={{ color: "text.danger" }}>
-  {/* @ts-expect-error */}
-  {mutation?.error?.message}</Typography>
-  }
+      {mutation.isError && (
+        <Typography fontSize="sm" sx={{ color: "text.danger" }}>
+          {/* @ts-expect-error */}
+          {mutation?.error?.message}
+        </Typography>
+      )}
     </div>
   );
 }

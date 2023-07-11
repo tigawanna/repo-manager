@@ -1,17 +1,12 @@
 import { Authenticated } from "@refinedev/core";
+import { AuthPage, ErrorComponent, ThemedLayoutV2 } from "@refinedev/mui";
 import {
-  AuthPage,
-  ErrorComponent,
-    ThemedLayoutV2,
-} from "@refinedev/mui";
-import { CatchAllNavigate, NavigateToResource } from "@refinedev/react-router-v6";
+  CatchAllNavigate,
+  NavigateToResource,
+} from "@refinedev/react-router-v6";
 import { Routes, Route, Outlet } from "react-router-dom";
-import { BlogPostList, BlogPostCreate, BlogPostEdit, BlogPostShow } from "@/pages/blog-posts";
-import { CategoryList, CategoryCreate, CategoryEdit, CategoryShow } from "@/pages/categories";
 import { ReposCreate, ReposEdit, ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
-
-
 
 interface indexProps {}
 
@@ -25,20 +20,9 @@ export function AllRoutes({}: indexProps) {
               <Outlet />
             </ThemedLayoutV2>
           </Authenticated>
-        }>
-        <Route index element={<NavigateToResource resource="blog_posts" />} />
-        <Route path="/blog-posts">
-          <Route index element={<BlogPostList />} />
-          <Route path="create" element={<BlogPostCreate />} />
-          <Route path="edit/:id" element={<BlogPostEdit />} />
-          <Route path="show/:id" element={<BlogPostShow />} />
-        </Route>
-        <Route path="/categories">
-          <Route index element={<CategoryList />} />
-          <Route path="create" element={<CategoryCreate />} />
-          <Route path="edit/:id" element={<CategoryEdit />} />
-          <Route path="show/:id" element={<CategoryShow />} />
-        </Route>
+        }
+      >
+        <Route index element={<NavigateToResource resource="repos" />} />
         <Route path="/repos">
           <Route index element={<ReposList />} />
           <Route path="create" element={<ReposCreate />} />
@@ -52,7 +36,8 @@ export function AllRoutes({}: indexProps) {
           <Authenticated fallback={<Outlet />}>
             <NavigateToResource />
           </Authenticated>
-        }>
+        }
+      >
         <Route
           path="/login"
           element={
@@ -68,7 +53,10 @@ export function AllRoutes({}: indexProps) {
           }
         />
         <Route path="/register" element={<AuthPage type="register" />} />
-        <Route path="/forgot-password" element={<AuthPage type="forgotPassword" />} />
+        <Route
+          path="/forgot-password"
+          element={<AuthPage type="forgotPassword" />}
+        />
       </Route>
     </Routes>
   );

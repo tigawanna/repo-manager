@@ -4,8 +4,6 @@ import { gql_request_helper, graphQLClient } from "../../graphqlClient";
 import { IViewerRepositoriesQuery } from "./viwer_repo_types";
 import { Variables } from "graphql-request";
 
-
-
 export interface RepoQueryVariables extends Variables {
   first: number | null;
   orderBy?: {
@@ -20,11 +18,13 @@ export interface RepoQueryVariables extends Variables {
   privacy?: "PUBLIC" | "PRIVATE";
 }
 
-
 export async function getViewerRepositories(variables: RepoQueryVariables) {
   try {
     // const data = sample_repos
-    const data = await gql_request_helper<IViewerRepositoriesQuery, RepoQueryVariables>({
+    const data = await gql_request_helper<
+      IViewerRepositoriesQuery,
+      RepoQueryVariables
+    >({
       document: ViewerRepositoriesQuery,
       variables,
     });

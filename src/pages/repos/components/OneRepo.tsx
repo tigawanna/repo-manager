@@ -15,34 +15,34 @@ import { RepoTopicsForm } from "./RepotopicsForm";
 interface OneRepoProps {}
 
 export function OneRepo({}: OneRepoProps) {
-const params = useParams()
-// console.log("params === ",params)
-const query = useOne<IViewerOneRepo>({resource:"repos",id:params.id})
-const [open, setOpen] = React.useState<boolean>(false);
-const { data, isLoading,isError,error} = query
+  const params = useParams();
+  // console.log("params === ",params)
+  const query = useOne<IViewerOneRepo>({ resource: "repos", id: params.id });
+  const [open, setOpen] = React.useState<boolean>(false);
+  const { data, isLoading, isError, error } = query;
 
-if (isLoading) {
-  return (
-    <div className="w-full h-full min-h-screen flex items-center justify-center">
-      <Loader className="w-5 h-5 animate-spin" />
-    </div>
-  );
-}
-if (isError) {
-  return (
-    <div className="w-full h-full min-h-screen flex items-center justify-center">
-      {/* @ts-expect-error */}
-      <p className="test-sm w-[80%] bg-red-300 text-red-950">{error  && error?.message}</p>
-    </div>
-  );
-}
-  if(!data){
-    return <div className="min-h-screen w-full  flex flex-col">
-      no data
+  if (isLoading) {
+    return (
+      <div className="w-full h-full min-h-screen flex items-center justify-center">
+        <Loader className="w-5 h-5 animate-spin" />
       </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div className="w-full h-full min-h-screen flex items-center justify-center">
+        <p className="test-sm w-[80%] bg-red-300 text-red-950">
+          {/* @ts-expect-error */}
+          {error && error?.message}
+        </p>
+      </div>
+    );
+  }
+  if (!data) {
+    return <div className="min-h-screen w-full  flex flex-col">no data</div>;
   }
 
-  const repo = data?.data.viewer.repository
+  const repo = data?.data.viewer.repository;
   const topics = repo?.repositoryTopics.nodes;
 
   return (
@@ -55,15 +55,22 @@ if (isError) {
                 href={repo?.url}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-purple-700 gap-2 ">
-                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo?.name}</h1>
-                <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo?.nameWithOwner}</h3>
+                className="hover:text-purple-700 gap-2 "
+              >
+                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">
+                  {repo?.name}
+                </h1>
+                <h3 className="w-full text-xl md:text-2xl font-bold p-1">
+                  {repo?.nameWithOwner}
+                </h3>
               </a>
               <h4>{}</h4>
 
               <div className="w-full flex flex-wrap gap-1">
                 {repo?.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
-                {repo?.isFork && <GitFork className="w-5 h-5 text-purple-400" />}
+                {repo?.isFork && (
+                  <GitFork className="w-5 h-5 text-purple-400" />
+                )}
                 <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
                 <CardMenu>
                   <MenuItem
@@ -73,7 +80,8 @@ if (isError) {
                         color: "blue",
                       },
                     }}
-                    onClick={() => setOpen(true)}>
+                    onClick={() => setOpen(true)}
+                  >
                     Edit
                   </MenuItem>
 
@@ -84,7 +92,8 @@ if (isError) {
                         color: "red",
                       },
                     }}
-                    onClick={() => setOpen(true)}>
+                    onClick={() => setOpen(true)}
+                  >
                     Delete
                   </MenuItem>
                 </CardMenu>
@@ -98,7 +107,9 @@ if (isError) {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
               </div> */}
-              {topics.length > 0 && <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />}
+              {topics.length > 0 && (
+                <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />
+              )}
             </div>
           </div>
 

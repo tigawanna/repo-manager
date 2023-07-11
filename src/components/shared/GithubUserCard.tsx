@@ -1,22 +1,24 @@
 import { GithubUser } from "@/state/providers/repos/types";
-import { Card,CardMedia } from "@mui/material";
-import {useState} from "react" 
+import { Card, CardMedia } from "@mui/material";
+import { useState } from "react";
 import { FollowButton } from "./FollowButton";
 
 interface GithubUserCardProps {
-  github_user: GithubUser
+  github_user: GithubUser;
 }
 
 export function GithubUserCard({ github_user }: GithubUserCardProps) {
-    const [shouldFollox,setShoulFollow] = useState(!github_user.viewerIsFollowing)
+  const [shouldFollox, setShoulFollow] = useState(
+    !github_user.viewerIsFollowing
+  );
   return (
-    <Card 
-    variant="elevation"
-    className="w-full h-full flex items-center justify-center gap-2 hover:brightness-110 p-5 
+    <Card
+      variant="elevation"
+      className="w-full h-full flex items-center justify-center gap-2 hover:brightness-110 p-5 
     rounded "
-    sx={{
-      boxShadow: 10
-    }}
+      sx={{
+        boxShadow: 10,
+      }}
     >
       <CardMedia
         component="img"
@@ -32,10 +34,13 @@ export function GithubUserCard({ github_user }: GithubUserCardProps) {
         <h3 className="text-sm">{github_user.email}</h3>
         <h3 className="text-sm">{github_user.twitterUsername}</h3>
       </div>
-    <FollowButton 
-    shouldFollow={shouldFollox} 
-    username={github_user.login} 
-    shouldFollowback={github_user.viewerCanFollow&&!github_user.viewerIsFollowing}/>
+      <FollowButton
+        shouldFollow={shouldFollox}
+        username={github_user.login}
+        shouldFollowback={
+          github_user.viewerCanFollow && !github_user.viewerIsFollowing
+        }
+      />
     </Card>
   );
 }

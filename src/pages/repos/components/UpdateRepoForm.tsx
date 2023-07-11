@@ -23,7 +23,8 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
     template: input.isTemplate,
   });
   const mutation = useMutation({
-    mutationFn: (variables: UpdateRepositoryInput) => updateRepository(variables),
+    mutationFn: (variables: UpdateRepositoryInput) =>
+      updateRepository(variables),
     onSuccess(data) {
       console.log("succesfully updated repository", data);
     },
@@ -31,9 +32,15 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
       console.log("error updating repository", error);
     },
   });
-  const updateRepoBooleans = ["hasIssuesEnabled", "hasWikiEnabled", "template"] as const;
+  const updateRepoBooleans = [
+    "hasIssuesEnabled",
+    "hasWikiEnabled",
+    "template",
+  ] as const;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     // @ts-expect-error
     const { name, value, type, checked } = e.target;
     const fieldValue = type === "checkbox" ? checked : value;
@@ -60,8 +67,10 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
       sx={{
         "& .MuiTextField-root": { m: 1, width: "100%", fontSize: "10px" },
       }}
-  >
-      <h1 className="font-bold text-lg p-1 m-1 border-b">Update {input.nameWithOwner} repository </h1>
+    >
+      <h1 className="font-bold text-lg p-1 m-1 border-b">
+        Update {input.nameWithOwner} repository{" "}
+      </h1>
       <TextField
         id="anme"
         name="name"
@@ -92,7 +101,10 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
         helperText="repository homepage url"
       />
 
-      <Stack direction="row" className="w-full gap- flex flex-wrap justify-center items-center">
+      <Stack
+        direction="row"
+        className="w-full gap- flex flex-wrap justify-center items-center"
+      >
         {updateRepoBooleans.map((boolean) => (
           <div key={boolean} className="w-fit flex items-center justify-center">
             <Checkbox
@@ -110,8 +122,13 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
         type="submit"
         variant="outlined"
         color="secondary"
-        style={{ width: "100%", marginTop: "20px" }}>
-        {mutation.isLoading ? <Loader className="w-4 h-4 animate-spin"/> : "Update"}
+        style={{ width: "100%", marginTop: "20px" }}
+      >
+        {mutation.isLoading ? (
+          <Loader className="w-4 h-4 animate-spin" />
+        ) : (
+          "Update"
+        )}
       </Button>
     </Box>
   );

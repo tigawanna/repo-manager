@@ -9,7 +9,10 @@ type MethodTypesWithBody = "post" | "put" | "patch";
 export const dataProvider = (
   apiUrl: string,
   httpClient: AxiosInstance = axiosInstance
-): Omit<Required<DataProvider>, "createMany" | "updateMany" | "deleteMany"> => ({
+): Omit<
+  Required<DataProvider>,
+  "createMany" | "updateMany" | "deleteMany"
+> => ({
   getList: async ({ resource, pagination, filters, sorters, meta }) => {
     const url = `${apiUrl}/${resource}`;
 
@@ -45,7 +48,6 @@ export const dataProvider = (
         headers: headersFromMeta,
       }
     );
-    
 
     const total = +headers["x-total-count"];
 
@@ -132,7 +134,15 @@ export const dataProvider = (
     return apiUrl;
   },
 
-  custom: async ({ url, method, filters, sorters, payload, query, headers }) => {
+  custom: async ({
+    url,
+    method,
+    filters,
+    sorters,
+    payload,
+    query,
+    headers,
+  }) => {
     let requestUrl = `${url}?`;
 
     if (sorters) {

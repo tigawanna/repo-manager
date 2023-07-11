@@ -1,8 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-
 import App from "./App";
-import "./i18n";
 import "./tailwind.css";
 
 const container = document.getElementById("root") as HTMLElement;

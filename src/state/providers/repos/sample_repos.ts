@@ -313,7 +313,8 @@ export const sample_repos = {
           cursor: "Y3Vyc29yOnYyOpK5MjAyMy0wNi0yOFQwODo1NDozMiswMzowMM4mHy8B",
           node: {
             createdAt: "2023-05-11T18:50:19Z",
-            description: "minimal social app with next13 appDir , shadcn and  pocketbase",
+            description:
+              "minimal social app with next13 appDir , shadcn and  pocketbase",
             forkCount: 0,
             homepageUrl: "https://pocketbook-alpha.vercel.app",
             id: "R_kgDOJh8vAQ",
@@ -1166,7 +1167,8 @@ export const sample_repos = {
           cursor: "Y3Vyc29yOnYyOpK5MjAyMy0wNi0wNlQxMjowMjo1OSswMzowMM4itihI",
           node: {
             createdAt: "2022-12-26T15:32:38Z",
-            description: "collection of custom react packages and wrappers i commonly use",
+            description:
+              "collection of custom react packages and wrappers i commonly use",
             forkCount: 0,
             homepageUrl: null,
             id: "R_kgDOIrYoSA",
@@ -1433,7 +1435,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzhUSCaI=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/104009948?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/104009948?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -2073,7 +2076,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzha4CHc=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/1760494?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/1760494?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -2412,7 +2416,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzhia4lk=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/17783?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/17783?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -2514,7 +2519,8 @@ export const sample_repos = {
           cursor: "Y3Vyc29yOnYyOpK5MjAyMy0wNi0wMlQwOTo0NToxMSswMzowMM4l0Ujs",
           node: {
             createdAt: "2023-04-30T08:29:06Z",
-            description: "Beautifully designed components built with Radix UI and Tailwind CSS.",
+            description:
+              "Beautifully designed components built with Radix UI and Tailwind CSS.",
             forkCount: 0,
             homepageUrl: "https://ui.shadcn.com",
             id: "R_kgDOJdFI7A",
@@ -2861,7 +2867,8 @@ export const sample_repos = {
           cursor: "Y3Vyc29yOnYyOpK5MjAyMy0wNS0yMlQxODoyNDozOSswMzowMM4m3496",
           node: {
             createdAt: "2023-06-11T11:12:34Z",
-            description: "The simplest and fastest way to bundle your TypeScript libraries.",
+            description:
+              "The simplest and fastest way to bundle your TypeScript libraries.",
             forkCount: 0,
             homepageUrl: "https://tsup.egoist.dev",
             id: "R_kgDOJt-Peg",
@@ -3173,7 +3180,8 @@ export const sample_repos = {
           cursor: "Y3Vyc29yOnYyOpK5MjAyMy0wNC0yN1QwNzozMzozNSswMzowMM4gvhvv",
           node: {
             createdAt: "2022-10-11T02:49:28Z",
-            description: "typescript data structures and algorithms with primeagen",
+            description:
+              "typescript data structures and algorithms with primeagen",
             forkCount: 0,
             homepageUrl: null,
             id: "R_kgDOIL4b7w",
@@ -3664,7 +3672,8 @@ export const sample_repos = {
             isPrivate: true,
             name: "windows_pocketbase",
             nameWithOwner: "tigawanna/windows_pocketbase",
-            openGraphImageUrl: "https://avatars.githubusercontent.com/u/72096712?s=400&v=4",
+            openGraphImageUrl:
+              "https://avatars.githubusercontent.com/u/72096712?s=400&v=4",
             hasIssuesEnabled: true,
             hasWikiEnabled: false,
             hasDiscussionsEnabled: false,
@@ -4400,7 +4409,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzhXM5y4=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/55500372?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/55500372?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -4416,7 +4426,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzhbd4oc=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/213886?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/213886?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -5945,7 +5956,8 @@ export const sample_repos = {
                   cursor: "Y3Vyc29yOnYyOpIAzhVjd00=",
                   node: {
                     email: "",
-                    avatarUrl: "https://avatars.githubusercontent.com/u/47991216?v=4",
+                    avatarUrl:
+                      "https://avatars.githubusercontent.com/u/47991216?v=4",
                     isFollowingViewer: false,
                     isGitHubStar: false,
                     isViewer: false,
@@ -6871,7 +6883,8 @@ export const sample_repos = {
             isPrivate: true,
             name: "saucy-boi",
             nameWithOwner: "tigawanna/saucy-boi",
-            openGraphImageUrl: "https://avatars.githubusercontent.com/u/72096712?s=400&v=4",
+            openGraphImageUrl:
+              "https://avatars.githubusercontent.com/u/72096712?s=400&v=4",
             hasIssuesEnabled: true,
             hasWikiEnabled: true,
             hasDiscussionsEnabled: false,

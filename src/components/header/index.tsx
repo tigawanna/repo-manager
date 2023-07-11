@@ -11,7 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useGetIdentity, useGetLocale, useSetLocale } from "@refinedev/core";
 import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
-import i18n from "i18next";
+
 import React, { useContext } from "react";
 import { ColorModeContext } from "../../contexts/color-mode";
 
@@ -44,7 +44,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             alignItems="center"
             gap="16px"
           >
-            <FormControl sx={{ minWidth: 64 }}>
+            {/* <FormControl sx={{ minWidth: 64 }}>
               <Select
                 disableUnderline
                 defaultValue={currentLocale}
@@ -63,38 +63,9 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                   },
                 }}
               >
-                {[...(i18n.languages ?? [])].sort().map((lang: string) => (
-                  // @ts-ignore
-                  <MenuItem
-                    selected={currentLocale === lang}
-                    key={lang}
-                    defaultValue={lang}
-                    onClick={() => {
-                      changeLanguage(lang);
-                    }}
-                    value={lang}
-                  >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Avatar
-                        sx={{
-                          width: "24px",
-                          height: "24px",
-                          marginRight: "5px",
-                        }}
-                        src={`/images/flags/${lang}.svg`}
-                      />
-                      <Typography>
-                        {lang === "en" ? "English" : "German"}
-                      </Typography>
-                    </Stack>
-                  </MenuItem>
-                ))}
+
               </Select>
-            </FormControl>
+            </FormControl> */}
 
             <IconButton
               color="inherit"

@@ -1,5 +1,8 @@
 import { MuiModal } from "@/components/shared/MuiModal";
-import { UpdateRepoTagsInput, updateRepoTags } from "@/state/providers/repos/mutation/updateRepoTags";
+import {
+  UpdateRepoTagsInput,
+  updateRepoTags,
+} from "@/state/providers/repos/mutation/updateRepoTags";
 import { RepositoryTopicsNode } from "@/state/providers/repos/types";
 import { Chip, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
@@ -9,14 +12,17 @@ import { useState } from "react";
 
 interface RepotopicsFormProps {
   repo_topics: RepositoryTopicsNode[];
-  resourceId:string
+  resourceId: string;
 }
 
-export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps) {
+export function RepoTopicsForm({
+  repo_topics,
+  resourceId,
+}: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
-    const old_topics = topics.map((topic) => topic.topic.name);
+  const old_topics = topics.map((topic) => topic.topic.name);
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
       if (editing) {
@@ -28,7 +34,10 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
 
   return (
     <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-      <Edit className="h-5 w-5 hover:text-purple-600" onClick={() => setEditing(!editing)} />
+      <Edit
+        className="h-5 w-5 hover:text-purple-600"
+        onClick={() => setEditing(!editing)}
+      />
 
       {topics.map((topic, idx) => {
         return (
@@ -51,12 +60,15 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
           size="small"
         />
       )}
-      <RepoTopicInput open={open} setOpen={setOpen} resourceId={resourceId} old_topics={old_topics}/>
+      <RepoTopicInput
+        open={open}
+        setOpen={setOpen}
+        resourceId={resourceId}
+        old_topics={old_topics}
+      />
     </div>
   );
 }
-
-
 
 interface RepoTopicChipProps {
   name: string;
@@ -76,36 +88,41 @@ interface RepoTopicInputProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   resourceId: string;
-  old_topics:string[]
+  old_topics: string[];
 }
 
-export function RepoTopicInput({ open, setOpen,resourceId,old_topics }: RepoTopicInputProps) {
-  const [topics, setTopics] = useState<string[]|null>(old_topics);
+export function RepoTopicInput({
+  open,
+  setOpen,
+  resourceId,
+  old_topics,
+}: RepoTopicInputProps) {
+  const [topics, setTopics] = useState<string[] | null>(old_topics);
   const [topic, setTopic] = useState("");
 
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
-        if(prev){
-            return prev.filter((_, i) => i !== idx);
-        }
-        return prev
+      if (prev) {
+        return prev.filter((_, i) => i !== idx);
+      }
+      return prev;
     });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTopic(e.target.value);
   };
-    const mutation  = useMutation({
-      mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
-    });
+  const mutation = useMutation({
+    mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
+  });
 
   const handleSubmit = () => {
     // e.preventDefault();
     setTopics((prev) => {
-        if(prev){
-            return [...prev, topic];
-        }
-        return [topic];
+      if (prev) {
+        return [...prev, topic];
+      }
+      return [topic];
     });
   };
 
@@ -113,19 +130,19 @@ export function RepoTopicInput({ open, setOpen,resourceId,old_topics }: RepoTopi
     <div className="w-full h-full flex items-center justify-center gap-2 rounded-lg">
       <MuiModal open={open} setOpen={setOpen}>
         <div className="bg-slate-950 w-full h-full p-5 flex flex-col gap-3 rounded-lg">
-
           <div className="flex flex-wrap w-full h-full gap-2">
-            {topics&&topics.map((topic, idx) => {
-              return (
-                <Chip
-                  key={idx}
-                  variant="outlined"
-                  onClick={() => removeTopic(idx)}
-                  label={<RepoTopicChip name={topic} editing />}
-                  size="small"
-                />
-              );
-            })}
+            {topics &&
+              topics.map((topic, idx) => {
+                return (
+                  <Chip
+                    key={idx}
+                    variant="outlined"
+                    onClick={() => removeTopic(idx)}
+                    label={<RepoTopicChip name={topic} editing />}
+                    size="small"
+                  />
+                );
+              })}
           </div>
 
           <div className="w-full flex items-center justify-center gap-2">
@@ -135,24 +152,38 @@ export function RepoTopicInput({ open, setOpen,resourceId,old_topics }: RepoTopi
               placeholder="topic name"
               className="w-full"
               onChange={handleChange}
-            //   onSubmit={handleSubmit}
+              //   onSubmit={handleSubmit}
               //   value={formData.name}
               //   onChange={handleChange}
               size="small"
-            
             />
-            <Check className="h-6 w-6 hover:text-purple-600"size={5} onClick={()=>handleSubmit()}/>
+            <Check
+              className="h-6 w-6 hover:text-purple-600"
+              size={5}
+              onClick={() => handleSubmit()}
+            />
           </div>
-          
-       {topics&&<button 
-           onClick={()=>mutation.mutate({input:{
-            repositoryId:resourceId,
-            topicNames:topics
-           }})}
-          className="w-full rounded-md flex items-center justify-center p-2
-           border hover:border-purple-400 hover:text-purple-400">
-            {mutation.isLoading ?<Loader className="w-5 h-5 animate-spin" /> :"submit"}
-        </button>}
+
+          {topics && (
+            <button
+              onClick={() =>
+                mutation.mutate({
+                  input: {
+                    repositoryId: resourceId,
+                    topicNames: topics,
+                  },
+                })
+              }
+              className="w-full rounded-md flex items-center justify-center p-2
+           border hover:border-purple-400 hover:text-purple-400"
+            >
+              {mutation.isLoading ? (
+                <Loader className="w-5 h-5 animate-spin" />
+              ) : (
+                "submit"
+              )}
+            </button>
+          )}
         </div>
       </MuiModal>
     </div>

@@ -1,5 +1,5 @@
 export type ItemList = {
-    id: string;
-    name: string;
-    nameWithOwner: string;
-}
+  id: string;
+  name: string;
+  nameWithOwner: string;
+};

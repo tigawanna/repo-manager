@@ -1,9 +1,9 @@
-import gql from "graphql-tag"
+import gql from "graphql-tag";
 
 export const RepositoryTopicConnectionFragment = gql`
-fragment RepositoryTopicConnectionFragment on RepositoryTopicConnection {
-  nodes{
-        id
+  fragment RepositoryTopicConnectionFragment on RepositoryTopicConnection {
+    nodes {
+      id
       resourcePath
       url
       topic {
@@ -12,91 +12,90 @@ fragment RepositoryTopicConnectionFragment on RepositoryTopicConnection {
         stargazerCount
         viewerHasStarred
       }
+    }
+    totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
   }
-  totalCount
-  pageInfo {
-    endCursor
-    hasNextPage
-    hasPreviousPage
-    startCursor
-  }
-}
-
-`
+`;
 
 export const RepositoryConnectionFragment = gql`
-fragment RepositoryConnectionFragment on RepositoryConnection {
-  edges {
-    cursor
-    node {
-      createdAt
-      description
-      forkCount
-      homepageUrl
-      id
-      isPrivate
-      name
-      nameWithOwner
-      openGraphImageUrl
-            hasIssuesEnabled
-          hasWikiEnabled
-          hasDiscussionsEnabled
-          isTemplate
-      owner {
-        avatarUrl(size: 10)
+  fragment RepositoryConnectionFragment on RepositoryConnection {
+    edges {
+      cursor
+      node {
+        createdAt
+        description
+        forkCount
+        homepageUrl
         id
-        login
+        isPrivate
+        name
+        nameWithOwner
+        openGraphImageUrl
+        hasIssuesEnabled
+        hasWikiEnabled
+        hasDiscussionsEnabled
+        isTemplate
+        owner {
+          avatarUrl(size: 10)
+          id
+          login
+          url
+        }
         url
-      }
-      url
-      visibility
-      isFork
-      isArchived
-      forkingAllowed
-      repositoryTopics(first: 10) {
-        ...RepositoryTopicConnectionFragment
-      }
-      isLocked
-      languages(first: 10) {
-        edges {
-          cursor
-          node {
-            color
-            id
-            name
+        visibility
+        isFork
+        isArchived
+        forkingAllowed
+        repositoryTopics(first: 10) {
+          ...RepositoryTopicConnectionFragment
+        }
+        isLocked
+        languages(first: 10) {
+          edges {
+            cursor
+            node {
+              color
+              id
+              name
+            }
+          }
+          totalCount
+          pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
           }
         }
-        totalCount
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
-      lockReason
-      stargazerCount
-      stargazers(first: 50) {
-        edges {
-          cursor
-          node {
-            email
-            avatarUrl
-            isFollowingViewer
-            isGitHubStar
-            isViewer
-            viewerIsFollowing
-            viewerCanFollow
-            url
-            twitterUsername
-            login
-            location
+        lockReason
+        stargazerCount
+        stargazers(first: 50) {
+          edges {
+            cursor
+            node {
+              email
+              avatarUrl
+              isFollowingViewer
+              isGitHubStar
+              isViewer
+              viewerIsFollowing
+              viewerCanFollow
+              url
+              twitterUsername
+              login
+              location
+            }
           }
         }
       }
     }
+    totalCount
   }
-  totalCount
-}
-${RepositoryTopicConnectionFragment}
-`
+  ${RepositoryTopicConnectionFragment}
+`;

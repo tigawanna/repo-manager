@@ -1,6 +1,13 @@
 import { UpdateRepoForm } from "./UpdateRepoForm";
 import React from "react";
-import { Checkbox, MenuItem, Chip, Card, CardMedia, CardContent } from "@mui/material";
+import {
+  Checkbox,
+  MenuItem,
+  Chip,
+  Card,
+  CardMedia,
+  CardContent,
+} from "@mui/material";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { CardMenu } from "@/components/shared/CardMenu";
 import { ItemList, RepositoriesEdge } from "@/state/providers/repos/types";
@@ -16,7 +23,13 @@ interface RepoCard {
   unselectItem: (item: ItemList) => void;
 }
 
-export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, editing }: RepoCard) {
+export function RepoCard({
+  viewer_repos,
+  selectItem,
+  selected,
+  unselectItem,
+  editing,
+}: RepoCard) {
   const [repo, setRepos] = React.useState(viewer_repos.node);
   const [open, setOpen] = React.useState(false);
   const topics = repo.repositoryTopics.nodes;
@@ -36,7 +49,8 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
         },
       }}
       className="sm:h-[350px] w-full sm:w-[45%] lg:w-[30%] flex flex-col  gap-0 "
-      variant="elevation">
+      variant="elevation"
+    >
       <div className="w-full flex flex-wrap lg:flex-row  justify-between p-3 gap-2 ">
         <div className="w-full flex justify-between items-center gap-1">
           {editing && (
@@ -69,7 +83,8 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
                   color: "blue",
                 },
               }}
-              onClick={() => setOpen(true)}>
+              onClick={() => setOpen(true)}
+            >
               Edit
             </MenuItem>
 
@@ -80,7 +95,8 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
                   color: "red",
                 },
               }}
-              onClick={() => setOpen(true)}>
+              onClick={() => setOpen(true)}
+            >
               Delete
             </MenuItem>
           </CardMenu>
@@ -89,7 +105,8 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
 
       <Link
         to={"/repos/show/" + repo.name}
-        className="flex flex-col h-full hover:brightness-50 h">
+        className="flex flex-col h-full hover:brightness-50 h"
+      >
         <CardMedia
           component="img"
           height={50}
@@ -99,7 +116,9 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
           width={50}
         />
         <CardContent style={{ padding: 1 }} className="w-fit p-1">
-          <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">{repo.description}</h4>
+          <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">
+            {repo.description}
+          </h4>
           <div className="flex rounded-full border shadow shadow-slate-500 w-fit">
             {stars > 0 && (
               <div className="flex gap-1 text-sm items-center justify-center px-2">
@@ -118,12 +137,19 @@ export function RepoCard({ viewer_repos, selectItem, selected, unselectItem, edi
       </Link>
 
       <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-        {topics.length < 1 && <Chip variant="outlined" label="Add topic" size="small" />}
+        {topics.length < 1 && (
+          <Chip variant="outlined" label="Add topic" size="small" />
+        )}
         {topics.map((topic) => {
-          return <Chip key={topic.id} variant="outlined" label={topic.topic.name} size="small" />;
+          return (
+            <Chip
+              key={topic.id}
+              variant="outlined"
+              label={topic.topic.name}
+              size="small"
+            />
+          );
         })}
-
-
       </div>
 
       <MuiModal open={open} setOpen={setOpen}>

@@ -1,12 +1,11 @@
-
 import React from "react";
-import {MoreVertical } from "lucide-react";
-import { Paper, Box,Menu, ClickAwayListener } from "@mui/material";
+import { MoreVertical } from "lucide-react";
+import { Paper, Box, Menu, ClickAwayListener } from "@mui/material";
 interface CardMenuProps {
-    children:React.ReactNode
+  children: React.ReactNode;
 }
 
-export function CardMenu({children}: CardMenuProps) {
+export function CardMenu({ children }: CardMenuProps) {
   const [menuopen, setMenuOpen] = React.useState(false);
   const buttonRef = React.useRef(null);
   const handleMenuClose = () => {
@@ -31,7 +30,8 @@ export function CardMenu({children}: CardMenuProps) {
           anchorEl={buttonRef.current}
           open={menuopen}
           onClose={handleMenuClose}
-          aria-labelledby="menu-items">
+          aria-labelledby="menu-items"
+        >
           {children}
         </Menu>
       </div>

@@ -1,5 +1,11 @@
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 interface ReposSortSectionProps {
   repovars: RepoQueryVariables;
@@ -10,32 +16,40 @@ interface ReposSortSectionProps {
 //   affiliations?: ("OWNER" | "COLLABORATOR" | "ORGANIZATION_MEMBER")[];
 //   privacy?: "PUBLIC" | "PRIVATE";
 
-export function ReposSortSection({repovars,setRepoVars}: ReposSortSectionProps) {
-      const handleOrderFieldChange = (event: SelectChangeEvent) => {
-        const value = event.target.value as "CREATED_AT"| "UPDATED_AT"| "PUSHED_AT"| "NAME"| "STARGAZERS";
-        setRepoVars((prev)=>{
-            return {
-              ...prev,
-              orderBy: {
-                field: value,
-                direction:prev.orderBy?.direction??"DESC"
-            }
-        }}
-        )
+export function ReposSortSection({
+  repovars,
+  setRepoVars,
+}: ReposSortSectionProps) {
+  const handleOrderFieldChange = (event: SelectChangeEvent) => {
+    const value = event.target.value as
+      | "CREATED_AT"
+      | "UPDATED_AT"
+      | "PUSHED_AT"
+      | "NAME"
+      | "STARGAZERS";
+    setRepoVars((prev) => {
+      return {
+        ...prev,
+        orderBy: {
+          field: value,
+          direction: prev.orderBy?.direction ?? "DESC",
+        },
       };
-      const handleOrderDirectionChange = (event: SelectChangeEvent) => {
-        const value = event.target.value as "ASC" | "DESC";
-        setRepoVars((prev)=>{
-            return {
-              ...prev,
-              orderBy: {
-                field: prev.orderBy?.field??"PUSHED_AT",
-                direction: value
-            }
-        }
-        })
-      }
-// console.log("repovars === ",repovars)
+    });
+  };
+  const handleOrderDirectionChange = (event: SelectChangeEvent) => {
+    const value = event.target.value as "ASC" | "DESC";
+    setRepoVars((prev) => {
+      return {
+        ...prev,
+        orderBy: {
+          field: prev.orderBy?.field ?? "PUSHED_AT",
+          direction: value,
+        },
+      };
+    });
+  };
+  // console.log("repovars === ",repovars)
   return (
     <div className="w-full h-full flex items-center justify-center">
       <FormControl fullWidth>
@@ -48,7 +62,8 @@ export function ReposSortSection({repovars,setRepoVars}: ReposSortSectionProps) 
           variant="outlined"
           size="small"
           sx={{ fontSize: "12px" }}
-          onChange={handleOrderFieldChange}>
+          onChange={handleOrderFieldChange}
+        >
           <MenuItem value={"UPDATED_AT"} sx={{ fontSize: "11px" }}>
             UPDATED AT
           </MenuItem>
@@ -76,7 +91,8 @@ export function ReposSortSection({repovars,setRepoVars}: ReposSortSectionProps) 
           variant="outlined"
           size="small"
           sx={{ fontSize: "12px" }}
-          onChange={handleOrderDirectionChange}>
+          onChange={handleOrderDirectionChange}
+        >
           <MenuItem sx={{ fontSize: "11px" }} value={"ASC"}>
             ASC
           </MenuItem>
@@ -85,8 +101,6 @@ export function ReposSortSection({repovars,setRepoVars}: ReposSortSectionProps) 
           </MenuItem>
         </Select>
       </FormControl>
-
-
     </div>
   );
 }

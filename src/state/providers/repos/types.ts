@@ -1,146 +1,142 @@
-
 export type ItemList = {
-    id: string;
-    name: string;
-    nameWithOwner: string;
-}
+  id: string;
+  name: string;
+  nameWithOwner: string;
+};
 export interface Root {
-    errors: Error[]
+  errors: Error[];
 }
 
 export interface Error {
-    message: string
-    locations: Location[]
+  message: string;
+  locations: Location[];
 }
 
 export interface Location {
-    line: number
-    column: number
+  line: number;
+  column: number;
 }
 
-
-
-
-export interface ViewerRepos{
-    viewer: Viewer
+export interface ViewerRepos {
+  viewer: Viewer;
 }
 
 export interface Viewer {
-    anyPinnableItems: boolean
-    id: string
-    email: string
-    repositories: Repositories
+  anyPinnableItems: boolean;
+  id: string;
+  email: string;
+  repositories: Repositories;
 }
 
 export interface Repositories {
-    edges: RepositoriesEdge[]
+  edges: RepositoriesEdge[];
 }
 
 export interface RepositoriesEdge {
-    cursor: string
-    node: RepositoriesNode
+  cursor: string;
+  node: RepositoriesNode;
 }
 
 export interface RepositoriesNode {
-    createdAt: string
-    description?: string
-    forkCount: number
-    homepageUrl?: string
-    id: string
-    isPrivate: boolean
-    name: string
-    nameWithOwner: string
-    openGraphImageUrl: string
-    hasIssuesEnabled: boolean
-    hasWikiEnabled: boolean
-    hasDiscussionsEnabled: boolean
-    isTemplate: boolean
-    owner: Owner
-    url: string
-    visibility: string
-    isFork: boolean
-    isArchived: boolean
-    forkingAllowed: boolean
-    repositoryTopics: RepositoryTopics
-    isLocked: boolean
-    languages: Languages
-    lockReason: any
-    stargazerCount: number
-    stargazers: Stargazers
+  createdAt: string;
+  description?: string;
+  forkCount: number;
+  homepageUrl?: string;
+  id: string;
+  isPrivate: boolean;
+  name: string;
+  nameWithOwner: string;
+  openGraphImageUrl: string;
+  hasIssuesEnabled: boolean;
+  hasWikiEnabled: boolean;
+  hasDiscussionsEnabled: boolean;
+  isTemplate: boolean;
+  owner: Owner;
+  url: string;
+  visibility: string;
+  isFork: boolean;
+  isArchived: boolean;
+  forkingAllowed: boolean;
+  repositoryTopics: RepositoryTopics;
+  isLocked: boolean;
+  languages: Languages;
+  lockReason: any;
+  stargazerCount: number;
+  stargazers: Stargazers;
 }
 
 export interface Owner {
-    avatarUrl: string
-    id: string
-    login: string
-    url: string
+  avatarUrl: string;
+  id: string;
+  login: string;
+  url: string;
 }
 
 export interface PageInfo {
-    endCursor?: string
-    hasNextPage: boolean
-    hasPreviousPage: boolean
-    startCursor?: string
+  endCursor?: string;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor?: string;
 }
 
 export interface Languages {
-    edges:LanguagesEdge[]
-    totalCount: number
-    pageInfo: PageInfo
+  edges: LanguagesEdge[];
+  totalCount: number;
+  pageInfo: PageInfo;
 }
 
 export interface LanguagesEdge {
-    cursor: string
-    node: LanguagesNode
+  cursor: string;
+  node: LanguagesNode;
 }
 
 export interface LanguagesNode {
-    color: string
-    id: string
-    name: string
+  color: string;
+  id: string;
+  name: string;
 }
 
 export interface RepositoryTopics {
-    nodes: RepositoryTopicsNode[]
-    edges: RepositoryTopicEdge[]
+  nodes: RepositoryTopicsNode[];
+  edges: RepositoryTopicEdge[];
 }
 
 export interface RepositoryTopicsNode {
-    id: string
-    resourcePath: string
-    topic: Topic
-    url: string
+  id: string;
+  resourcePath: string;
+  topic: Topic;
+  url: string;
 }
 
 export interface Topic {
-    id: string
-    name: string
+  id: string;
+  name: string;
 }
 
 export interface RepositoryTopicEdge {
-    cursor: string
+  cursor: string;
 }
 
 export interface Stargazers {
-    edges: StargazersEdge[]
+  edges: StargazersEdge[];
 }
 
 export interface StargazersEdge {
-    cursor: string
-    node: StargazersNode
+  cursor: string;
+  node: StargazersNode;
 }
 
-export interface GithubUser{
-    email: string
-    avatarUrl: string
-    isFollowingViewer: boolean
-    isGitHubStar: boolean
-    isViewer: boolean
-    viewerIsFollowing: boolean
-    viewerCanFollow: boolean
-    url: string
-    twitterUsername?: string
-    login: string
-    location?: string
+export interface GithubUser {
+  email: string;
+  avatarUrl: string;
+  isFollowingViewer: boolean;
+  isGitHubStar: boolean;
+  isViewer: boolean;
+  viewerIsFollowing: boolean;
+  viewerCanFollow: boolean;
+  url: string;
+  twitterUsername?: string;
+  login: string;
+  location?: string;
 }
 export type StargazersNode = GithubUser;
