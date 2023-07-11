@@ -1,50 +1,33 @@
-# refine-board
+# Repo Manager
 
-<div align="center" style="margin: 30px;">
-    <a href="https://refine.dev">
-    <img src="https://refine.ams3.cdn.digitaloceanspaces.com/refine_logo.png"  align="center" />
-    </a>
-</div>
-<br/>
+RepoManager is a web application that helps you manage your repositories. It allows you to edit the repository name, description, add/update topics, and analyze your `package.json` file to suggest topics and create a technology summary based on the dependencies you use.
 
-This [refine](https://github.com/refinedev/refine) project was generated with [superplate](https://github.com/pankod/superplate).
+## Features
+- Edit repository name and description
+- Add/update topics
+- Analyze `package.json` file to suggest topics
+- Generate a technology summary based on dependencies
 
-## Getting Started
+## Installation
+1. Clone the repository: `git clone https://github.com/your-username/RepoManager.git`
+2. Install dependencies: `npm install`
+3. Start the application: `npm start`
 
-**refine** is a React-based framework for building data-intensive applications in no time ✨
+## Usage
+1. Open the application in your web browser.
+2. Log in with your GitHub account.
+3. Connect your repositories.
+4. Start managing your repositories with ease!
+
+## Acknowledgements
+- Thanks to the GitHub API for providing repository information.
+- Special thanks to the contributors of the open-source libraries used in this project.
+
+## Built with
+[**refine**](https://github.com/refinedev/refine) is a React-based framework for building data-intensive applications in no time ✨
 
 Refine offers lots of out-of-the box functionality for rapid development, without compromising extreme customizability. Use-cases include, but are not limited to admin panels, B2B applications and dashboards.
 
-## Available Scripts
 
-### Running the development server.
 
-```bash
-    npm run dev
-```
 
-### Building for production.
-
-```bash
-    npm run build
-```
-
-### Running the production server.
-
-```bash
-    npm run start
-```
-
-## Learn More
-
-To learn more about **refine**, please check out the [Documentation](https://refine.dev/docs)
-
-- **Supabase Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
-- **Material UI** [Docs](https://refine.dev/docs/ui-frameworks/mui/tutorial/)
-- **Inferencer** [Docs](https://refine.dev/docs/packages/documentation/inferencer)
-- **React Router** [Docs](https://refine.dev/docs/core/providers/router-provider/)
-- **i18n** [Docs](https://refine.dev/docs/core/providers/i18n-provider/)
-
-## License
-
-MIT
