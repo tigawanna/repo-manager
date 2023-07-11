@@ -10,6 +10,9 @@ const authProvider: AuthBindings = {
         const { data, error } = await supabaseClient.auth.signInWithOAuth({
           provider: providerName,
         });
+        // console.log("oauth login provider ==== ",providerName)
+        // console.log("oauth login response data==== ",data)
+        // console.log("oauth login response error==== ",error)
 
         if (error) {
           return {
@@ -60,6 +63,7 @@ const authProvider: AuthBindings = {
       },
     };
   },
+
   register: async ({ email, password }) => {
     try {
       const { data, error } = await supabaseClient.auth.signUp({

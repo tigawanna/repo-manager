@@ -1,4 +1,4 @@
-# Repo Manager
+# Better Repos
 
 RepoManager is a web application that helps you manage your repositories. It allows you to edit the repository name, description, add/update topics, and analyze your `package.json` file to suggest topics and create a technology summary based on the dependencies you use.
 

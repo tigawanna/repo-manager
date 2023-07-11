@@ -7,6 +7,8 @@ import {
 import { Routes, Route, Outlet } from "react-router-dom";
 import { ReposCreate, ReposEdit, ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
+import { GithubIcon } from "lucide-react";
+import { OauthLogin } from "./auth/OauthLogin";
 
 interface indexProps {}
 
@@ -20,8 +22,7 @@ export function AllRoutes({}: indexProps) {
               <Outlet />
             </ThemedLayoutV2>
           </Authenticated>
-        }
-      >
+        }>
         <Route index element={<NavigateToResource resource="repos" />} />
         <Route path="/repos">
           <Route index element={<ReposList />} />
@@ -36,27 +37,45 @@ export function AllRoutes({}: indexProps) {
           <Authenticated fallback={<Outlet />}>
             <NavigateToResource />
           </Authenticated>
-        }
-      >
+        }>
         <Route
           path="/login"
           element={
+            <OauthLogin/>
+            // <AuthPage
+            //   type="login"
+            //   providers={[
+            //     {
+            //       name: "github",
+            //       icon: <GithubIcon />,
+            //       label: "Sign in with GitHub",
+            //     },
+            //   ]}
+            //   formProps={{
+            //     defaultValues: {
+            //       email: "info@refine.dev",
+            //       password: "info@refine.dev",
+            //     },
+            //   }}
+            // />
+          }
+        />
+        <Route
+          path="/register"
+          element={
             <AuthPage
-              type="login"
-              formProps={{
-                defaultValues: {
-                  email: "info@refine.dev",
-                  password: "refine-supabase",
+              type="register"
+              providers={[
+                {
+                  name: "github",
+                  icon: <GithubIcon />,
+                  label: "Sign in with GitHub",
                 },
-              }}
+              ]}
             />
           }
         />
-        <Route path="/register" element={<AuthPage type="register" />} />
-        <Route
-          path="/forgot-password"
-          element={<AuthPage type="forgotPassword" />}
-        />
+        <Route path="/forgot-password" element={<AuthPage type="forgotPassword" />} />
       </Route>
     </Routes>
   );
