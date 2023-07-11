@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { lightPalette } from "./palette/lightPalette";
 import { darkPalette } from "./palette/darkPalette";
 import { typography } from "./typography";
+import { RefinePalettes } from "./palette";
 
 
 const commonThemeProperties: ThemeOptions = {
