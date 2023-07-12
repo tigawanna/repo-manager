@@ -33,6 +33,12 @@ function App() {
               routerProvider={routerBindings}
               notificationProvider={notificationProvider}
               resources={[
+
+                {
+                  name: "home",
+                  list: "/",
+          
+                },
                 {
                   name: "repos",
                   list: "/repos",

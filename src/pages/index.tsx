@@ -9,6 +9,7 @@ import { ReposCreate, ReposEdit, ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
 import { GithubIcon } from "lucide-react";
 import { OauthLogin } from "./auth/OauthLogin";
+import { HomePage } from "./home/HomePage";
 
 interface indexProps {}
 
@@ -23,7 +24,8 @@ export function AllRoutes({}: indexProps) {
             </ThemedLayoutV2>
           </Authenticated>
         }>
-        <Route index element={<NavigateToResource resource="repos" />} />
+        <Route index element={<HomePage />} />
+
         <Route path="/repos">
           <Route index element={<ReposList />} />
           <Route path="create" element={<ReposCreate />} />
@@ -41,23 +43,25 @@ export function AllRoutes({}: indexProps) {
         <Route
           path="/login"
           element={
-            <OauthLogin/>
-            // <AuthPage
-            //   type="login"
-            //   providers={[
-            //     {
-            //       name: "github",
-            //       icon: <GithubIcon />,
-            //       label: "Sign in with GitHub",
-            //     },
-            //   ]}
-            //   formProps={{
-            //     defaultValues: {
-            //       email: "info@refine.dev",
-            //       password: "info@refine.dev",
-            //     },
-            //   }}
-            // />
+            <div className="">
+              <OauthLogin />
+              <AuthPage
+                type="login"
+                providers={[
+                  {
+                    name: "github",
+                    icon: <GithubIcon />,
+                    label: "Sign in with GitHub",
+                  },
+                ]}
+                formProps={{
+                  defaultValues: {
+                    email: "info@refine.dev",
+                    password: "info@refine.dev",
+                  },
+                }}
+              />
+            </div>
           }
         />
         <Route

@@ -1,9 +1,9 @@
 import type { PaletteOptions } from "@mui/material/styles";
 
-export const darkPalette: PaletteOptions = {
-  mode: "dark",
+export const lightPalette: PaletteOptions = {
+  mode: "light",
   primary: {
-    main: "#67be23",
+    main: "#81573a",
     contrastText: "#fff",
   },
   secondary: {
@@ -11,15 +11,15 @@ export const darkPalette: PaletteOptions = {
     contrastText: "#fff",
   },
   background: {
-    default: "#212121",
-    paper: "#242424",
+    default: "#f0f0f0",
+    paper: "#ffffff",
   },
   success: {
     main: "#67be23",
     contrastText: "#fff",
   },
   error: {
-    main: "#ee2a1e",
+    main: "#fa541c",
     contrastText: "#fff",
   },
   warning: {
@@ -27,13 +27,13 @@ export const darkPalette: PaletteOptions = {
     contrastText: "#fff",
   },
   info: {
-    main: "#1890ff",
+    main: "#0b82f0",
     contrastText: "#fff",
   },
   divider: "rgba(0,0,0,0)",
   text: {
-    primary: "#fff",
-    secondary: "rgba(255,255,255,0.7)",
-    disabled: "#d1d1d1",
+    primary: "#626262",
+    secondary: "#9f9f9f",
+    disabled: "#c1c1c1",
   },
 };

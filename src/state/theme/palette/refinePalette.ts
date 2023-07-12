@@ -2,7 +2,7 @@ export const RefinePalettes = {
   Blue: {
     mode: "light",
     primary: {
-      main: "#1976D2",
+      main: "#81573a",
       light: "#4791db",
       dark: "#115293",
     },
