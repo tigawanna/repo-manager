@@ -20,6 +20,13 @@ export async function getGithubAccessToken(){
         
     } catch (error:any) {
         console.log("error getting token == ", error.message);
+        if (!pb.authStore.isValid){
+            pb.authStore.clear()
+        }else{
+            localStorage.removeItem("GH_PAT")
+        }
+
+
         throw error.message;
     }
 }
