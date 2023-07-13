@@ -3,10 +3,14 @@
 RepoManager is a web application that helps you manage your repositories. It allows you to edit the repository name, description, add/update topics, and analyze your `package.json` file to suggest topics and create a technology summary based on the dependencies you use.
 
 ## Features
-- Edit repository name and description
-- Add/update topics
+- view repositories
+- Update repository details
+- Add/update repository topics
 - Analyze `package.json` file to suggest topics
 - Generate a technology summary based on dependencies
+
+
+
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/your-username/RepoManager.git`
@@ -22,6 +26,10 @@ RepoManager is a web application that helps you manage your repositories. It all
 ## Acknowledgements
 - Thanks to the GitHub API for providing repository information.
 - Special thanks to the contributors of the open-source libraries used in this project.
+  
+## helpful references
+- [3 ways to sync forks with parent repo](https://dev.to/n3wt0n/3-ways-to-sync-a-forked-repository-on-github-automatically-cfd)  
+- [sync forks with GitHub app](https://github.com/apps/pull)
 
 ## Built with
 [**refine**](https://github.com/refinedev/refine) is a React-based framework for building data-intensive applications in no time ✨

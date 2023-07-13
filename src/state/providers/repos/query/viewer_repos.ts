@@ -29,7 +29,7 @@ export async function getViewerRepositories(variables: RepoQueryVariables) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    // console.log("viewer response === ", data);
+    console.log("viewer repos response === ", data);
     return data;
   } catch (error) {
     console.log("error getting viewer repos", error);
@@ -84,6 +84,41 @@ export const ViewerRepositoriesQuery = gql`
             viewerCanUpdateTopics
             viewerCanAdminister
             viewerPermission
+
+          defaultBranchRef {
+          target {
+            ... on Commit {
+              history(first: 1) {
+                totalCount
+                nodes {
+                  oid
+                  committedDate
+                  deletions
+                  additions
+                }
+              }
+            }
+          }
+        }
+        
+        parent {
+          name
+          defaultBranchRef {
+            target {
+              ... on Commit {
+                history(first: 1) {
+                  totalCount
+                  nodes {
+                    oid
+                    committedDate
+                    deletions
+                    additions
+                  }
+                }
+              }
+            }
+          }
+        }
 
             repositoryTopics(first: 10) {
               nodes {

@@ -1,5 +1,7 @@
+import { loginPocketbaseUser } from "@/state/pocketbase/client";
 import { Button,Chip,Stack,TextField } from "@mui/material";
-import { Check, Github, Save } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Check, Github, Loader, Save } from "lucide-react";
 import { useState } from "react";
 
 interface GithubButtonProps {
@@ -8,16 +10,29 @@ interface GithubButtonProps {
 
 export function GithubButton({}:GithubButtonProps){
 const[input,setInput]=useState("")
+const mutation = useMutation({
+  mutationFn: loginPocketbaseUser,
+  onSuccess(data, variables, context) {
+    console.log("login success data,var,cxt ==", data, variables, context);
+  },
+  onError(error) {
+    console.log("error loggin in with github appp ", error);
+  },
+});
 return (
   <div
     className="flex flex-col items-center justify-center gap-3 rounded-lg border p-3 
   shadow shadow-slate-300">
-    <p className="w-full text-sm">This app requires Github access to your repositories ,</p>
+    <p className="w-full text-sm text-center">This app requires github access</p>
     <Button
       variant="outlined"
-      className="flex items-center justify-center gap-3 rounded-lg m-0 p-0">
-      <h4 className="font-bold"> Login with </h4>
-      <Github />
+      className="w-[60%] flex items-center justify-center gap-3 rounded-lg m-0 p-0"
+      onClick={() => mutation.mutate()}>
+        {mutation.isLoading?<Loader className="h-5 w-5 animate-spin"/>
+:       <div className="font-bold flex gap-2">
+        {" "}
+        Login with <Github />
+      </div>}
     </Button>
 
     <div className="text-sm ">
@@ -34,18 +49,14 @@ return (
         id="token"
         name="token"
         placeholder="Personal access token"
-        className="w-full"
+        className="w-full text-sm"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         size="small"
-  
       />
-    
-      <Button 
-      className="m-0 p-0 h-full"
-      variant="outlined"
-      size="small">
-        <Check className="h-full"/>
+
+      <Button className="m-0 p-0 h-full" variant="outlined" size="small">
+        <Check className="h-full" />
       </Button>
     </div>
   </div>

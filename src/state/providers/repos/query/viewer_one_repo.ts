@@ -18,10 +18,10 @@ export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    console.log("viewer response === ", data);
+    console.log("viewer one repo response === ", data);
     return data;
   } catch (error) {
-    console.log("error getting viewer repos", error);
+    console.log("error getting viewer oe repo", error);
     throw error;
   }
 }
@@ -49,6 +49,42 @@ export const ViewerOneRepositoryQuery = gql`
         viewerCanUpdateTopics
         viewerCanAdminister
         viewerPermission
+
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              history(first: 1) {
+                totalCount
+                nodes {
+                  oid
+                  committedDate
+                  deletions
+                  additions
+                }
+              }
+            }
+          }
+        }
+        
+        parent {
+          name
+          defaultBranchRef {
+            target {
+              ... on Commit {
+                history(first: 1) {
+                  totalCount
+                  nodes {
+                    oid
+                    committedDate
+                    deletions
+                    additions
+                  }
+                }
+              }
+            }
+          }
+        }
+
         repositoryTopics(first: 10) {
           nodes {
             id

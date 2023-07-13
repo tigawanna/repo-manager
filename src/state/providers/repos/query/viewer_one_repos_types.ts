@@ -25,8 +25,60 @@ export interface IViewerOneRepoRepository {
   stargazerCount: number;
   viewerCanUpdateTopics: boolean;
   viewerCanAdminister: boolean;
+
+
+  defaultBranchRef: DefaultBranchRef
+  parent?: Parent
+
   repositoryTopics: RepositoryTopics;
 }
+
+
+export interface DefaultBranchRef {
+  target: Target
+}
+
+export interface Target {
+  history: History
+}
+
+export interface History {
+  totalCount: number
+  nodes: HistoryNode[]
+}
+
+export interface HistoryNode {
+  oid: string
+  committedDate: string
+  deletions: number
+  additions: number
+}
+
+export interface Parent {
+  name: string
+  defaultBranchRef: ParentDefaultBranchRef
+}
+
+export interface ParentDefaultBranchRef {
+  target: ParentTarget
+}
+
+export interface ParentTarget {
+  history: ParentHistory
+}
+
+export interface ParentHistory {
+  totalCount: number
+  nodes: ParentHistoryNode[]
+}
+
+export interface ParentHistoryNode {
+  oid: string
+  committedDate: string
+  deletions: number
+  additions: number
+}
+
 
 export interface RepositoryTopics {
   nodes: IRepositoryTopicsNode[];
