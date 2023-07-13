@@ -14,6 +14,7 @@ export async function getGithubAccessToken(){
        if(token && token.length > 0){
            return token;
        }
+        pb.authStore.isValid && await pb.collection("devs").authRefresh()
        return pb.authStore.model?.access_token as string
 
         
