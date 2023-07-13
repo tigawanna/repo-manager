@@ -105,7 +105,7 @@ export function RepoCard({
 
       <Link
         to={"/repos/show/" + repo.name}
-        className="flex flex-col h-full hover:brightness-50 h"
+        className="flex flex-col h-full hover:brightness-[80%]"
       >
         <CardMedia
           component="img"

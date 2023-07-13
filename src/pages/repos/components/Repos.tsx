@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { RepoCard } from "./RepoCard";
 import React, { useState } from "react";
-import { Checkbox, Chip } from "@mui/material";
+import { Checkbox, Chip , Skeleton } from "@mui/material";
 import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
 import { RepositoriesEdge } from "@/state/providers/repos/types";
@@ -88,9 +88,10 @@ export function Repos({}: ReposProps) {
   const { data, isError, isLoading, error } = query;
   if (isLoading) {
     return (
-      <div className="w-full h-full min-h-screen flex items-center justify-center">
-        <Loader className="w-5 h-5 animate-spin" />
-      </div>
+      // <div className="w-full h-full min-h-screen flex items-center justify-center">
+      //   <Loader className="w-5 h-5 animate-spin" />
+      // </div>
+      <Skeleton variant="rectangular" width={210} height={118} />
     );
   }
   if (isError) {
@@ -150,7 +151,7 @@ export function Repos({}: ReposProps) {
         </div>
         <MuiModal open={opendelete} setOpen={setOpenDelete}>
           {/* @ts-expect-error */}
-          <DeleteRepo selected={selected} setOpen={setOpenDelete} />
+          <DeleteRepo selected={selected} setOpen={setOpenDelete} setSelected={setSelected}/>
         </MuiModal>
         <ReposSortSection repovars={repovars} setRepoVars={setRepoVars} />
       </div>
