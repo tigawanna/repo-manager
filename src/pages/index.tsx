@@ -44,16 +44,16 @@ export function AllRoutes({}: indexProps) {
           path="/login"
           element={
             <div className="">
-              <OauthLogin />
+             
               <AuthPage
                 type="login"
-                providers={[
-                  {
-                    name: "github",
-                    icon: <GithubIcon />,
-                    label: "Sign in with GitHub",
-                  },
-                ]}
+                // providers={[
+                //   {
+                //     name: "github",
+                //     icon: <GithubIcon />,
+                //     label: "Sign in with GitHub",
+                //   },
+                // ]}
                 formProps={{
                   defaultValues: {
                     email: "info@refine.dev",

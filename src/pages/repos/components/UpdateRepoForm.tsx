@@ -72,7 +72,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
         Update {input.nameWithOwner} repository{" "}
       </h1>
       <TextField
-        id="anme"
+        id="name"
         name="name"
         placeholder="Repository name"
         className="w-full"
