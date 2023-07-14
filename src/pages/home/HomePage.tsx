@@ -5,6 +5,7 @@ import { Loader } from "lucide-react";
 import { ErrorComponent } from "@refinedev/mui";
 import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 import { useNotification } from "@refinedev/core"
+import { ViewerHomepage } from "./components/ViewerHomepage";
 
 interface HomePageProps {
 
@@ -42,9 +43,7 @@ return (
 
 return (
   <div className="w-full h-full flex flex-col items-center justify-center">
-    <div className="text-2xl font-bold">HOME PAGE</div>
-    {(!token||token.length<1)&&<GithubButton/>}
-    
-  </div>
+    <ViewerHomepage/>
+    </div>
 );
 }

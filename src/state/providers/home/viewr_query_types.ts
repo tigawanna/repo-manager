@@ -1,8 +1,4 @@
 export interface IViewerQuery {
-    data: Data
-}
-
-export interface Data {
     viewer: Viewer
 }
 
@@ -12,6 +8,11 @@ export interface Viewer {
     name: string
     avatarUrl: string
     bio: string
+
+    isViewer:boolean;
+    location:string;
+    login:string
+
     company: any
     createdAt: string
     email: string

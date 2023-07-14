@@ -2,21 +2,18 @@ import { Variables, gql } from "graphql-request";
 import { gql_request_helper } from "../graphqlClient";
 import { IViewerQuery } from "./viewr_query_types";
 
-
-
 export async function getViewerRepositories() {
-    try {
-        // const data = sample_repos
-        const data = await gql_request_helper<IViewerQuery,Variables>({document: ViewerQuery});
-        // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-        console.log("viewer repos response === ", data);
-        return data;
-    } catch (error) {
-        console.log("error getting viewer repos", error);
-        throw error;
-    }
+  try {
+    // const data = sample_repos
+    const data = await gql_request_helper<IViewerQuery, Variables>({ document: ViewerQuery });
+    // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
+    console.log("viewer repos response === ", data);
+    return data;
+  } catch (error) {
+    console.log("error getting viewer repos", error);
+    throw error;
+  }
 }
-
 
 const ViewerQuery = gql`
   {
@@ -36,6 +33,10 @@ const ViewerQuery = gql`
       viewerIsFollowing
       url
       twitterUsername
+      company
+      login
+      isViewer
+      location
       status {
         id
       }
@@ -91,5 +92,5 @@ const ViewerQuery = gql`
         totalCount
       }
     }
-  }`;
-
+  }
+`;
