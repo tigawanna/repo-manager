@@ -6,6 +6,7 @@ import { Building2, LocateIcon, Mail, MapPin, Twitter } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { gql_request_helper } from "@/state/providers/graphqlClient";
 import { Variables, gql } from "graphql-request";
+import { FOLLOWUSER, UNFOLLOWUSER } from "@/state/providers/profile/mutations";
 dayjs.extend(relativeTime);
 
 interface ProfileInfoProps {
@@ -181,21 +182,7 @@ export const ProfileInfoItemWrapper: React.FC<ProfileInfoItemWrapperProps> = ({
   );
 };
 
-export const FOLLOWUSER = gql`
-  mutation ProfileInfofollowMutation($input: FollowUserInput!) {
-    followUser(input: $input) {
-      clientMutationId
-    }
-  }
-`;
 
-export const UNFOLLOWUSER = gql`
-  mutation ProfileInfounfollowMutation($input: UnfollowUserInput!) {
-    unfollowUser(input: $input) {
-      clientMutationId
-    }
-  }
-`;
 
 
 
