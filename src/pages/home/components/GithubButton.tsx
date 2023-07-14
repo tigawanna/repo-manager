@@ -21,7 +21,7 @@ const mutation = useMutation({
 });
 return (
   <div
-    className="flex flex-col items-center justify-center gap-3 rounded-lg border p-3 
+    className="h-full flex flex-col items-center justify-center gap-3 rounded-lg border p-3 
   shadow shadow-slate-300">
     <p className="w-full text-sm text-center">This app requires github access</p>
     <Button

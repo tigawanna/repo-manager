@@ -23,7 +23,6 @@ export async function getGithubAccessToken() {
     } else {
       localStorage.removeItem("GH_PAT");
     }
-
-    throw error.message;
+    throw new Error("invalid github token");
   }
 }
