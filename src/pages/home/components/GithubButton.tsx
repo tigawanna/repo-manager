@@ -1,6 +1,7 @@
 import { loginPocketbaseUser } from "@/state/pocketbase/client";
 import { Button,Chip,Stack,TextField } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { SaveButton } from "@refinedev/mui";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, Github, Loader, Save } from "lucide-react";
 import { useState } from "react";
 
@@ -9,11 +10,14 @@ interface GithubButtonProps {
 }
 
 export function GithubButton({}:GithubButtonProps){
+const qc = useQueryClient();
 const[input,setInput]=useState("")
 const mutation = useMutation({
   mutationFn: loginPocketbaseUser,
   onSuccess(data, variables, context) {
     console.log("login success data,var,cxt ==", data, variables, context);
+    qc.setQueryData(["gh-token"], input);
+      // location.reload();
   },
   onError(error) {
     console.log("error loggin in with github appp ", error);
@@ -55,9 +59,11 @@ return (
         size="small"
       />
 
-      <Button className="m-0 p-0 h-full" variant="outlined" size="small">
-        <Check className="h-full" />
-      </Button>
+      <SaveButton onClick={() =>{
+        localStorage.setItem("github_token",input)
+          qc.setQueryData(["gh-token"], input);
+        // location.reload();
+        }}/>
     </div>
   </div>
 );

@@ -7,6 +7,9 @@ import { useMutation } from "@tanstack/react-query";
 import { gql_request_helper } from "@/state/providers/graphqlClient";
 import { Variables, gql } from "graphql-request";
 import { FOLLOWUSER, UNFOLLOWUSER } from "@/state/providers/profile/mutations";
+import { EditButton } from "@refinedev/mui";
+import { MuiModal } from "@/components/shared/MuiModal";
+import { UpdateViewer } from "../home/components/UpdateViewer";
 dayjs.extend(relativeTime);
 
 interface ProfileInfoProps {
@@ -25,6 +28,7 @@ const extradetails = {
 
 
   const [yes, setYes] = useState<any>(user?.viewerIsFollowing);
+  const [open,setOpen]=useState(false)
   
   const followMutation = useMutation({
     mutationFn: async(variables:Variables) =>{
@@ -96,6 +100,12 @@ const extradetails = {
               <ProfileInfoItemWrapper valkey={"twitter"} value={extradetails?.twitter} />
             </div>
           </div>
+          <EditButton onClick={() => setOpen(true)}>
+            edit
+          </EditButton>
+          <MuiModal open={open} setOpen={setOpen}>
+          <UpdateViewer viewer={user}/>
+          </MuiModal>
         </div>
 
         <div className="w-[95%] flex">

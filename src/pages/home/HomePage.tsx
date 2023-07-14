@@ -3,7 +3,6 @@ import { GithubButton } from "./components/GithubButton";
 import { getGithubAccessToken } from "@/state/pocketbase/token";
 import { Loader } from "lucide-react";
 import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
-import { useNotification } from "@refinedev/core"
 import { ViewerHomepage } from "./components/ViewerHomepage";
 
 interface HomePageProps {
@@ -11,7 +10,7 @@ interface HomePageProps {
 }
 
 export function HomePage({}:HomePageProps){
-  const {open} = useNotification();
+
  const query = useQuery({
     queryKey: ["gh-token"],
     queryFn: getGithubAccessToken,
