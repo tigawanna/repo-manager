@@ -14,7 +14,7 @@ profile:Viewer
 }
 
 export function ProfileInfo({profile}:ProfileInfoProps){
-  console.log("profile === ",profile);
+  // console.log("profile === ",profile);
 const user = profile
 const extradetails = {
     company: user?.company,
@@ -63,32 +63,26 @@ const extradetails = {
   return (
     <div className="h-full w-full dark-styles gap-1">
       <div className="w-full   p-2 flex-col-center gap-1">
-        <div className="p-1 h-full w-full flex flex-col md:flex-row items-center">
+        <div className="p-1 h-full w-full flex flex-col md:flex-row items-center gap-2">
           <div
-            className="h-[40%] md:h-[30%] max-w-[200px] 
-            max-h-[200px] w-[70%] md:w-[15%] rounded-[5%] 
-              shadow  shadow-slate-400"
-          >
+            className="h-[40%] w-[70%] md:h-full max-w-[200px]  md:w-[15%] rounded-[5%] aspect-square">
             <img
               className="
              h-[100%] w-[100%] rounded-[5%]  m-1"
               src={user?.avatarUrl as string}
               alt=""
-              height={"40px"}
-              width={"40px"}
-           />
+              height={"50px"}
+              width={"50px"}
+            />
           </div>
 
           <div
-            className="text-[15px]  flex flex-col md:flex-row  items-center md:justify-evenly
-         shadow-md shadow-slate-600 dark:shadow-slate-600  p-3  m-2 w-full 
-           font-sans  h-full"
-          >
+          className="text-[15px]  flex flex-col md:flex-row  items-center md:justify-evenly
+          p-3  m-2 w-full 
+           font-sans  h-full">
             <div className="text-[15px] w-full ">
-              <div className=" text-[15px] md:text-xl font-bold  ">
-                {user?.name}
-              </div>
-              {user?.login&&<div className="text-[15px] md:text-lg ">@{user?.login}</div>}
+              <div className=" text-[15px] md:text-xl font-bold  ">{user?.name}</div>
+              {user?.login && <div className="text-[15px] md:text-lg ">@{user?.login}</div>}
               <div className="text-[15px] max-w-[80%]">{user?.bio}</div>
               <div className="text-[15px]">
                 Joined {" :"} {dayjs(user?.createdAt).fromNow()}
@@ -96,22 +90,10 @@ const extradetails = {
             </div>
 
             <div className="text-[15px] w-full ">
-              <ProfileInfoItemWrapper
-                valkey="email"
-                value={extradetails?.email}
-              />
-              <ProfileInfoItemWrapper
-                valkey={"company"}
-                value={extradetails?.company}
-              />
-              <ProfileInfoItemWrapper
-                valkey="location"
-                value={extradetails?.location}
-              />
-              <ProfileInfoItemWrapper
-                valkey={"twitter"}
-                value={extradetails?.twitter}
-              />
+              <ProfileInfoItemWrapper valkey="email" value={extradetails?.email} />
+              <ProfileInfoItemWrapper valkey={"company"} value={extradetails?.company} />
+              <ProfileInfoItemWrapper valkey="location" value={extradetails?.location} />
+              <ProfileInfoItemWrapper valkey={"twitter"} value={extradetails?.twitter} />
             </div>
           </div>
         </div>
@@ -123,16 +105,14 @@ const extradetails = {
                 <button
                   onClick={() => unfollowThem(user?.id as string)}
                   className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
-                  text-[12px] rounded-md p-[4px] m-[3px] h-fit w-full "
-                >
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit w-full ">
                   {"Unfollow"}
                 </button>
               ) : (
                 <button
                   onClick={() => followThem(user?.id as string)}
                   className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
-                  text-[12px] rounded-md p-[4px] m-[3px] h-fit "
-                >
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit ">
                   {user?.isFollowingViewer ? "Follow back" : "Follow"}
                 </button>
               )}
@@ -162,13 +142,13 @@ export const ProfileInfoItemWrapper: React.FC<ProfileInfoItemWrapperProps> = ({
     // console.log("kye",valkey,value)
     switch (valkey) {
       case "company":
-        return <Building2/>;
+        return <Building2 className="h-4 w-4" />;
       case "email":
-        return <Mail/>;
+        return <Mail className="h-4 w-4" />;
       case "twitter":
-        return <Twitter/>;
+        return <Twitter className="h-4 w-4" />;
       case "location":
-        return <MapPin/>;
+        return <MapPin className="h-4 w-4"/>;
       default:
         return null;
     }

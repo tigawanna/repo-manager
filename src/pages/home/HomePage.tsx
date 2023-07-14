@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { GithubButton } from "./components/GithubButton";
 import { getGithubAccessToken } from "@/state/pocketbase/token";
 import { Loader } from "lucide-react";
-import { ErrorComponent } from "@refinedev/mui";
 import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 import { useNotification } from "@refinedev/core"
 import { ViewerHomepage } from "./components/ViewerHomepage";

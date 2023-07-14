@@ -1,5 +1,4 @@
 import { ProfileInfo } from "@/pages/profile/ProfileInfo";
-import { RepoStatCards } from "@/pages/home/components/RepoStatCards";
 import { getViewerRepositories } from "@/state/providers/home/viewer_query";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";

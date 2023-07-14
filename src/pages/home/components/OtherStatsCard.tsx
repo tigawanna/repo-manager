@@ -2,13 +2,14 @@ import { Viewer } from "@/state/providers/home/viewr_query_types";
 import { Card, Typography, Chip, styled } from "@mui/material";
 
 
-interface FollowStatsCardProps {
+interface OtherStatsCardProps {
   profile: Viewer;
 }
 
-export function FollowStatsCard({profile}: FollowStatsCardProps) {
+export function OtherStatsCard({profile}: OtherStatsCardProps) {
     const followers = profile?.followers
     const following = profile?.following
+ 
 
   const Title = styled(Typography)(({ theme }) => ({
     fontSize: "1.2rem",
