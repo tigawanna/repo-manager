@@ -1,5 +1,4 @@
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { DocumentNode } from "graphql";
 import {
   GraphQLClient,
   RequestDocument,
@@ -9,8 +8,9 @@ import {
 } from "graphql-request";
 
 const endpoint = "https://api.github.com/graphql";
+const token = localStorage.getItem("github_token");
 const headers = {
-  authorization: `Bearer ${import.meta.env.VITE_GH_PAT}`,
+  authorization: `Bearer ${token??import.meta.env.VITE_GH_PAT}`,
 };
 export const graphQLClient = new GraphQLClient(endpoint, { headers });
 

@@ -5,7 +5,7 @@ import {
   NavigateToResource,
 } from "@refinedev/react-router-v6";
 import { Routes, Route, Outlet } from "react-router-dom";
-import { ReposCreate, ReposEdit, ReposList, ReposShow } from "./repos";
+import { ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
 import { GithubIcon } from "lucide-react";
 import { OauthLogin } from "./auth/OauthLogin";
@@ -28,8 +28,8 @@ export function AllRoutes({}: indexProps) {
 
         <Route path="/repos">
           <Route index element={<ReposList />} />
-          <Route path="create" element={<ReposCreate />} />
-          <Route path="edit/:id" element={<ReposEdit />} />
+          {/* <Route path="create" element={<ReposCreate />} />
+          <Route path="edit/:id" element={<ReposEdit />} /> */}
           <Route path="show/:id" element={<ReposShow />} />
         </Route>
         <Route path="*" element={<ErrorComponent />} />
