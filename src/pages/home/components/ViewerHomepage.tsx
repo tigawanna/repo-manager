@@ -1,4 +1,5 @@
 import { ProfileInfo } from "@/pages/profile/ProfileInfo";
+import { ProfileStats } from "@/pages/profile/components/ProfileStats";
 import { getViewerRepositories } from "@/state/providers/home/viewer_query";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -31,11 +32,12 @@ if(query.isError || !query.data){
     )
 }
 const data = query.data;
-console.log("data === ",data)
+// console.log("data === ",data)
 const viewer_detaills = data.viewer
 return (
- <div className='w-full h-full flex items-center justify-center'>
+ <div className='w-full h-full flex flex-col items-center justify-center gap-1'>
  <ProfileInfo profile={viewer_detaills}/>
+ <ProfileStats profile={viewer_detaills}/>
  </div>
 );
 }

@@ -28,6 +28,7 @@ export interface Viewer {
     watching: Watching
     gists: Gists
     followers: Followers
+    following: Followers
     repositories: Repositories
 }
 
