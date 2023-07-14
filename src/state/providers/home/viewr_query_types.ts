@@ -76,6 +76,15 @@ export interface GistsNode {
 
 export interface Followers {
     totalCount: number
+    nodes:FollowerNode
+}
+export interface FollowerNode{
+    avatarUrl: string
+    name: string
+    bio: string
+    id: string
+    login: string
+    email: string
 }
 
 export interface Repositories {

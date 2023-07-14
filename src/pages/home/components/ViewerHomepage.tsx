@@ -1,8 +1,9 @@
 import { ProfileInfo } from "@/pages/profile/ProfileInfo";
-import { ProfileStats } from "@/pages/profile/components/ProfileStats";
+import { RepoStatCards } from "@/pages/home/components/RepoStatCards";
 import { getViewerRepositories } from "@/state/providers/home/viewer_query";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
+import { ViewerDetails } from "./ViewerDetails";
 
 interface ViewerHomepageProps {
 
@@ -37,7 +38,9 @@ const viewer_detaills = data.viewer
 return (
  <div className='w-full h-full flex flex-col items-center justify-center gap-1'>
  <ProfileInfo profile={viewer_detaills}/>
- <ProfileStats profile={viewer_detaills}/>
+ {/* <ProfileStats profile={viewer_detaills}/> */}
+<ViewerDetails profile={viewer_detaills}/>
+
  </div>
 );
 }

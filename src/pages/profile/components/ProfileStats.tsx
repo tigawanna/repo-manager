@@ -28,20 +28,22 @@ return (
 const CardContainer = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
 //   backgroundColor: theme.palette.secondary.main,
-  boxShadow: `0px 0px 10px ${theme.palette.secondary.main}`,
+  boxShadow: `0px 0px 2px ${theme.palette.secondary.main}`,
   textAlign: "center",
-  color: theme.palette.secondary.contrastText,
+  color: theme.palette.secondary.contrastText
+
 }));
 
 const Title = styled(Typography)({
   fontSize: "1.2rem",
   fontWeight: "bold",
   marginBottom: "8px",
+
 });
 
 const Figure = styled(Typography)({
   fontSize: "2rem",
-  fontWeight: "bold",
+
 });
 
 export interface ProfileStatsCardProps {
@@ -51,7 +53,7 @@ export interface ProfileStatsCardProps {
 
 export function ProfileStatsCard({ figure, title }: ProfileStatsCardProps) {
   return (
-    <CardContainer elevation={0}>
+    <CardContainer elevation={2} sx={{ width: "100%" }}>
       <Title variant="h6">{title}</Title>
       <Figure variant="h3">{figure}</Figure>
     </CardContainer>

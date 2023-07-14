@@ -73,12 +73,29 @@ const ViewerQuery = gql`
         }
         totalCount
       }
-      followers(first: 1) {
+      following(first: 1) {
         totalCount
+              nodes {
+        avatarUrl
+        name
+        bio
+        id
+        login
+        email
+      }
       }
       followers(first: 1) {
         totalCount
+        nodes {
+        avatarUrl
+        name
+        bio
+        id
+        login
+        email
       }
+      }
+
       repositories(first: 10) {
         nodes {
           name
