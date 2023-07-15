@@ -77,7 +77,7 @@ return (
       />
 
       <SaveButton onClick={() =>{
-        localStorage.setItem("github_token",input)
+        localStorage.setItem("GH_PAT",input)
           qc.setQueryData(["gh-token"], input);
         // location.reload();
         }}/>

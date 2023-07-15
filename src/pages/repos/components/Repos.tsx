@@ -1,17 +1,18 @@
 import { RepoCard } from "./RepoCard";
 import React, { useEffect, useState } from "react";
-import { Stack, Card, Checkbox, Chip , Skeleton, useTheme } from "@mui/material";
+import { Stack, Card, Checkbox, Chip ,useTheme } from "@mui/material";
 import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
-import { IRepositoriesEdge, IRepositoriesNode } from "@/state/providers/repos/query/viwer_repo_types";
-import { useList, useInfiniteList } from "@refinedev/core";
+import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
+import { useInfiniteList } from "@refinedev/core";
 import { InfiniteButton } from "../../../components/shared/InfiniteButton";
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import { ReposSortSection } from "./ReposSortSection";
 import { useInView } from "react-intersection-observer";
 import { RepoSearch } from "./RepoSearch";
+
 interface ReposProps {}
 
 export function Repos({}: ReposProps) {
@@ -84,7 +85,12 @@ export function Repos({}: ReposProps) {
       },
     },
   });
-
+  
+  // const search_query = useQuery(["search", searchTerm], () => repoSearch({ query: searchTerm }), {
+  //   enabled: searchTerm !== "",
+  // });
+  //  console.log("search_query === ", search_query.data);
+ 
   const { data, isError, isLoading, error } = query;
     
   useEffect(() => {
@@ -135,9 +141,12 @@ export function Repos({}: ReposProps) {
   const pages = data.pages;
   const all_pages = pages.flatMap((page) => page.data);
 // @ts-expect-error
-  const repos = all_pages.filter((node:IRepositoriesEdge) => {
-    return searchTerm !== "" ? node.node.name.includes(searchTerm):true;
+  const infinite_pages = all_pages.filter((node: IRepositoriesEdge) => {
+    return searchTerm !== "" ? node.node.name.includes(searchTerm) : true;
   });
+
+
+  const repos = infinite_pages
 
   const is_all_selected =
     selected && selected.length === repos?.length ? true : false;
