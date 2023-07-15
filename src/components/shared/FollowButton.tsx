@@ -3,6 +3,7 @@ import {
   followOrUnfollowUser,
 } from "@/state/providers/repos/mutation/followuser";
 import { Button } from "@mui/material";
+import { useNotification } from "@refinedev/core";
 import { useMutation } from "@tanstack/react-query";
 interface FollowButtonProps {
   username: string;
@@ -15,8 +16,25 @@ export function FollowButton({
   username,
   shouldFollowback,
 }: FollowButtonProps) {
+  const {open,close} =useNotification()
   const mutation = useMutation({
     mutationFn: (vars: FollowUserMuation) => followOrUnfollowUser(vars),
+    onSuccess() {
+      open?.({
+        key: "follow-viewer-success",
+        type: "success",
+        message: "Success",
+        description: "successfully followed viewer",
+      })
+    },
+    onError(error: any, variables, context) {
+      open?.({
+        key: "follow-viewer-error",
+        type: "error",
+        message: "Error",
+        description: "error following viewer",
+      })
+    }
   });
   if (shouldFollow) {
     return (
