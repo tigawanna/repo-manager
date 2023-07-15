@@ -1,6 +1,7 @@
 import { Variables, gql } from "graphql-request";
 import { gql_request_helper } from "../graphqlClient";
 import { IViewerQuery } from "./viewr_query_types";
+import { parseGQLError } from "@/utility/parse_gql_err_response";
 
 export async function getViewerRepositories() {
   try {
@@ -9,9 +10,10 @@ export async function getViewerRepositories() {
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
     console.log("viewer repos response === ", data);
     return data;
-  } catch (error) {
-    console.log("error getting viewer repos", error);
-    throw error;
+  } catch (error: any) {
+    const error_string = parseGQLError(error.response);
+    console.log("error getting viewer repos", error_string);
+    throw new Error(error_string);
   }
 }
 

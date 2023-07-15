@@ -2,6 +2,7 @@ import { Variables } from "graphql-request";
 import { gql } from "graphql-tag";
 import { gql_request_helper } from "@/state/providers/graphqlClient";
 import { IViewerOneRepo } from "./viewer_one_repos_types";
+import { parseGQLError } from "@/utility/parse_gql_err_response";
 
 export interface OneRepoQueryVariables extends Variables {
   name: string;
@@ -20,9 +21,10 @@ export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
     console.log("viewer one repo response === ", data);
     return data;
-  } catch (error) {
-    console.log("error getting viewer oe repo", error);
-    throw error;
+  } catch (error:any) {
+    const error_string = parseGQLError(error.response);
+    console.log("error getting viewer oe repo", error_string);
+    throw new Error(error_string);
   }
 }
 

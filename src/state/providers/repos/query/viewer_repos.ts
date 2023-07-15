@@ -3,6 +3,7 @@ import { sample_repos } from "../sample_repos";
 import { gql_request_helper, graphQLClient } from "../../graphqlClient";
 import { IViewerRepositoriesQuery } from "./viwer_repo_types";
 import { Variables } from "graphql-request";
+import { parseGQLError } from "@/utility/parse_gql_err_response";
 
 export interface RepoQueryVariables extends Variables {
   first: number | null;
@@ -32,9 +33,10 @@ export async function getViewerRepositories(variables: RepoQueryVariables) {
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
     // console.log("viewer repos response === ", data);
     return data;
-  } catch (error) {
-    console.log("error getting viewer repos", error);
-    throw error;
+  } catch (error: any) {
+    const error_string = parseGQLError(error.response);
+    console.log("error gettingviewer repos", error_string);
+    throw new Error(error_string);
   }
 }
 

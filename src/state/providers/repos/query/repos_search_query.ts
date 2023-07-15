@@ -1,8 +1,9 @@
 import { Variables, gql } from "graphql-request";
 import { gql_request_helper } from "../../graphqlClient";
+import { parseGQLError } from "@/utility/parse_gql_err_response";
 
 export async function repoSearch(variables:Pick<IRepoSearchInput,"query">) {
-    console.log("variables == ",variables)
+
 try {
     const data = await gql_request_helper({
         document: REPOS_SEARCH_QUERY,
@@ -11,8 +12,9 @@ try {
     console.log("search results === ",data)
     return data;
 } catch (error:any) {
-  console.log("error geting search results",error.message);  
-  throw error;
+  const error_string = parseGQLError(error.response);
+  console.log("error geting search results",error_string);  
+  throw new Error(error_string);
 }
 }
 
@@ -24,7 +26,7 @@ export interface IRepoSearchInput{
 }
 
 const REPOS_SEARCH_QUERY=gql`
- query searchRepos($query: String) {
+ query searchRepos($query: String!) {
     search(first: 10, type: REPOSITORY, query:$query) {
     repositoryCount
     nodes {

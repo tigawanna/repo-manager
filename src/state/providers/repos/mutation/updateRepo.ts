@@ -1,6 +1,7 @@
 import { gql } from "graphql-request";
 import { graphQLClient } from "../../graphqlClient";
 import { IViewerOneRepo } from "../query/viewer_one_repos_types";
+import { parseGQLError } from "@/utility/parse_gql_err_response";
 
 export interface UpdateRepositoryInput {
   repositoryId: string;
@@ -114,7 +115,8 @@ export async function updateRepository(input: UpdateRepositoryInput) {
     console.log("succesfull update === ", data);
     return data;
   } catch (error: any) {
-    console.log("error updating repository  == ", error.message); // Handle the error if the mutation fails
-    throw error;
+    const error_string = parseGQLError(error.response);
+    console.log("error updating repository", error_string);
+    throw new Error(error_string);
   }
 }

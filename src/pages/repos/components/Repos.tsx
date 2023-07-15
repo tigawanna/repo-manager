@@ -134,9 +134,7 @@ export function Repos({}: ReposProps) {
       </div>
     );
   }
-  if (!data) {
-    return <p>No data</p>;
-  }
+
 
   const pages = data.pages;
   const all_pages = pages.flatMap((page) => page.data);
