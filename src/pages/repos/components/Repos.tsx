@@ -5,7 +5,7 @@ import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
-import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
+import { IRepositoriesEdge, IRepositoriesNode } from "@/state/providers/repos/query/viwer_repo_types";
 import { useList, useInfiniteList } from "@refinedev/core";
 import { InfiniteButton } from "../../../components/shared/InfiniteButton";
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
@@ -15,10 +15,11 @@ import { RepoSearch } from "./RepoSearch";
 interface ReposProps {}
 
 export function Repos({}: ReposProps) {
-    const { ref, inView } = useInView();
+  const { ref, inView } = useInView();
   const [editing, setEditing] = React.useState(true);
   const [selected, setSelected] = React.useState<ItemList[] | null>(null);
   const [opendelete, setOpenDelete] = React.useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [repovars, setRepoVars] = useState<RepoQueryVariables>({
     first: 12,
@@ -132,7 +133,12 @@ export function Repos({}: ReposProps) {
   }
 
   const pages = data.pages;
-  const repos = pages.flatMap((page) => page.data);
+  const all_pages = pages.flatMap((page) => page.data);
+// @ts-expect-error
+  const repos = all_pages.filter((node:IRepositoriesEdge) => {
+    return searchTerm !== "" ? node.node.name.includes(searchTerm):true;
+  });
+
   const is_all_selected =
     selected && selected.length === repos?.length ? true : false;
 
@@ -177,7 +183,7 @@ export function Repos({}: ReposProps) {
               <DeleteRepo selected={selected} setOpen={setOpenDelete} setSelected={setSelected} />
             </MuiModal>
           </Stack>
-          <RepoSearch />
+          <RepoSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </Stack>
       </div>
 

@@ -1,17 +1,13 @@
 import { Container, InputAdornment, TextField } from "@mui/material";
 import { Search } from "lucide-react";
 import { useState } from "react";
-interface RepoSearchProps {}
+interface RepoSearchProps {
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm: string;
+}
 
-export function RepoSearch({}: RepoSearchProps) {
-     const [searchTerm, setSearchTerm] = useState("");
-
-    //  const handleChange = (
-    //    event: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-    //  ) => {
-    //    setSearchTerm(event.target.value);
-    //  };
-  return (
+export function RepoSearch({searchTerm,setSearchTerm}: RepoSearchProps) {
+return (
     <Container maxWidth="md" sx={{ mt:"1px" }}>
       <TextField
         id="search"
