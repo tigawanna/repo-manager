@@ -8,7 +8,6 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import { ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
 import { GithubIcon } from "lucide-react";
-import { OauthLogin } from "./auth/OauthLogin";
 import { HomePage } from "./home/HomePage";
 
 interface indexProps {}
