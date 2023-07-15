@@ -2,10 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { RepoCard } from "./RepoCard";
 import React, { useEffect, useState } from "react";
-import { Checkbox, Chip , Skeleton } from "@mui/material";
+import { Box, Card, Checkbox, Chip , Skeleton, useTheme } from "@mui/material";
 import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
-import { RepositoriesEdge } from "@/state/providers/repos/types";
 import { ItemList } from "./types";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
@@ -48,7 +47,7 @@ export function Repos({}: ReposProps) {
     });
   };
 
-  const selectAll = (repos?: RepositoriesEdge[]) => {
+  const selectAll = (repos?: IRepositoriesEdge[]) => {
     setSelected((prev) => {
       if (repos) {
         return [
@@ -93,13 +92,31 @@ export function Repos({}: ReposProps) {
       query.fetchNextPage();
     }
   }, [inView]);
+    const theme = useTheme();
   
   if (isLoading) {
     return (
-      // <div className="w-full h-full min-h-screen flex items-center justify-center">
-      //   <Loader className="w-5 h-5 animate-spin" />
-      // </div>
-      <Skeleton variant="rectangular" width={210} height={118} />
+    <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2 ">
+    {[...Array(10)].map((_, i) => (
+          
+    <Card
+    key={i}
+      sx={{
+        boxShadow: 10,
+        borderRadius: 5,
+        msOverflowY: "scroll",
+        ":hover": {
+          // boxShadow: "1px 1px 1px 1px" + theme.palette.secondary.main,
+          color: "black",
+        },
+      }}
+      className="sm:h-[250px] w-full sm:w-[45%] lg:w-[30%] 
+      flex flex-col items-center justify-center shadow shadow-slate-500 gap-0 animate-pulse"
+      variant="elevation">
+        <Loader className="h-5 w-5 animate-spin" />
+      </Card>
+        ))}
+      </div>
     );
   }
   if (isError) {

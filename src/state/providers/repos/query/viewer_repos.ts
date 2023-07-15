@@ -84,6 +84,8 @@ export const ViewerRepositoriesQuery = gql`
             viewerCanUpdateTopics
             viewerCanAdminister
             viewerPermission
+            hasIssuesEnabled
+            hasWikiEnabled
 
           defaultBranchRef {
           target {

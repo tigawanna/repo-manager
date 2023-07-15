@@ -55,22 +55,22 @@ export function OneRepo({}: OneRepoProps) {
                 href={repo?.url}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-purple-700 gap-2 "
-              >
-                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">
-                  {repo?.name}
-                </h1>
-                <h3 className="w-full text-xl md:text-2xl font-bold p-1">
-                  {repo?.nameWithOwner}
-                </h3>
+                className="hover:text-purple-700 gap-2 ">
+                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo?.name}</h1>
+                <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo?.nameWithOwner}</h3>
               </a>
-              <ForksyncCheck repo={repo}/>
+              <ForksyncCheck repo={repo} />
 
               <div className="w-full flex flex-wrap gap-1">
+                <a
+                  href={"https://vscode.dev/"+repo?.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-purple-700 gap-2 ">
+                    open in VScode
+                </a>
                 {repo?.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
-                {repo?.isFork && (
-                  <GitFork className="w-5 h-5 text-purple-400" />
-                )}
+                {repo?.isFork && <GitFork className="w-5 h-5 text-purple-400" />}
                 <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
                 <CardMenu>
                   <MenuItem
@@ -80,8 +80,7 @@ export function OneRepo({}: OneRepoProps) {
                         color: "blue",
                       },
                     }}
-                    onClick={() => setOpen(true)}
-                  >
+                    onClick={() => setOpen(true)}>
                     Edit
                   </MenuItem>
 
@@ -92,26 +91,23 @@ export function OneRepo({}: OneRepoProps) {
                         color: "red",
                       },
                     }}
-                    onClick={() => setOpen(true)}
-                  >
+                    onClick={() => setOpen(true)}>
                     Delete
                   </MenuItem>
                 </CardMenu>
-              F</div>
+              </div>
             </div>
             <div>
               <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
 
-             <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
-              {repo?.repositoryTopics.nodes.map((topic) => {
+              <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
+                {repo?.repositoryTopics.nodes.map((topic) => {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
               </div>
-       
-                <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />
-              
-            </div>
 
+              <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />
+            </div>
           </div>
 
           <CardMedia
@@ -126,7 +122,7 @@ export function OneRepo({}: OneRepoProps) {
       </div>
 
       <MuiModal open={open} setOpen={setOpen}>
-      <UpdateRepoForm input={repo} />
+        <UpdateRepoForm input={repo} />
       </MuiModal>
       {/* {stars?.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}         */}
       {/* <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2  gap-5">

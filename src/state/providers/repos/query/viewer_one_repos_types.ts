@@ -25,6 +25,8 @@ export interface IViewerOneRepoRepository {
   stargazerCount: number;
   viewerCanUpdateTopics: boolean;
   viewerCanAdminister: boolean;
+  hasIssuesEnabled: boolean;
+  hasWikiEnabled: boolean;
 
 
   defaultBranchRef: DefaultBranchRef

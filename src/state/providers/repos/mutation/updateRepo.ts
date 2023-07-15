@@ -1,51 +1,7 @@
 import { gql } from "graphql-request";
 import { graphQLClient } from "../../graphqlClient";
-import { ViewerRepos } from "../types";
+import { IViewerOneRepo } from "../query/viewer_one_repos_types";
 
-// const UpdateRepositoryMutation = gql`
-// mutation {
-//   updateRepository(input: {
-//     repositoryId: "R_kgDOJRF48w",
-//     # name: "NEW_REPOSITORY_NAME",
-//     description: "NEW_REPOSITORY_DESCRIPTION",
-//     # homepageUrl: "NEW_HOMEPAGE_URL",
-//     # hasIssuesEnabled: true,
-//     # hasProjectsEnabled: true,
-//     # hasWikiEnabled: true,
-//     }) {
-//     repository {
-//        id
-//           viewerPermission
-//           isFork
-//           forkCount
-//           name
-//           nameWithOwner
-//           description
-//           url
-//           openGraphImageUrl
-//           updatedAt
-//           stargazerCount
-//           isPrivate
-//           repositoryTopics(first: 10) {
-//             nodes {
-//               id
-//               resourcePath
-//               topic {
-//                 id
-//                 name
-//               }
-//               url
-//             }
-//             edges {
-//               cursor
-//             }
-//           }
-
-//     }
-//   }
-// }
-
-// `
 export interface UpdateRepositoryInput {
   repositoryId: string;
   name?: string;
@@ -151,7 +107,7 @@ const UpdateRepositoryMutation = gql`
 export async function updateRepository(input: UpdateRepositoryInput) {
   try {
     const variables = { input };
-    const data = await graphQLClient.request<ViewerRepos>(
+    const data = await graphQLClient.request<IViewerOneRepo>(
       UpdateRepositoryMutation,
       variables
     );

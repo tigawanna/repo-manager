@@ -40,7 +40,7 @@ const ViewerQuery = gql`
       status {
         id
       }
-      starredRepositories(first: 10) {
+      starredRepositories(first: 10,orderBy: { field:STARRED_AT, direction: DESC }) {
         nodes {
           name
           nameWithOwner
@@ -52,7 +52,7 @@ const ViewerQuery = gql`
         }
         totalCount
       }
-      watching(first: 10) {
+      watching(first: 10,orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes {
           name
           nameWithOwner
@@ -64,7 +64,7 @@ const ViewerQuery = gql`
         }
         totalCount
       }
-      gists(first: 10) {
+      gists(first: 10,orderBy: { field: CREATED_AT, direction: DESC }) {
         nodes {
           name
           url
@@ -96,7 +96,7 @@ const ViewerQuery = gql`
       }
       }
 
-      repositories(first: 10) {
+      repositories(first: 10,orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes {
           name
           nameWithOwner
@@ -105,6 +105,7 @@ const ViewerQuery = gql`
           homepageUrl
           stargazerCount
           forkCount
+          isFork
         }
         totalCount
       }

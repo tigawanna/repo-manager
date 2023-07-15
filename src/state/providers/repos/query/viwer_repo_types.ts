@@ -39,6 +39,9 @@ export interface IRepositoriesNode {
   viewerCanUpdateTopics: boolean;
   viewerCanAdminister: boolean;
   repositoryTopics: IRepositoryTopics;
+  
+  hasIssuesEnabled: boolean;
+  hasWikiEnabled: boolean;
 }
 
 export interface DefaultBranchRef {

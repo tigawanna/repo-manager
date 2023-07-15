@@ -3,17 +3,17 @@ import { Checkbox, Stack, Typography, useTheme } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { TextField, Box } from "@mui/material";
-import { RepositoriesNode } from "@/state/providers/repos/types";
 import {
   UpdateRepositoryInput,
   updateRepository,
 } from "@/state/providers/repos/mutation/updateRepo";
 import { useNotification } from "@refinedev/core";
 import { SaveButton } from "@refinedev/mui";
+import { IRepositoriesNode } from "@/state/providers/repos/query/viwer_repo_types";
 
 
 interface UpdateRepoFormProps {
-  input: RepositoriesNode;
+  input: IRepositoriesNode;
 }
 export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
   const [formData, setFormData] = useState<UpdateRepositoryInput>({
