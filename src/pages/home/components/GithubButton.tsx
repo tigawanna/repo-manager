@@ -4,6 +4,7 @@ import { SaveButton } from "@refinedev/mui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, Github, Loader, Save } from "lucide-react";
 import { useState } from "react";
+import { useNotification } from "@refinedev/core";
 
 interface GithubButtonProps {
 
@@ -11,16 +12,32 @@ interface GithubButtonProps {
 
 export function GithubButton({}:GithubButtonProps){
 const qc = useQueryClient();
+const {open,close}=useNotification();
+
 const[input,setInput]=useState("")
 const mutation = useMutation({
   mutationFn: loginPocketbaseUser,
   onSuccess(data, variables, context) {
     console.log("login success data,var,cxt ==", data, variables, context);
     qc.setQueryData(["gh-token"], input);
+            open?.({
+              key: "update-token-success",
+              type: "success",
+              message: "Success",
+              description: "Login success",
+            });
+            close?.("update-token-success");
       // location.reload();
   },
-  onError(error) {
+  onError(error:any) {
     console.log("error loggin in with github appp ", error);
+            open?.({
+              key: "update-viewer-error",
+              type: "error",
+              message: "Error with login",
+              description:error.message,
+            });
+            close?.("update-token-error");
   },
 });
 return (

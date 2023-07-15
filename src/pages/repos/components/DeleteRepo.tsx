@@ -2,22 +2,40 @@ import { Button, Typography } from "@mui/material";
 import { ItemList } from "@/state/providers/repos/types";
 import { deleteRepos } from "@/state/providers/repos/mutation/deleteRepos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNotification } from "@refinedev/core";
 
 interface DeleteRepoProps {
   selected: ItemList[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelected:React.Dispatch<React.SetStateAction<ItemList[] | null>>
+  setSelected: React.Dispatch<React.SetStateAction<ItemList[] | null>>;
 }
 
-export function DeleteRepo({ selected, setOpen,setSelected }: DeleteRepoProps) {
-  const qc = useQueryClient()
+export function DeleteRepo({ selected, setOpen, setSelected }: DeleteRepoProps) {
+  const { open, close } = useNotification();
+  const qc = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deleteRepos(selected),
     onSuccess: () => {
       console.log("succesfully deleted repos");
       qc.invalidateQueries(["repos"]);
-      setSelected(null)
+      setSelected(null);
+      open?.({
+        key: "delere-repo-success",
+        type: "success",
+        message: "Success",
+        description: "Deleteed successfully",
+      });
+      close?.("delete-repo-success");
       setOpen(false);
+    },
+    onError(error: any, variables, context) {
+      open?.({
+        key: "delere-repo-error",
+        type: "error",
+        message: "Error deleting",
+        description: error?.message,
+      });
+      close?.("delete-repo-error");
     },
   });
   return (
@@ -70,7 +88,7 @@ export function DeleteRepo({ selected, setOpen,setSelected }: DeleteRepoProps) {
             sx={{
               ml: "auto",
               fontWeight: 600,
-              width: "fit"
+              width: "fit",
             }}>
             cancel
           </Button>
@@ -78,7 +96,6 @@ export function DeleteRepo({ selected, setOpen,setSelected }: DeleteRepoProps) {
       </div>
       {mutation.isError && (
         <Typography fontSize="sm" sx={{ color: "text.danger" }}>
-          {/* @ts-expect-error */}
           {mutation?.error?.message}
         </Typography>
       )}

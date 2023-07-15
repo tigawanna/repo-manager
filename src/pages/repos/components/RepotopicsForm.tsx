@@ -4,21 +4,20 @@ import {
   updateRepoTags,
 } from "@/state/providers/repos/mutation/updateRepoTags";
 import { RepositoryTopicsNode } from "@/state/providers/repos/types";
-import { Chip, TextField } from "@mui/material";
+import { Chip, TextField, useTheme } from "@mui/material";
+import { useNotification } from "@refinedev/core";
 import { useMutation } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { Check, Edit, X } from "lucide-react";
 import { useState } from "react";
+
 
 interface RepotopicsFormProps {
   repo_topics: RepositoryTopicsNode[];
   resourceId: string;
 }
 
-export function RepoTopicsForm({
-  repo_topics,
-  resourceId,
-}: RepotopicsFormProps) {
+export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
@@ -34,10 +33,7 @@ export function RepoTopicsForm({
 
   return (
     <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-      <Edit
-        className="h-5 w-5 hover:text-purple-600"
-        onClick={() => setEditing(!editing)}
-      />
+      <Edit className="h-5 w-5 hover:text-purple-600" onClick={() => setEditing(!editing)} />
 
       {topics.map((topic, idx) => {
         return (
@@ -91,15 +87,11 @@ interface RepoTopicInputProps {
   old_topics: string[];
 }
 
-export function RepoTopicInput({
-  open,
-  setOpen,
-  resourceId,
-  old_topics,
-}: RepoTopicInputProps) {
+export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTopicInputProps) {
   const [topics, setTopics] = useState<string[] | null>(old_topics);
   const [topic, setTopic] = useState("");
-
+  const { open: opentoast, close } = useNotification();
+  const theme = useTheme();
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
       if (prev) {
@@ -114,6 +106,24 @@ export function RepoTopicInput({
   };
   const mutation = useMutation({
     mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
+    onSuccess(data, variables, context) {
+      opentoast?.({
+        key: "delere-topics-success",
+        type: "success",
+        message: "Success",
+        description: "Topics updated successfully",
+      });
+      close?.("update-topics-success");
+    },
+    onError(error:any, variables, context) {
+      opentoast?.({
+        key: "delere-topics-error",
+        type: "error",
+        message: "Error updating",
+        description: error?.message,
+      });
+      close?.("update-topics-error");
+    },
   });
 
   const handleSubmit = () => {
@@ -175,13 +185,8 @@ export function RepoTopicInput({
                 })
               }
               className="w-full rounded-md flex items-center justify-center p-2
-           border hover:border-purple-400 hover:text-purple-400"
-            >
-              {mutation.isLoading ? (
-                <Loader className="w-5 h-5 animate-spin" />
-              ) : (
-                "submit"
-              )}
+           border hover:border-purple-400 hover:text-purple-400">
+              {mutation.isLoading ? <Loader className="w-5 h-5 animate-spin" /> : "submit"}
             </button>
           )}
         </div>
