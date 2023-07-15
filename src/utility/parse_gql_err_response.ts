@@ -32,11 +32,14 @@ export interface IGQLErrrorResponseHeaders {
 
 
 export function parseGQLError(gql_err: IGQLErrrorResponse) {
-    const errors_messages_arr = gql_err.errors.flatMap((error) => {
-        return error.message
+if(Array.isArray(gql_err.errors)){
+    const errors_messages_arr = gql_err?.errors?.flatMap((error) => {
+        return error?.message
     })
-    const error_string = errors_messages_arr.reduce((acc, cur) => {
+    const error_string = errors_messages_arr?.reduce((acc, cur) => {
         return acc + cur + "\n"
     })
     return error_string
+}
+return "something went wrong"
 }
