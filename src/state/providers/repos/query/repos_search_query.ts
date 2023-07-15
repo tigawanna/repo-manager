@@ -5,7 +5,7 @@ import { parseGQLError } from "@/utility/parse_gql_err_response";
 export async function repoSearch(variables:Pick<IRepoSearchInput,"query">) {
 
 try {
-    const data = await gql_request_helper({
+    const data = await gql_request_helper<IRepoSearchResult>({
         document: REPOS_SEARCH_QUERY,
         variables
     });
@@ -42,70 +42,12 @@ const REPOS_SEARCH_QUERY=gql`
         homepageUrl
         isFork
         isPrivate
-        isTemplate
-        isArchived
-        isEmpty
-        forkCount
-        stargazerCount
-        viewerCanUpdateTopics
-        viewerCanAdminister
-        viewerPermission
-        
-        hasWikiEnabled
-        hasIssuesEnabled,
-
-        defaultBranchRef {
-          target {
-            ... on Commit {
-              history(first: 1) {
-                totalCount
-                nodes {
-                  oid
-                  committedDate
-                  deletions
-                  additions
-                }
-              }
-            }
-          }
-        }
-        
-        parent {
-          name
-          defaultBranchRef {
-            target {
-              ... on Commit {
-                history(first: 1) {
-                  totalCount
-                  nodes {
-                    oid
-                    committedDate
-                    deletions
-                    additions
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        repositoryTopics(first: 10) {
-          nodes {
-            id
-            resourcePath
-            topic {
-              id
-              name
-            }
-            url
-          }
-        }
-      }
+  }
     }
   }
  }
 `
-export interface IRepoSearchResul {
+export interface IRepoSearchResult {
     search: IRepoSearch
 }
 

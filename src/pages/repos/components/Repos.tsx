@@ -94,7 +94,7 @@ export function Repos({}: ReposProps) {
   const { data, isError, isLoading, error } = query;
     
   useEffect(() => {
-    if (inView) {
+    if (inView&&searchTerm === "") {
       query.fetchNextPage();
     }
   }, [inView]);
@@ -148,13 +148,13 @@ export function Repos({}: ReposProps) {
 
   const is_all_selected =
     selected && selected.length === repos?.length ? true : false;
-
+  const enable_search = searchTerm !== "" && repos.length === 0
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-5 p-2">
       <div className="w-full flex flex-col items-center gap-3 sticky top-[10%]">
         <ReposSortSection repovars={repovars} setRepoVars={setRepoVars} />
-        <Stack direction="row" className="w-full flex items-center justify-center gap-1">
-          <Stack direction={"row"} className=" flex items-center justify-center gap-1">
+        <Stack direction="row" className="w-full flex  gap-1">
+{ searchTerm ==="" &&<Stack direction={"row"} className=" flex items-center justify-center gap-1">
             <Edit
               onClick={() => setEditing(!editing)}
               className={editing ? "h-5 w-5 text-purple-600" : "h-5 w-5 hover:text-purple-600"}
@@ -189,8 +189,8 @@ export function Repos({}: ReposProps) {
               {/* @ts-expect-error */}
               <DeleteRepo selected={selected} setOpen={setOpenDelete} setSelected={setSelected} />
             </MuiModal>
-          </Stack>
-          <RepoSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          </Stack>}
+        <RepoSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm}  enable_search={enable_search}/>
         </Stack>
       </div>
 
