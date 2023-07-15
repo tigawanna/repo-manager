@@ -41,7 +41,7 @@ export function RepoCard({
   const stars = repo.stargazerCount;
   const forks = repo.forkCount;
 
-  //  console.log("repo === ",repo.repositoryTopics);
+
   return (
     <Card
       sx={{

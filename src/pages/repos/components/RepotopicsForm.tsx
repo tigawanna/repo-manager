@@ -4,9 +4,9 @@ import {
   updateRepoTags,
 } from "@/state/providers/repos/mutation/updateRepoTags";
 import { RepositoryTopicsNode } from "@/state/providers/repos/types";
-import { Chip, TextField, useTheme } from "@mui/material";
+import { Chip, TextField, useTheme,Tooltip} from "@mui/material";
 import { useNotification } from "@refinedev/core";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { Check, Edit, X } from "lucide-react";
 import { useState } from "react";
@@ -33,7 +33,9 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
 
   return (
     <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
+      <Tooltip title="Edit topics">
       <Edit className="h-5 w-5 hover:text-purple-600" onClick={() => setEditing(!editing)} />
+      </Tooltip>
 
       {topics.map((topic, idx) => {
         return (
@@ -47,7 +49,6 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
         );
       })}
 
-      {(topics.length < 1 || editing) && (
         <Chip
           variant="outlined"
           onClick={() => setOpen(true)}
@@ -55,7 +56,7 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
           label="Add topic"
           size="small"
         />
-      )}
+      
       <RepoTopicInput
         open={open}
         setOpen={setOpen}
@@ -91,6 +92,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
   const [topics, setTopics] = useState<string[] | null>(old_topics);
   const [topic, setTopic] = useState("");
   const { open: opentoast, close } = useNotification();
+  const qc = useQueryClient()
   const theme = useTheme();
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
@@ -107,6 +109,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
   const mutation = useMutation({
     mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
     onSuccess(data, variables, context) {
+      qc.invalidateQueries(["repos"]);
       opentoast?.({
         key: "delere-topics-success",
         type: "success",

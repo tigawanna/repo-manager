@@ -6,7 +6,6 @@ import { Chip } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
-import { sample_repos } from "@/state/providers/repos/sample_repos";
 import { useParams } from "react-router-dom";
 import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
@@ -102,15 +101,16 @@ export function OneRepo({}: OneRepoProps) {
             <div>
               <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
 
-              {/* <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
+             <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
               {repo?.repositoryTopics.nodes.map((topic) => {
                   return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
                 })}
-              </div> */}
-              {topics.length > 0 && (
+              </div>
+       
                 <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />
-              )}
+              
             </div>
+
           </div>
 
           <CardMedia
