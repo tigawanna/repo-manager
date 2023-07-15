@@ -1,8 +1,8 @@
 import { loginPocketbaseUser } from "@/state/pocketbase/client";
-import { Button,Chip,Stack,TextField } from "@mui/material";
+import { Button,Card,Chip,Stack,TextField, useTheme } from "@mui/material";
 import { SaveButton } from "@refinedev/mui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Check, Github, Loader, Save } from "lucide-react";
+import { Check, Github, Loader, } from "lucide-react";
 import { useState } from "react";
 import { useNotification } from "@refinedev/core";
 
@@ -13,7 +13,7 @@ interface GithubButtonProps {
 export function GithubButton({}:GithubButtonProps){
 const qc = useQueryClient();
 const {open,close}=useNotification();
-
+const theme = useTheme()
 const[input,setInput]=useState("")
 const mutation = useMutation({
   mutationFn: loginPocketbaseUser,
@@ -41,9 +41,12 @@ const mutation = useMutation({
   },
 });
 return (
-  <div
+  <Card
+  sx={{
+    backgroundColor: theme.palette.background.paper
+  }}
     className="h-full flex flex-col items-center justify-center gap-3 rounded-lg border p-3 
-  shadow shadow-slate-300">
+  shadow ">
     <p className="w-full text-sm text-center">This app requires github access</p>
     <Button
       variant="outlined"
@@ -82,6 +85,6 @@ return (
         // location.reload();
         }}/>
     </div>
-  </div>
+  </Card>
 );
 }
