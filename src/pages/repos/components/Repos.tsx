@@ -22,14 +22,14 @@ export function Repos({}: ReposProps) {
   const [opendelete, setOpenDelete] = React.useState(false);
 
   const [repovars, setRepoVars] = useState<RepoQueryVariables>({
-    first: 10,
+    first: 12,
     orderBy: {
       field: "PUSHED_AT",
       direction: "DESC",
     },
     isFork: false,
   });
-
+console.log("repovars === ",repovars)
   const selectItem = (item: ItemList) => {
     setSelected((prev) => {
       if (!prev) {

@@ -17,6 +17,7 @@ export const reposDataProvider = (): Pick<
     const repos = (await getViewerRepositories({
       first,
       orderBy,
+      isFork,
       after: pagination?.current as any,
     })) as any;
     // const repos = await getViewerRepositories({first: 10,after:pagination?.current as any}) as any

@@ -1,5 +1,6 @@
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import {
+  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
@@ -49,9 +50,11 @@ export function ReposSortSection({
       };
     });
   };
+
   // console.log("repovars === ",repovars)
   return (
     <div className="w-full h-full flex items-center justify-center">
+
       <FormControl fullWidth>
         <InputLabel id="repos-ordre-by-field-label">field</InputLabel>
         <Select
@@ -98,6 +101,35 @@ export function ReposSortSection({
           </MenuItem>
           <MenuItem sx={{ fontSize: "11px" }} value={"DESC"}>
             DESC
+          </MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="repos-isfork-label">type</InputLabel>
+        <Select
+          labelId="repos-isforklabel"
+          id="repos-order-by-direction"
+          value={repovars.isFork?"FORKS":"ALL"}
+          label="type"
+          variant="outlined"
+          size="small"
+          sx={{ fontSize: "12px" }}
+          onChange={(e) => {
+            const value = e.target.value
+            
+            setRepoVars((prev) => {
+              return {
+                ...prev,
+                isFork:value === "FORKS" ? true : false,
+              };
+            });
+          }}
+        >
+          <MenuItem sx={{ fontSize: "11px" }} value={"ALL"}>
+            All
+          </MenuItem>
+          <MenuItem sx={{ fontSize: "11px" }} value={"FORKS"}>
+            FORKS
           </MenuItem>
         </Select>
       </FormControl>

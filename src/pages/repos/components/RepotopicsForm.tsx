@@ -4,7 +4,7 @@ import {
   updateRepoTags,
 } from "@/state/providers/repos/mutation/updateRepoTags";
 import { IRepositoryTopicsNode } from "@/state/providers/repos/query/viewer_one_repos_types";
-import { Chip, TextField, useTheme,Tooltip} from "@mui/material";
+import { Chip, TextField, useTheme,Tooltip, Card} from "@mui/material";
 import { useNotification } from "@refinedev/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -21,6 +21,8 @@ export function RepoTopicsForm({ repo_topics, resourceId }: RepotopicsFormProps)
   const [topics, setTopics] = useState(repo_topics);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
+
+
   const old_topics = topics.map((topic) => topic.topic.name);
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
@@ -142,7 +144,11 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
   return (
     <div className="w-full h-full flex items-center justify-center gap-2 rounded-lg">
       <MuiModal open={open} setOpen={setOpen}>
-        <div className="bg-slate-950 w-full h-full p-5 flex flex-col gap-3 rounded-lg">
+        <Card 
+        sx={{
+        backgroundColor: theme.palette.background.paper
+        }}
+        className=" w-full h-full p-5 flex flex-col gap-3 rounded-lg">
           <div className="flex flex-wrap w-full h-full gap-2">
             {topics &&
               topics.map((topic, idx) => {
@@ -192,7 +198,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
               {mutation.isLoading ? <Loader className="w-5 h-5 animate-spin" /> : "submit"}
             </button>
           )}
-        </div>
+        </Card>
       </MuiModal>
     </div>
   );
