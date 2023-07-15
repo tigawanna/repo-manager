@@ -16,13 +16,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { SaveButton } from "@refinedev/mui";
 import { Loader } from "lucide-react";
+import { useTheme } from "@mui/material/styles";
+import { useNotification } from "@refinedev/core";
+
+
+
 
 interface UpdateViewerProps {
   viewer: UpdateViewerInput;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function UpdateViewer({ viewer }: UpdateViewerProps) {
+export function UpdateViewer({ viewer,setOpen }: UpdateViewerProps) {
+  const theme = useTheme()
+  const { open, close } = useNotification();
   const qc = useQueryClient();
+
+
   const [input, setInput] = useState<UpdateViewerInput>({
     name: viewer.name ?? "",
     email: viewer.email ?? "",
@@ -36,9 +46,27 @@ export function UpdateViewer({ viewer }: UpdateViewerProps) {
   const mutation = useMutation(
     {
       mutationFn: (vars: UpdateViewerInput) => updateViewer(vars),
-      onSettled(data, error, variables, context) {
+      onSuccess() {
         qc.invalidateQueries(["viewer"]);
+        open?.({
+          key:"update-viewer-success",
+          type: "success",
+          message: "Success",
+          description: "viewr updated successfully",
+        });
+        close?.("update-viewer-success");
+        setOpen(false)
       },
+      onError(error:any, variables, context) {
+                open?.({
+                  key: "update-viewer-error",
+                  type: "error",
+                  message: "Error",
+                  description: "error updating viewer"+error?.message,
+                });
+          close?.("update-viewer-error");
+      },
+
     },
   );
 
@@ -47,15 +75,26 @@ export function UpdateViewer({ viewer }: UpdateViewerProps) {
   }));
 
   const handleChange = (e: any) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    const fieldValue = type === "checkbox" ? checked : value;
+    setInput((prevData) => ({
+      ...prevData,
+      [name]: fieldValue,
+    }));
   };
+
   return (
-    <FormCard className="w-full p-5 rounded-md">
+    // <form className={background}>
       <FormGroup
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("new user input", input);
-        }}
+      sx={{
+        padding:5,
+        borderRadius:5,
+        backgroundColor:theme.palette.background.paper,
+      }}
+        // onSubmit={(e) => {
+        //   e.preventDefault();
+        //   console.log("new user input", input);
+        // }}
         className="w-full h-full flex flex-col items-center justify-center gap-3"
       >
         <Stack direction="row" spacing={2}>
@@ -153,12 +192,12 @@ export function UpdateViewer({ viewer }: UpdateViewerProps) {
             {mutation?.error?.message}
           </div>
         )}
-        <SaveButton >
+        <SaveButton onClick={()=>mutation.mutate(input)}>
           {mutation.isLoading
             ? <Loader className="w-4 h-4 animate-spin" />
             : "Update"}
         </SaveButton>
       </FormGroup>
-    </FormCard>
+    // </form>
   );
 }

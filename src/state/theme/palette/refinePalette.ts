@@ -1,20 +1,5 @@
 export const RefinePalettes = {
-  Blue: {
-    mode: "light",
-    primary: {
-      main: "#81573a",
-      light: "#4791db",
-      dark: "#115293",
-    },
-  },
-  BlueDark: {
-    mode: "dark",
-    primary: {
-      main: "#67b7f7",
-      light: "#85c5f8",
-      dark: "#4880ac",
-    },
-  },
+
   Brown: {
     mode: "light",
     primary: {
@@ -29,6 +14,7 @@ export const RefinePalettes = {
       main: "#412C37",
       light: "#6F4F4E",
       dark: "#412C37",
+      contrastText: '#f7b208',
     },
   },
   Purple: {

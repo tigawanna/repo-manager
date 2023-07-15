@@ -68,8 +68,7 @@ const extradetails = {
     <div className="h-full w-full dark-styles gap-1">
       <div className="w-full   p-2 flex-col-center gap-1">
         <div className="p-1 h-full w-full flex flex-col md:flex-row items-center gap-2">
-          <div
-            className="h-[40%] w-[70%] md:h-full max-w-[200px]  md:w-[15%] rounded-[5%] aspect-square">
+          <div className="h-[40%] w-[70%] md:h-full max-w-[200px]  md:w-[15%] rounded-[5%] aspect-square">
             <img
               className="
              h-[100%] w-[100%] rounded-[5%]  m-1"
@@ -81,7 +80,7 @@ const extradetails = {
           </div>
 
           <div
-          className="text-[15px]  flex flex-col md:flex-row  items-center md:justify-evenly
+            className="text-[15px]  flex flex-col md:flex-row  items-center md:justify-evenly
           p-3  m-2 w-full 
            font-sans  h-full">
             <div className="text-[15px] w-full ">
@@ -100,11 +99,9 @@ const extradetails = {
               <ProfileInfoItemWrapper valkey={"twitter"} value={extradetails?.twitter} />
             </div>
           </div>
-          <EditButton onClick={() => setOpen(true)}>
-            edit
-          </EditButton>
+          <EditButton onClick={() => setOpen(true)}>edit</EditButton>
           <MuiModal open={open} setOpen={setOpen}>
-          <UpdateViewer viewer={user}/>
+            <UpdateViewer viewer={user} setOpen={setOpen} />
           </MuiModal>
         </div>
 
