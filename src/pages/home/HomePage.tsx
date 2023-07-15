@@ -18,8 +18,13 @@ export function HomePage({}:HomePageProps){
     onSuccess(data) {
       localStorage.setItem("github_token",data);
     },
-    onError(error) {
+    onError(error:any) {
       // console.log("error message testing ==",error.message);
+      open?.({
+        type: "error",
+        message: "Github token error",
+        description: error.message,
+ })
     }
   });
   // console.log("query === ",query.data)
