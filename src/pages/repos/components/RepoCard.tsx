@@ -12,14 +12,19 @@ import {
 } from "@mui/material";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { CardMenu } from "@/components/shared/CardMenu";
-import { ItemList, RepositoriesEdge } from "@/state/providers/repos/types";
 import { Link } from "react-router-dom";
 import { Star, GitFork, Ban, Lock } from "lucide-react";
+import { ForksyncCheck } from "./ForksyncCheck";
+import { IRepositoriesEdge } from "@/state/providers/repos/query/viwer_repo_types";
 
-
+export type ItemList = {
+  id: string;
+  name: string;
+  nameWithOwner: string;
+};
 
 interface RepoCard {
-  viewer_repos: RepositoriesEdge;
+  viewer_repos: IRepositoriesEdge;
   selected: boolean;
   editing: boolean;
   selectItem: (item: ItemList) => void;
@@ -129,7 +134,7 @@ export function RepoCard({
         />
         <CardContent style={{ padding: 1 }} className="w-fit p-1">
           <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">{repo.description}</h4>
-          <div className="flex rounded-full border shadow shadow-slate-500 w-fit">
+          <div className="flex  w-fit">
             {stars > 0 && (
               <div className="flex gap-1 text-sm items-center justify-center px-2">
                 {stars}
@@ -142,6 +147,7 @@ export function RepoCard({
                 <GitFork className="w-4 h-4 text-purple-600" />
               </div>
             )}
+            <ForksyncCheck repo={repo}/>
           </div>
         </CardContent>
       </Link>

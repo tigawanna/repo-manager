@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
 import { RepoTopicsForm } from "./RepotopicsForm";
+import { ForksyncCheck } from "./ForksyncCheck";
 
 interface OneRepoProps {}
 
@@ -63,7 +64,7 @@ export function OneRepo({}: OneRepoProps) {
                   {repo?.nameWithOwner}
                 </h3>
               </a>
-              <h4>{}</h4>
+              <ForksyncCheck repo={repo}/>
 
               <div className="w-full flex flex-wrap gap-1">
                 {repo?.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
@@ -96,7 +97,7 @@ export function OneRepo({}: OneRepoProps) {
                     Delete
                   </MenuItem>
                 </CardMenu>
-              </div>
+              F</div>
             </div>
             <div>
               <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
@@ -125,8 +126,7 @@ export function OneRepo({}: OneRepoProps) {
       </div>
 
       <MuiModal open={open} setOpen={setOpen}>
-        {/* @ts-expect-error */}
-        <UpdateRepoForm input={repo} />
+      <UpdateRepoForm input={repo} />
       </MuiModal>
       {/* {stars?.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}         */}
       {/* <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2  gap-5">

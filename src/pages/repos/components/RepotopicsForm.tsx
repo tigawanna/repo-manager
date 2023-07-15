@@ -3,7 +3,7 @@ import {
   UpdateRepoTagsInput,
   updateRepoTags,
 } from "@/state/providers/repos/mutation/updateRepoTags";
-import { RepositoryTopicsNode } from "@/state/providers/repos/types";
+import { IRepositoryTopicsNode } from "@/state/providers/repos/query/viewer_one_repos_types";
 import { Chip, TextField, useTheme,Tooltip} from "@mui/material";
 import { useNotification } from "@refinedev/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ import { useState } from "react";
 
 
 interface RepotopicsFormProps {
-  repo_topics: RepositoryTopicsNode[];
+  repo_topics: IRepositoryTopicsNode[];
   resourceId: string;
 }
 
