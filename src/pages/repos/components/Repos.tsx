@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { RepoCard } from "./RepoCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, Chip , Skeleton } from "@mui/material";
 import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
@@ -13,10 +13,11 @@ import { useList, useInfiniteList } from "@refinedev/core";
 import { InfiniteButton } from "../../../components/shared/InfiniteButton";
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import { ReposSortSection } from "./ReposSortSection";
-
+import { useInView } from "react-intersection-observer";
 interface ReposProps {}
 
 export function Repos({}: ReposProps) {
+    const { ref, inView } = useInView();
   const [editing, setEditing] = React.useState(true);
   const [selected, setSelected] = React.useState<ItemList[] | null>(null);
   const [opendelete, setOpenDelete] = React.useState(false);
@@ -86,6 +87,13 @@ export function Repos({}: ReposProps) {
   });
 
   const { data, isError, isLoading, error } = query;
+    
+  useEffect(() => {
+    if (inView) {
+      query.fetchNextPage();
+    }
+  }, [inView]);
+  
   if (isLoading) {
     return (
       // <div className="w-full h-full min-h-screen flex items-center justify-center">
@@ -175,7 +183,7 @@ export function Repos({}: ReposProps) {
           })}
       </div>
 
-      <InfiniteButton query={query} />
+      <InfiniteButton query={query} innerRef={ref}/>
     </div>
   );
 }

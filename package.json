@@ -18,6 +18,7 @@
     "@refinedev/react-router-v6": "^4.1.0",
     "@refinedev/supabase": "^5.0.0",
     "@tanstack/react-query": "^4.29.19",
+        "react-intersection-observer": "^9.5.1",
     "axios": "^0.26.1",
     "graphql": "^16.7.1",
     "graphql-request": "^6.1.0",

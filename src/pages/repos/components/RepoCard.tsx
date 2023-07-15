@@ -8,12 +8,13 @@ import {
   CardMedia,
   CardContent,
   useTheme,
+  Tooltip
 } from "@mui/material";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { CardMenu } from "@/components/shared/CardMenu";
 import { ItemList, RepositoriesEdge } from "@/state/providers/repos/types";
 import { Link } from "react-router-dom";
-import { Star, GitFork } from "lucide-react";
+import { Star, GitFork, Ban, Lock } from "lucide-react";
 
 
 
@@ -79,6 +80,16 @@ export function RepoCard({
               <h1 className="text-lg font-bold line-clamp-1">{repo.name}</h1>
               <h3 className="line-clamp-1 text-sm">{repo.nameWithOwner}</h3>
             </div>
+            {repo.isFork && (
+              <Tooltip title="forked repos">
+                <GitFork className="h-4 w-4 text-blue-600" />
+              </Tooltip>
+            )}
+            {repo.isPrivate && (
+              <Tooltip title="private repo">
+                <Lock className="h-4 w-4 text-red-600" />
+              </Tooltip>
+            )}
           </div>
 
           <CardMenu>
