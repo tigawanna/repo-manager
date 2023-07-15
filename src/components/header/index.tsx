@@ -14,6 +14,7 @@ import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 
 import React, { useContext } from "react";
 import { ColorModeContext } from "../../contexts/color-mode";
+import { TanstckIsFetching } from "../shared/TanstckIsFetching";
 
 type IUser = {
   id: number;
@@ -102,6 +103,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
           </Stack>
         </Stack>
       </Toolbar>
+      <TanstckIsFetching/>
     </AppBar>
   );
 };
