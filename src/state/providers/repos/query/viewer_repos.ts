@@ -19,7 +19,7 @@ export interface RepoQueryVariables extends Variables {
 }
 
 export async function getViewerRepositories(variables: RepoQueryVariables) {
-  console.log("variables == ",variables)
+  // console.log("variables == ",variables)
   try {
     // const data = sample_repos
     const data = await gql_request_helper<

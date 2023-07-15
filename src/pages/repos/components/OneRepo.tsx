@@ -61,13 +61,13 @@ export function OneRepo({}: OneRepoProps) {
               </a>
               <ForksyncCheck repo={repo} />
 
-              <div className="w-full flex flex-wrap gap-1">
+              <div className="w-full flex flex-wrap gap-2">
                 <a
                   href={"https://vscode.dev/"+repo?.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-purple-700 gap-2 ">
-                    open in VScode
+                  className="text-blue-600 hover:text-purple-700 gap-2 text-sm border rounded-full p-1">
+                    open in vscode
                 </a>
                 {repo?.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
                 {repo?.isFork && <GitFork className="w-5 h-5 text-purple-400" />}

@@ -1,8 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-
 import { RepoCard } from "./RepoCard";
 import React, { useEffect, useState } from "react";
-import { Box, Card, Checkbox, Chip , Skeleton, useTheme } from "@mui/material";
+import { Stack, Card, Checkbox, Chip , Skeleton, useTheme } from "@mui/material";
 import { Edit, Loader, Trash } from "lucide-react";
 import { DeleteRepo } from "./DeleteRepo";
 import { ItemList } from "./types";
@@ -13,6 +11,7 @@ import { InfiniteButton } from "../../../components/shared/InfiniteButton";
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import { ReposSortSection } from "./ReposSortSection";
 import { useInView } from "react-intersection-observer";
+import { RepoSearch } from "./RepoSearch";
 interface ReposProps {}
 
 export function Repos({}: ReposProps) {
@@ -29,7 +28,7 @@ export function Repos({}: ReposProps) {
     },
     isFork: false,
   });
-console.log("repovars === ",repovars)
+// console.log("repovars === ",repovars)
   const selectItem = (item: ItemList) => {
     setSelected((prev) => {
       if (!prev) {
@@ -139,46 +138,47 @@ console.log("repovars === ",repovars)
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-5 p-2">
-      <div className="w-full flex items-center gap-3 sticky top-[10%]">
-        <Edit
-          onClick={() => setEditing(!editing)}
-          className={
-            editing
-              ? "h-5 w-5 text-purple-600"
-              : "h-5 w-5 hover:text-purple-600"
-          }
-        />
-        {editing && (
-          <Checkbox
-            className=""
-            checked={is_all_selected}
-            onClick={() => {
-              if (is_all_selected) {
-                deselectAll();
-              } else {
-                // @ts-expect-error
-                selectAll(repos);
-              }
-            }}
-          />
-        )}
-        {editing && selected && selected?.length > 0 && (
-          <Chip variant="outlined" label={selected?.length} size="small" />
-        )}
-
-        <div className="flex items-center justify-center gap-3">
-          {selected && selected.length > 0 && (
-            <Trash
-              onClick={() => setOpenDelete(true)}
-              className="h-5 w-5 text-red-700 hover:fill-red-700 "
-            />
-          )}
-        </div>
-        <MuiModal open={opendelete} setOpen={setOpenDelete}>
-          {/* @ts-expect-error */}
-          <DeleteRepo selected={selected} setOpen={setOpenDelete} setSelected={setSelected}/>
-        </MuiModal>
+      <div className="w-full flex flex-col items-center gap-3 sticky top-[10%]">
         <ReposSortSection repovars={repovars} setRepoVars={setRepoVars} />
+        <Stack direction="row" className="w-full flex items-center justify-center gap-1">
+          <Stack direction={"row"} className=" flex items-center justify-center gap-1">
+            <Edit
+              onClick={() => setEditing(!editing)}
+              className={editing ? "h-5 w-5 text-purple-600" : "h-5 w-5 hover:text-purple-600"}
+            />
+            {editing && (
+              <Checkbox
+                className=""
+                checked={is_all_selected}
+                onClick={() => {
+                  if (is_all_selected) {
+                    deselectAll();
+                  } else {
+                    // @ts-expect-error
+                    selectAll(repos);
+                  }
+                }}
+              />
+            )}
+            {editing && selected && selected?.length > 0 && (
+              <Chip variant="outlined" label={selected?.length} size="small" />
+            )}
+
+            <div className="flex items-center justify-center gap-3">
+              {selected && selected.length > 0 && (
+                <Trash
+                  onClick={() => setOpenDelete(true)}
+                  className="h-5 w-5 text-red-700 hover:fill-red-700 "
+                />
+              )}
+            </div>
+            <MuiModal open={opendelete} setOpen={setOpenDelete}>
+              {/* @ts-expect-error */}
+              <DeleteRepo selected={selected} setOpen={setOpenDelete} setSelected={setSelected} />
+            </MuiModal>
+          </Stack>
+          <RepoSearch />
+        </Stack>
       </div>
 
       <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2 ">
@@ -189,9 +189,7 @@ console.log("repovars === ",repovars)
                 key={repo.node.id}
                 // @ts-expect-error
                 viewer_repos={repo}
-                selected={
-                  selected ? selected.some((i) => i.id === repo.node.id) : false
-                }
+                selected={selected ? selected.some((i) => i.id === repo.node.id) : false}
                 selectItem={selectItem}
                 unselectItem={unselectItem}
                 editing={editing}
@@ -200,7 +198,7 @@ console.log("repovars === ",repovars)
           })}
       </div>
 
-      <InfiniteButton query={query} innerRef={ref}/>
+      <InfiniteButton query={query} innerRef={ref} />
     </div>
   );
 }

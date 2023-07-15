@@ -1,6 +1,5 @@
 import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import {
-  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
