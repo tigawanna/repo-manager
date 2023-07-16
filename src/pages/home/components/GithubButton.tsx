@@ -1,10 +1,11 @@
 import { loginPocketbaseUser } from "@/state/pocketbase/client";
-import { Button,Card,Chip,Stack,TextField, useTheme } from "@mui/material";
+import { Button,Card,TextField, useTheme } from "@mui/material";
 import { SaveButton } from "@refinedev/mui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Check, Github, Loader, } from "lucide-react";
+import {  Github, Loader, } from "lucide-react";
 import { useState } from "react";
 import { useNotification } from "@refinedev/core";
+import { checkToken } from "@/state/pocketbase/token";
 
 interface GithubButtonProps {
 
@@ -15,12 +16,14 @@ const qc = useQueryClient();
 const {open,close}=useNotification();
 const theme = useTheme()
 const[input,setInput]=useState("")
+
 const mutation = useMutation({
   mutationFn: loginPocketbaseUser,
   onSuccess(data, variables, context) {
-    console.log("login success data,var,cxt ==", data, variables, context);
-    qc.setQueryData(["gh-token"], input);
-            open?.({
+   console.log("data")
+   qc.setQueryData(["gh-token"],data.access_token);
+   localStorage.setItem("github_token",data.access_token);
+           open?.({
               key: "update-token-success",
               type: "success",
               message: "Success",
@@ -37,9 +40,30 @@ const mutation = useMutation({
               message: "Error with login",
               description:error.message,
             });
-            close?.("update-token-error");
+      close?.("update-token-error");
   },
 });
+
+
+const add_pat_mutation = useMutation({
+  mutationFn:async() => {
+  const valid_token  = await checkToken(input)
+    console.log("valid_token === ",valid_token)
+    return valid_token
+  },
+  onSuccess(data, variables, context) {
+       qc.setQueryData(["gh-token"],data);
+       localStorage.setItem("github_token",data);
+  },
+  onError(error:any) {
+    open?.({
+      key: "update-token-error",
+      type: "error",
+      message: "Error with login",
+      description:"invalid personal access token",
+    })
+  }
+})
 return (
   <Card
   sx={{
@@ -67,6 +91,7 @@ return (
       with scopes
       <br />
     </div>
+
     <p className="font-serif ">"user", "repo", "delete_repo"</p>
     <div className=" flex gap-2 items-center justify-center">
       <TextField
@@ -80,10 +105,10 @@ return (
       />
 
       <SaveButton onClick={() =>{
-        localStorage.setItem("GH_PAT",input)
-          qc.setQueryData(["gh-token"], input);
-        // location.reload();
-        }}/>
+         add_pat_mutation.mutate();
+        }}>
+          {add_pat_mutation.isLoading&&<Loader className="h-5 w-5 animate-spin" />}
+        </SaveButton>
     </div>
   </Card>
 );

@@ -4,16 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { ViewerDetails } from "./ViewerDetails";
 import { GithubButton } from "./GithubButton";
+import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 
 interface ViewerHomepageProps {
 
 }
 
 export function ViewerHomepage({}:ViewerHomepageProps){
+  
 const query = useQuery({
     queryKey: ["viewer"],
     queryFn: getViewerRepositories,
-    onError(err) {
+    onError(err:any) {
     //   console.log("error message test ==",err.message.data);
     },
 },
@@ -28,11 +30,9 @@ if(query.isLoading){
 }
 if(query.isError || !query.data){
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center rounded-lg">
+      <div className="w-full h-full flex flex-col items-center justify-center rounded-lg gap-1">
         <GithubButton />
-        <p className="test-sm  bg-red-950 text-red-200 px-3 border-red-300 border rounded-lg">
-          {"error getting veiwer repos"}
-        </p>
+       <ErrorrMessageComponent error_message={query.error?.message} />
       </div>
     );
 }

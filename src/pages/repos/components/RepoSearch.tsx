@@ -1,5 +1,5 @@
 import { repoSearch } from "@/state/providers/repos/query/repos_search_query";
-import { Box, Card, Container, InputAdornment, TextField, useTheme } from "@mui/material";
+import { Container, InputAdornment, TextField, useTheme } from "@mui/material";
 import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { ItemList, RepoCard } from "./RepoCard";

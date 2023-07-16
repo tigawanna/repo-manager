@@ -12,6 +12,7 @@ import { RepoQueryVariables } from "@/state/providers/repos/query/viewer_repos";
 import { ReposSortSection } from "./ReposSortSection";
 import { useInView } from "react-intersection-observer";
 import { RepoSearch } from "./RepoSearch";
+import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 
 interface ReposProps {}
 
@@ -130,9 +131,7 @@ export function Repos({}: ReposProps) {
   if (isError) {
     return (
       <div className="w-full h-full min-h-screen flex items-center justify-center">
-        <p className="test-sm w-[80%] bg-red-300 text-red-950">
-          {error && error.message}
-        </p>
+        <ErrorrMessageComponent error_message={query.error?.message} />
       </div>
     );
   }

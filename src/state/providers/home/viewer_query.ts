@@ -8,7 +8,7 @@ export async function getViewerRepositories() {
     // const data = sample_repos
     const data = await gql_request_helper<IViewerQuery, Variables>({ document: ViewerQuery });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    console.log("viewer repos response === ", data);
+    // console.log("viewer repos response === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);

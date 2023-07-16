@@ -11,15 +11,17 @@ interface HomePageProps {
 }
 
 export function HomePage({}:HomePageProps){
+
   const {open,close} =useNotification();
  const query = useQuery({
     queryKey: ["gh-token"],
     queryFn: getGithubAccessToken,
-    onSuccess(data) {
-      localStorage.setItem("github_token",data);
-    },
+    // onSuccess(data) {
+    //  localStorage.setItem("github_token",data);
+    // },
     onError(error:any) {
       // console.log("error message testing ==",error.message);
+      localStorage.removeItem("github_token");
       open?.({
         type: "error",
         message: "Github token error",
@@ -39,10 +41,9 @@ export function HomePage({}:HomePageProps){
   const token = query.data;
 if(!token||token ==="" || query.isError){
 return (
-  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+  <div className="w-full h-full flex flex-col items-center justify-center gap-5">
     <GithubButton />
-
-  {/* {query.isError && <ErrorrMessageComponent error_message={query.error?.message} />} */}
+ {query.isError && <ErrorrMessageComponent error_message={query.error?.message} />}
   </div>
 );
   }

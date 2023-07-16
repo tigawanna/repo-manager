@@ -6,12 +6,14 @@ import { Chip } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
 import { RepoTopicsForm } from "./RepotopicsForm";
 import { ForksyncCheck } from "./ForksyncCheck";
-import { RepoLanguages } from "./REpoLanguages";
+import { RepoLanguages } from "./RepoLanguages";
+import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
+import { StepBack } from "lucide-react";
 
 
 interface OneRepoProps {}
@@ -37,16 +39,15 @@ const nameWithOwner = searchParams.get("nameWithOwner");
       </div>
     );
   }
-  // if (isError) {
-  //   return (
-  //     <div className="w-full h-full min-h-screen flex items-center justify-center">
-  //       <p className="test-sm w-[80%] bg-red-300 text-red-950">
-  //         {/* @ts-expect-error */}
-  //         {error && error?.message}
-  //       </p>
-  //     </div>
-  //   );
-  // }
+  if (isError) {
+    return (
+      <div className="w-full h-full min-h-screen flex items-center justify-center">
+        <Link to={".."}><StepBack/></Link>
+        {/* @ts-expect-error */}
+        <ErrorrMessageComponent error_message={query.error?.message} />
+      </div>
+    );
+  }
   if (!data) {
     return <div className="min-h-screen w-full  flex flex-col">no data</div>;
   }
