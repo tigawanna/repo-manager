@@ -31,7 +31,7 @@ export const reposDataProvider = (): Pick<
   getOne: async ({ resource, id, meta, }) => {
     // console.log("repos get one params === ", { resource, id, meta });
     const nameWithOwner = meta?.nameWithOwner.split("/");
-    console.log("name with owner === ", nameWithOwner);
+    // console.log("name with owner === ", nameWithOwner);
     const name = nameWithOwner[1] ?? ""
     const login = nameWithOwner[0] ?? ""
     // const repo = (await getViewerOneRepository({ name: id as string })) as any;

@@ -101,6 +101,15 @@ export const ViewerOneRepositoryQuery = gql`
           }
         }
 
+      languages(first:20,orderBy:{field:SIZE,direction:DESC}){
+      totalCount
+      nodes{
+        color
+        id
+        name
+      }
+    }
+
 
       }
     }

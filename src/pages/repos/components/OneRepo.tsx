@@ -11,6 +11,7 @@ import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
 import { RepoTopicsForm } from "./RepotopicsForm";
 import { ForksyncCheck } from "./ForksyncCheck";
+import { RepoLanguages } from "./REpoLanguages";
 
 
 interface OneRepoProps {}
@@ -56,8 +57,8 @@ const nameWithOwner = searchParams.get("nameWithOwner");
   return (
     <Card className="min-h-screen w-full  flex flex-col">
       <div className="w-full flex flex-col md:flex-row  justify-between p-3 gap-2 ">
-        <div className="w-full  flex flex-wrap justify-between p-3">
-          <div className="w-full flex flex-col  gap-5 p-2 max-w-[70%] ">
+        <div className="w-full  grid gap-2 sm:grid-cols-2">
+          <div className="w-full  flex flex-col  gap-5 p-2  ">
             <div className="flex flex-col gap-2">
               <a
                 href={repo?.url}
@@ -125,33 +126,34 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                 )}
               </div>
             </div>
-            <div>
-              <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
-
-              <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
-                {repo?.repositoryTopics.nodes.map((topic) => {
-                  return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
-                })}
-              </div>
-
-              <RepoTopicsForm
-                repo_topics={topics}
-                resourceId={repo.id}
-                is_admin={repo.viewerPermission === "ADMIN"}
-              />
-            </div>
           </div>
 
           <CardMedia
             component="img"
             height={50}
-            className="w-full md:w-[10%] md:max-w-[350px] lg:max-w-[500px] shadow rounded object-cover"
+            className="w-full lg:w-[40%]   shadow rounded object-cover "
             image={repo?.openGraphImageUrl}
             alt={repo?.nameWithOwner}
             width={50}
           />
         </div>
       </div>
+      <div>
+        <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
+
+        <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
+          {repo?.repositoryTopics.nodes.map((topic) => {
+            return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
+          })}
+        </div>
+
+        <RepoTopicsForm
+          repo_topics={topics}
+          resourceId={repo.id}
+          is_admin={repo.viewerPermission === "ADMIN"}
+        />
+      </div>
+      <RepoLanguages repo={repo} />
 
       <MuiModal open={open} setOpen={setOpen}>
         <UpdateRepoForm input={repo} />

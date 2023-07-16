@@ -35,6 +35,7 @@ export interface IViewerOneRepoRepository {
   parent?: Parent
 
   repositoryTopics: RepositoryTopics;
+  languages: ILanguages;
 }
 
 
@@ -98,4 +99,15 @@ export interface IRepositoryTopicsNode {
 export interface ITopic {
   id: string;
   name: string;
+}
+
+export interface ILanguages {
+  totalCount: number
+  nodes: ILanguagesNode[]
+}
+
+export interface ILanguagesNode {
+  color: string
+  id: string
+  name: string
 }
