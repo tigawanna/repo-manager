@@ -52,13 +52,15 @@ export function Repos({}: ReposProps) {
     setSelected((prev) => {
       if (repos) {
         return [
-          ...repos.map((i) => {
-            return {
-              id: i.node.id,
-              name: i.node.name,
-              nameWithOwner: i.node.nameWithOwner,
-            };
-          }),
+          ...repos
+            .filter((i) => i.node.viewerPermission === "ADMIN")
+            .map((i) => {
+              return {
+                id: i.node.id,
+                name: i.node.name,
+                nameWithOwner: i.node.nameWithOwner,
+              };
+            }),
         ];
       }
 
@@ -116,7 +118,7 @@ export function Repos({}: ReposProps) {
           color: "black",
         },
       }}
-      className="sm:h-[250px] w-full sm:w-[45%] lg:w-[30%] 
+      className="h-[250px] w-full sm:w-[45%] lg:w-[30%] 
       flex flex-col items-center justify-center shadow shadow-slate-500 gap-0 animate-pulse"
       variant="elevation">
         <Loader className="h-5 w-5 animate-spin" />
@@ -154,7 +156,7 @@ export function Repos({}: ReposProps) {
       <div className="w-full flex flex-col items-center gap-3 sticky top-[10%]">
         <ReposSortSection repovars={repovars} setRepoVars={setRepoVars} />
         <Stack direction="row" className="w-full flex  gap-1">
-{ searchTerm ==="" &&<Stack direction={"row"} className=" flex items-center justify-center gap-1">
+      { searchTerm ==="" &&<Stack direction={"row"} className=" flex items-center justify-center gap-1">
             <Edit
               onClick={() => setEditing(!editing)}
               className={editing ? "h-5 w-5 text-purple-600" : "h-5 w-5 hover:text-purple-600"}
@@ -194,14 +196,14 @@ export function Repos({}: ReposProps) {
         </Stack>
       </div>
 
-      <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2 ">
+      <div className="w-full h-full flex flex-wrap items-center justify-center gap-5 p-2  ">
         {repos &&
           repos.map((repo, i) => {
             return (
               <RepoCard
                 key={repo.node.id}
-                // @ts-expect-error
-                viewer_repos={repo}
+                
+                viewer_repos={repo.node}
                 selected={selected ? selected.some((i) => i.id === repo.node.id) : false}
                 selectItem={selectItem}
                 unselectItem={unselectItem}

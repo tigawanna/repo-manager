@@ -1,5 +1,5 @@
 export interface IViewerOneRepo {
-  viewer: IViewerOneRepoViewer;
+  user: IViewerOneRepoViewer;
 }
 
 export interface IViewerOneRepoViewer {
@@ -9,10 +9,12 @@ export interface IViewerOneRepoViewer {
 export interface IViewerOneRepoRepository {
   id: string;
   name: string;
-  viewerPermission: string;
+  viewerPermission: "ADMIN" | "MAINTAIN" |"READ"|"WRITE"|"TRIAGE";
   nameWithOwner: string;
+  isInOrganization: boolean;
   description: string;
   url: string;
+
   homepageUrl: string;
   openGraphImageUrl: string;
   updatedAt: string;

@@ -18,7 +18,7 @@ export interface IRepositoriesEdge {
 export interface IRepositoriesNode {
   id: string;
   name: string;
-  viewerPermission: string;
+  viewerPermission: "ADMIN" | "MAINTAIN" | "READ" | "WRITE" | "TRIAGE";
   nameWithOwner: string;
   description?: string;
   url: string;
@@ -26,12 +26,13 @@ export interface IRepositoriesNode {
   homepageUrl: string;
   updatedAt: string;
   isFork: boolean;
+
   isPrivate: boolean;
   isTemplate: boolean;
   isArchived: boolean;
   isEmpty: boolean;
   forkCount: number;
-
+  isInOrganization: boolean;
   defaultBranchRef: DefaultBranchRef
   parent?: Parent
 

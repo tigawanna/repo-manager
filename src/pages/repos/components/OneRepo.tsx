@@ -1,23 +1,31 @@
 import React from "react";
-import { Card, CardMedia } from "@mui/material";
-import { Edit, GitFork, Loader, Lock } from "lucide-react";
+import { Card, CardMedia, Tooltip } from "@mui/material";
+import { Building, Construction, Edit, GitFork, Loader, Lock } from "lucide-react";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { Chip } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useOne } from "@refinedev/core";
 import { IViewerOneRepo } from "@/state/providers/repos/query/viewer_one_repos_types";
 import { RepoTopicsForm } from "./RepotopicsForm";
 import { ForksyncCheck } from "./ForksyncCheck";
 
+
 interface OneRepoProps {}
 
 export function OneRepo({}: OneRepoProps) {
   const params = useParams();
+const [searchParams, setSearchParams] = useSearchParams();
+const nameWithOwner = searchParams.get("nameWithOwner");
+// console.log("params === ",searchParams.get("nameWithOwner"))
   // console.log("params === ",params)
-  const query = useOne<IViewerOneRepo>({ resource: "repos", id: params.id });
+  const query = useOne<IViewerOneRepo>({
+    resource: "repos",
+    id: params.id,
+    meta: { nameWithOwner },
+  });
   const [open, setOpen] = React.useState<boolean>(false);
   const { data, isLoading, isError, error } = query;
 
@@ -28,28 +36,28 @@ export function OneRepo({}: OneRepoProps) {
       </div>
     );
   }
-  if (isError) {
-    return (
-      <div className="w-full h-full min-h-screen flex items-center justify-center">
-        <p className="test-sm w-[80%] bg-red-300 text-red-950">
-          {/* @ts-expect-error */}
-          {error && error?.message}
-        </p>
-      </div>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <div className="w-full h-full min-h-screen flex items-center justify-center">
+  //       <p className="test-sm w-[80%] bg-red-300 text-red-950">
+  //         {/* @ts-expect-error */}
+  //         {error && error?.message}
+  //       </p>
+  //     </div>
+  //   );
+  // }
   if (!data) {
     return <div className="min-h-screen w-full  flex flex-col">no data</div>;
   }
-
-  const repo = data?.data.viewer.repository;
-  const topics = repo?.repositoryTopics.nodes;
+  // console.log("data === ",data)
+  const repo = data?.data?.user?.repository;
+  const topics = repo?.repositoryTopics?.nodes;
 
   return (
     <Card className="min-h-screen w-full  flex flex-col">
       <div className="w-full flex flex-col md:flex-row  justify-between p-3 gap-2 ">
-        <div className="w-full  flex flex-col md:flex-row justify-between p-3">
-          <div className="w-full flex flex-col  gap-5 p-2">
+        <div className="w-full  flex flex-wrap justify-between p-3">
+          <div className="w-full flex flex-col  gap-5 p-2 max-w-[70%] ">
             <div className="flex flex-col gap-2">
               <a
                 href={repo?.url}
@@ -63,38 +71,58 @@ export function OneRepo({}: OneRepoProps) {
 
               <div className="w-full flex flex-wrap gap-2">
                 <a
-                  href={"https://vscode.dev/"+repo?.url}
+                  href={"https://vscode.dev/" + repo?.url}
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-600 hover:text-purple-700 gap-2 text-sm border rounded-full p-1">
-                    open in vscode
+                  open in vscode
                 </a>
-                {repo?.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
-                {repo?.isFork && <GitFork className="w-5 h-5 text-purple-400" />}
-                <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
-                <CardMenu>
-                  <MenuItem
-                    sx={{
-                      fontSize: "12px",
-                      ":hover": {
-                        color: "blue",
-                      },
-                    }}
-                    onClick={() => setOpen(true)}>
-                    Edit
-                  </MenuItem>
+                {repo.isFork && (
+                  <Tooltip title="forked repos">
+                    <GitFork className="h-4 w-4 text-blue-600" />
+                  </Tooltip>
+                )}
+                {repo.isPrivate && (
+                  <Tooltip title="private repo">
+                    <Lock className="h-4 w-4 text-red-600" />
+                  </Tooltip>
+                )}
 
-                  <MenuItem
-                    sx={{
-                      fontSize: "12px",
-                      ":hover": {
-                        color: "red",
-                      },
-                    }}
-                    onClick={() => setOpen(true)}>
-                    Delete
-                  </MenuItem>
-                </CardMenu>
+                {repo.viewerPermission !== "ADMIN" && (
+                  <Tooltip title="no admin permissions ">
+                    <Construction className="h-4 w-4 text-yellow-500" />
+                  </Tooltip>
+                )}
+
+                {repo.viewerPermission === "ADMIN" && (
+                  <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
+                )}
+
+                {repo.viewerPermission === "ADMIN" && (
+                  <CardMenu>
+                    <MenuItem
+                      sx={{
+                        fontSize: "12px",
+                        ":hover": {
+                          color: "blue",
+                        },
+                      }}
+                      onClick={() => setOpen(true)}>
+                      Edit
+                    </MenuItem>
+
+                    <MenuItem
+                      sx={{
+                        fontSize: "12px",
+                        ":hover": {
+                          color: "red",
+                        },
+                      }}
+                      onClick={() => setOpen(true)}>
+                      Delete
+                    </MenuItem>
+                  </CardMenu>
+                )}
               </div>
             </div>
             <div>
@@ -106,7 +134,11 @@ export function OneRepo({}: OneRepoProps) {
                 })}
               </div>
 
-              <RepoTopicsForm repo_topics={topics} resourceId={repo.id} />
+              <RepoTopicsForm
+                repo_topics={topics}
+                resourceId={repo.id}
+                is_admin={repo.viewerPermission === "ADMIN"}
+              />
             </div>
           </div>
 

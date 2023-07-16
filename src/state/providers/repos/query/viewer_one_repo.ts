@@ -11,10 +11,7 @@ export interface OneRepoQueryVariables extends Variables {
 export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
   try {
     // const data = sample_repos
-    const data = await gql_request_helper<
-      IViewerOneRepo,
-      OneRepoQueryVariables
-    >({
+    const data = await gql_request_helper<IViewerOneRepo,OneRepoQueryVariables>({
       document: ViewerOneRepositoryQuery,
       variables,
     });
@@ -29,8 +26,8 @@ export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
 }
 
 export const ViewerOneRepositoryQuery = gql`
-  query viewerRepository($name: String!) {
-    viewer {
+  query viewerRepository($name: String!,$login: String!) {
+  user(login: $login) {
       repository(name: $name) {
         id
         name
@@ -41,11 +38,13 @@ export const ViewerOneRepositoryQuery = gql`
         openGraphImageUrl
         updatedAt
         homepageUrl
+    
         isFork
         isPrivate
         isTemplate
         isArchived
         isEmpty
+        
         forkCount
         stargazerCount
         viewerCanUpdateTopics
@@ -101,6 +100,8 @@ export const ViewerOneRepositoryQuery = gql`
             url
           }
         }
+
+
       }
     }
     

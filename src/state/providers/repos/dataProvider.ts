@@ -28,9 +28,14 @@ export const reposDataProvider = (): Pick<
       total: repos.viewer.repositories.totalCount,
     };
   },
-  getOne: async ({ resource, id, meta }) => {
+  getOne: async ({ resource, id, meta, }) => {
     // console.log("repos get one params === ", { resource, id, meta });
-    const repo = (await getViewerOneRepository({ name: id as string })) as any;
+    const nameWithOwner = meta?.nameWithOwner.split("/");
+    console.log("name with owner === ", nameWithOwner);
+    const name = nameWithOwner[1] ?? ""
+    const login = nameWithOwner[0] ?? ""
+    // const repo = (await getViewerOneRepository({ name: id as string })) as any;
+    const repo = (await getViewerOneRepository({ name,login })) as any;
     const data = repo;
     // console.log("data provider getone response  === ",data)
     return {
