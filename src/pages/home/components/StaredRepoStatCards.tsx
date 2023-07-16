@@ -27,7 +27,7 @@ export function StaredRepoStatCards({ profile }: StaredRepoStatCardsProps) {
   return (
     <div className="w-full  flex flex-col lg:flex-row p-2 gap-3">
       <CardWrapper elevation={2} className="flex flex-col md:flex-row  gap-3">
-        <div className="min-w-fit hover:text-purple-400">
+        <div className="min-w-fit ">
           {repos.totalCount && <h3 className="text-6xl ">{repos.totalCount}</h3>}
           {repos && <Title className="text-xl">Starred repos</Title>}
         </div>
@@ -37,7 +37,7 @@ export function StaredRepoStatCards({ profile }: StaredRepoStatCardsProps) {
             return (
               <Chip
                 variant="outlined"
-                className="hover:bg-purple-950"
+                className=""
                 key={repo.name}
                 label={<h3 className="text-sm">{repo.name}</h3>}
               />

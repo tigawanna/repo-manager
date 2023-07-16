@@ -6,19 +6,47 @@ export const RefinePalettes = {
       main: "#BA9B9A",
       light: "#C4A8AD",
       dark: "#8C7465",
+      contrastText: '#592720',
+      },
+    secondary: {
+      main: "#412C37",
+      light: "#6F4F4E",
+      dark: "#412C37",
+      contrastText: '#261403',
     },
+    text:{
+      primary: '#000000',
+      secondary: '#261403',
+      hint:"#322110" ,
+      
+      
+    }
   },
   BrownDark: {
     mode: "dark",
     primary: {
-      main: "#412C37",
-      light: "#6F4F4E",
-      dark: "#412C37",
-      contrastText: '#f7b208',
+      main: '#3e2723',
+      light: '#795548',
+      dark: '#3e2723',
+      contrastText: '#D2B48C',
+    },
+    secondary: {
+      main: 'rgba(79,7,107,0.87)',
+      light: 'rgba(106,20,140,0.87)',
+      dark: 'rgba(44,6,57,0.87)',
+      contrastText: '#D2B48C',
+    },
+    text: {
+      disabled: '#ff0000',
+      hint: '#ff0000',
+      secondary: '#D2B48C',
+      primary:"#D2C5B9"
+  
     },
   },
   Purple: {
     mode: "light",
+
     primary: {
       main: "#7B1FA2",
       light: "#954bb4",

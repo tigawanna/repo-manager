@@ -29,7 +29,7 @@ export function GistsStatCards({ profile }: GistsCardsProps) {
   return (
     <div className="w-full  flex flex-col lg:flex-row p-2 gap-3">
       <CardWrapper elevation={2} className="flex flex-col md:flex-row  gap-3">
-        <div className="min-w-fit hover:text-purple-400">
+        <div className="min-w-fit ">
           {gists.totalCount && <h3 className="text-6xl ">{gists.totalCount}</h3>}
           {gists && <Title className="text-xl">Gists</Title>}
         </div>
@@ -48,7 +48,7 @@ export function GistsStatCards({ profile }: GistsCardsProps) {
             );
           })}
           {/* <Link className="text-sm " to={"/gists"}> */}
-          <Chip variant="outlined" label={<h3 className="text-xs hover:text-blue-600 ">...</h3>} />
+          <Chip variant="outlined" label={<h3 className="text-xs  ">...</h3>} />
           {/* </Link> */}
         </div>
       </CardWrapper>
