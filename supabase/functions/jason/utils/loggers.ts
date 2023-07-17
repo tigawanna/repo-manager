@@ -1,6 +1,5 @@
 // deno-lint-ignore-file
-import {red,blue,green,yellow} from "https://deno.land/std@0.194.0/fmt/colors.ts";
-
+import {red,blue,green,yellow, bold} from "https://deno.land/std@0.194.0/fmt/colors.ts";
 
 export function logNormal(message: string, data?: any) {
 
@@ -16,6 +15,10 @@ export function logSuccess(message: string, data?: any) {
 
 export function logWarning(message: string, data?: any) {
     console.log(yellow(`Warning: ${message}`));
+    data && console.log(data);
+}
+export function logInfo(message: string, data?: any) {
+    console.log(bold(blue(`Info: ${message}`)));
     data && console.log(data);
 }
 

@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "dev":"deno run --watch --allow-read --allow-net functions/jason/index.ts"
+    }
+}

@@ -1,21 +1,15 @@
 import { Router } from "https://deno.land/x/oak@v12.6.0/mod.ts";
 
-const router = new Router();
+export const indexRouter = new Router();
+indexRouter
+    .get("/", (ctx) => {
+        ctx.response.body = "Getting all reviews route\n";
+    })
+    .put("/", (ctx) => {
+        ctx.response.body = "Create review route\n";
+    })
 
-router.get('/', (ctx) => {
-    ctx.response.body = 'Received a GET HTTP method';
-});
+    .get("/:reviewId", (ctx) => {
+        ctx.response.body = "Getting single review route\n";
+    });
 
-router.post('/', (ctx) => {
-    ctx.response.body = 'Received a POST HTTP method';
-});
-
-router.put('/', (ctx) => {
-    ctx.response.body = 'Received a PUT HTTP method';
-});
-
-router.delete('/', (ctx) => {
-    ctx.response.body = 'Received a DELETE HTTP method';
-});
-
-export default router
