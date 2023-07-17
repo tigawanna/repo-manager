@@ -16,11 +16,12 @@ pkgJsonRouter
         const [authType, token] = authHeader.split(" ");
         if (!nameWithOwner) {
           ctx.response.status = 401;
-          ctx.response.body = "required nwo search param missing";
+          ctx.response.body = "required the nwo search param missing";
           return;
         }
         if (authType === "Bearer") {
           const pkg_json = await getOneRepoPackageJson(nameWithOwner, token);
+          
           ctx.response.headers.set("Content-Type", "application/json");
           ctx.response.status = 200;
           ctx.response.body = pkg_json;

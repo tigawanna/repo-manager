@@ -3,6 +3,7 @@ import { repoRouter } from "./routes/repos/repos.ts";
 import { indexRouter } from "./routes/index.ts";
 import { pkgJsonRouter } from "./routes/repos/get-pkg-json.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
+import { supabasepkgsRouter } from "./routes/supabase/supabase-save.ts";
 const port = 8000;
 const app = new Application();
 
@@ -13,6 +14,7 @@ router
   .use("/", indexRouter.routes())
   .use("/repos",repoRouter.routes())
   .use("/pkg",pkgJsonRouter.routes())
+  .use("/supa-pkg",supabasepkgsRouter.routes())
 
 app.use(router.routes());
 
