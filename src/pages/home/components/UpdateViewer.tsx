@@ -112,9 +112,7 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
             multiline
             rows={4}
             className="w-full"
-            maxRows={10}
-   
-            id={"bio"}
+           id={"bio"}
             name={"bio"}
             value={input.bio}
             onChange={handleChange}

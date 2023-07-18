@@ -84,17 +84,16 @@ const theme = useTheme()
       className="flex flex-col w-full p-10 rounded-lg"
       onSubmit={handleSubmit}
       sx={{
-        backgroundColor:theme.palette.background.paper,
+        backgroundColor: theme.palette.background.paper,
         "& .MuiTextField-root": { m: 1, width: "100%", fontSize: "10px" },
-      }}
-    >
+      }}>
       <Typography
         variant="h5"
         sx={{
           color: theme.palette.text.secondary,
           fontWeight: "bold",
         }}
-       className="font-bold text-lg p-1 m-1">
+        className="font-bold text-lg p-1 m-1">
         Update {input.nameWithOwner} repository{" "}
       </Typography>
       <TextField
@@ -115,6 +114,8 @@ const theme = useTheme()
         value={formData.description}
         onChange={handleChange}
         helperText="repository description"
+        multiline
+        rows={4}
       />
 
       <TextField
@@ -127,10 +128,7 @@ const theme = useTheme()
         helperText="repository homepage url"
       />
 
-      <Stack
-        direction="row"
-        className="w-full gap- flex flex-wrap justify-center items-center"
-      >
+      <Stack direction="row" className="w-full gap- flex flex-wrap justify-center items-center">
         {updateRepoBooleans.map((boolean) => (
           <div key={boolean} className="w-fit flex items-center justify-center">
             <Checkbox
@@ -148,13 +146,8 @@ const theme = useTheme()
         type="submit"
         variant="outlined"
         color="secondary"
-        style={{ width: "100%", marginTop: "20px" }}
-      >
-        {mutation.isLoading ? (
-          <Loader className="w-4 h-4 animate-spin" />
-        ) : (
-          "Update"
-        )}
+        style={{ width: "100%", marginTop: "20px" }}>
+        {mutation.isLoading ? <Loader className="w-4 h-4 animate-spin" /> : "Update"}
       </SaveButton>
     </Box>
   );

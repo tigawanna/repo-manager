@@ -20,10 +20,14 @@ interface OneRepoProps {}
 
 export function OneRepo({}: OneRepoProps) {
   const params = useParams();
+
+
 const [searchParams, setSearchParams] = useSearchParams();
 const nameWithOwner = searchParams.get("nameWithOwner");
-// console.log("params === ",searchParams.get("nameWithOwner"))
-  // console.log("params === ",params)
+  React.useEffect(() => {
+    document.title = `${nameWithOwner}`;
+  }, [nameWithOwner]);
+
   const query = useOne<IViewerOneRepo>({
     resource: "repos",
     id: params.id,

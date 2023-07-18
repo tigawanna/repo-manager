@@ -3,16 +3,21 @@ import { AuthPage, ErrorComponent, ThemedLayoutV2 } from "@refinedev/mui";
 import {
   CatchAllNavigate,
   NavigateToResource,
+  useDocumentTitle,
 } from "@refinedev/react-router-v6";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { ReposList, ReposShow } from "./repos";
 import { Header } from "@/components/header";
 import { GithubIcon } from "lucide-react";
 import { HomePage } from "./home/HomePage";
+import React from "react";
 
 interface indexProps {}
 
 export function AllRoutes({}: indexProps) {
+  React.useEffect(() => {
+    document.title = "Repos";
+  }, []);
   return (
     <Routes>
       <Route

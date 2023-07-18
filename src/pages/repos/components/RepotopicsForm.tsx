@@ -184,7 +184,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
             />
           </div>
 
-          {topics && (
+          {(topics&&topics.length>0) && (
             <button
               onClick={() =>
                 mutation.mutate({
@@ -195,7 +195,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
                 })
               }
               className="w-full rounded-md flex items-center justify-center p-2
-           border hover:border-purple-400 hover:text-purple-400">
+              border hover:border-purple-400 hover:text-purple-400">
               {mutation.isLoading ? <Loader className="w-5 h-5 animate-spin" /> : "submit"}
             </button>
           )}

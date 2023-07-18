@@ -6,6 +6,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import routerBindings, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
+  useDocumentTitle,
 } from "@refinedev/react-router-v6";
 import { dataProvider, liveProvider } from "@refinedev/supabase";
 import { BrowserRouter } from "react-router-dom";
@@ -14,8 +15,13 @@ import { ColorModeContextProvider } from "./contexts/color-mode";
 import { supabaseClient } from "./utility";
 import { AllRoutes } from "./pages";
 import { reposDataProvider } from "@/state/providers/repos/dataProvider";
+import React from "react";
 
 function App() {
+  React.useEffect(() => {
+    document.title = "Repo Manager";
+  }, []);
+
   return (
     <BrowserRouter>
       <RefineKbarProvider>
@@ -37,6 +43,7 @@ function App() {
                 {
                   name: "home",
                   list: "/",
+                  
           
                 },
                 {
