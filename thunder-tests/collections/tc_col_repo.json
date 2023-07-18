@@ -1,0 +1,72 @@
+{
+    "_id": "0c781ff8-f452-49ec-83d6-3096c2fc9467",
+    "colName": "repo",
+    "created": "2023-07-18T11:11:28.931Z",
+    "sortNum": 10000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6e7f12a8-4160-4eba-81f6-88557f4ec7ed",
+            "colId": "0c781ff8-f452-49ec-83d6-3096c2fc9467",
+            "containerId": "",
+            "name": "last year commit history",
+            "url": "https://api.github.com/repos/tigawanna/tigawanna/stats/commit_activity",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-18T11:13:34.571Z",
+            "modified": "2023-07-18T11:22:27.619Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/vnd.github+json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9af37be6-f5d6-4933-91b3-55275b06703e",
+            "colId": "0c781ff8-f452-49ec-83d6-3096c2fc9467",
+            "containerId": "",
+            "name": "horu;y commits for each day",
+            "url": "https://api.github.com/repos/tigawanna/tigawanna/stats/punch_card",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-18T11:22:57.246Z",
+            "modified": "2023-07-18T11:23:32.239Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/vnd.github+json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d16cf1f6-54a9-46a1-873e-4528bc250123",
+            "colId": "0c781ff8-f452-49ec-83d6-3096c2fc9467",
+            "containerId": "",
+            "name": "weekly commitcount stats",
+            "url": "https://api.github.com/repos/tigawanna/tigawanna/stats/participation",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-07-18T11:22:59.789Z",
+            "modified": "2023-07-18T11:25:34.789Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/vnd.github+json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "{{GHP}}"
+        }
+    }
+}

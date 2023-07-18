@@ -18,7 +18,8 @@ return (
         label={lang.name} 
         variant="outlined" 
         sx={{
-            border: "3px solid"+lang.color,
+            border: "1px solid"+lang.color,
+          
         }}
         />
         )

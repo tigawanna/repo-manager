@@ -6,7 +6,6 @@ import {
   FormGroup,
   Stack,
   styled,
-  TextareaAutosize,
   TextField,
 } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -109,8 +108,12 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
       <FormControlLabel
         className="w-full p-1 flex flex-col-reverse items-start justify-start"
         control={
-          <TextareaAutosize
-            className="min-w-[80%] p-2"
+          <TextField
+            multiline
+            rows={4}
+            className="w-full"
+            maxRows={10}
+   
             id={"bio"}
             name={"bio"}
             value={input.bio}
