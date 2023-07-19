@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardMedia, Tooltip } from "@mui/material";
 import { Building, Construction, Edit, GitFork, Loader, Lock } from "lucide-react";
 import { MuiModal } from "@/components/shared/MuiModal";
-import { Chip } from "@mui/material";
+import { Chip,Stack } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
@@ -14,6 +14,7 @@ import { ForksyncCheck } from "./ForksyncCheck";
 import { RepoLanguages } from "./RepoLanguages";
 import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 import { StepBack } from "lucide-react";
+import { PackageJason } from "./PackageJason";
 
 
 interface OneRepoProps {}
@@ -158,7 +159,10 @@ const nameWithOwner = searchParams.get("nameWithOwner");
           is_admin={repo.viewerPermission === "ADMIN"}
         />
       </div>
+      <Stack gap={1}>
       <RepoLanguages repo={repo} />
+      <PackageJason repo={repo}/>
+      </Stack>
 
       <MuiModal open={open} setOpen={setOpen}>
         <UpdateRepoForm input={repo} />
@@ -171,6 +175,7 @@ const nameWithOwner = searchParams.get("nameWithOwner");
           )
         })}
       </div> */}
+
     </Card>
   );
 }
