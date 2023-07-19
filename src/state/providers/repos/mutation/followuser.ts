@@ -22,7 +22,7 @@ export async function followOrUnfollowUser({
     });
 
     if (response.status === 204) {
-      //console.log(
+      console.log(
         `You have ${shouldFollow ? "followed" : "unfollowed"} ${username}.`
       );
       return `You have ${
