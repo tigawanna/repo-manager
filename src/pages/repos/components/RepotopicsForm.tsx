@@ -156,7 +156,7 @@ export function RepoTopicInput({
           sx={{
             backgroundColor: theme.palette.background.paper,
           }}
-          className=" w-full h-full p-5 flex flex-col gap-3 rounded-lg"
+          className="  w-full h-full p-5 flex flex-col gap-3 rounded-lg"
         >
           <div className="flex flex-wrap w-full h-full gap-2">
             {topics &&

@@ -183,7 +183,7 @@ export function OneRepo({}: OneRepoProps) {
       <div>
         <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
 
-        <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
+        {/* <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
           {topics.map((topic) => {
             return (
               <Chip
@@ -193,7 +193,7 @@ export function OneRepo({}: OneRepoProps) {
               />
             );
           })}
-        </div>
+        </div> */}
 
         <RepoTopicsForm
           repo_topics={topics}
