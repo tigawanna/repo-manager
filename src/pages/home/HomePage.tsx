@@ -6,52 +6,50 @@ import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 import { ViewerHomepage } from "./components/ViewerHomepage";
 import { useNotification } from "@refinedev/core";
 
-interface HomePageProps {
-  
-}
+interface HomePageProps {}
 
-export function HomePage({}:HomePageProps){
-
-  const {open,close} =useNotification();
- const query = useQuery({
+export function HomePage({}: HomePageProps) {
+  const { open, close } = useNotification();
+  const query = useQuery({
     queryKey: ["gh-token"],
     queryFn: getGithubAccessToken,
     // onSuccess(data) {
     //  localStorage.setItem("github_token",data);
     // },
-    onError(error:any) {
+    onError(error: any) {
       // console.log("error message testing ==",error.message);
       localStorage.removeItem("github_token");
       open?.({
         type: "error",
         message: "Github token error",
         description: error.message,
- })
-    }
+      });
+    },
   });
   // console.log("query === ",query.data)
-  
-  if(query.isLoading){
-    return(
+
+  if (query.isLoading) {
+    return (
       <div className="w-full h-full flex items-center justify-center">
-        <Loader className="w-5 h-5 animate-spin"/>
+        <Loader className="w-5 h-5 animate-spin" />
       </div>
-    )
+    );
   }
   const token = query.data;
-if(!token||token ==="" || query.isError){
-return (
-  <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-    <GithubButton />
- {query.isError && <ErrorrMessageComponent error_message={query.error?.message} />}
-  </div>
-);
+  if (!token || token === "" || query.isError) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+        <GithubButton />
+        {query.isError && (
+          <ErrorrMessageComponent error_message={query.error?.message} />
+        )}
+      </div>
+    );
   }
 
-
-return (
-  <div className="w-full h-full flex flex-col items-center justify-center">
-    <ViewerHomepage/>
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center">
+      <ViewerHomepage />
     </div>
-);
+  );
 }

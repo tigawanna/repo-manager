@@ -10,12 +10,11 @@ export async function saveGithubPAT(token: string) {
   }
 }
 
-export async function githubloginPocketbase(){
+export async function githubloginPocketbase() {
   try {
-    return await pb.collection("devs").authWithOAuth2({provider:"github"});
+    return await pb.collection("devs").authWithOAuth2({ provider: "github" });
   } catch (error: any) {
     console.log("error logging in with github == ", error.message); // Handle the error if the mutation fails
-    
   }
 }
 
@@ -29,10 +28,10 @@ export async function getGithubAccessToken() {
   } catch (error: any) {
     console.log("error getting token == ", error.message);
     if (!pb.authStore.isValid) {
-      try{
+      try {
         pb.authStore.isValid && (await pb.collection("devs").authRefresh());
         return pb.authStore.model?.access_token as string;
-      }catch(error:any){
+      } catch (error: any) {
         console.log("error refreshing token == ", error.message);
         throw error;
       }
@@ -43,21 +42,22 @@ export async function getGithubAccessToken() {
   }
 }
 
-
-export async function checkToken(token:string){
-try {
-  // send viewer query to github graphql api
-  const ViewerQuery = gql`
-    query ViewerQuery {
-      viewer {
-        id
+export async function checkToken(token: string) {
+  try {
+    // send viewer query to github graphql api
+    const ViewerQuery = gql`
+      query ViewerQuery {
+        viewer {
+          id
+        }
       }
-    }
-  `
-  const data = await gql_request_helper({ document: ViewerQuery,new_token:token });
-  return token
-
-} catch (error: any) {
-  throw new Error("bad token");
-}
+    `;
+    const data = await gql_request_helper({
+      document: ViewerQuery,
+      new_token: token,
+    });
+    return token;
+  } catch (error: any) {
+    throw new Error("bad token");
+  }
 }

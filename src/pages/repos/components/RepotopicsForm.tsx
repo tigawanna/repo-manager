@@ -4,26 +4,29 @@ import {
   updateRepoTags,
 } from "@/state/providers/repos/mutation/updateRepoTags";
 import { IRepositoryTopicsNode } from "@/state/providers/repos/query/viewer_one_repos_types";
-import { Chip, TextField, useTheme,Tooltip, Card} from "@mui/material";
+import { Chip, TextField, useTheme, Tooltip, Card } from "@mui/material";
 import { useNotification } from "@refinedev/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { Check, Edit, X } from "lucide-react";
 import { useState } from "react";
 
-
 interface RepotopicsFormProps {
   repo_topics: IRepositoryTopicsNode[];
   resourceId: string;
   is_admin: boolean;
-  editing:boolean;
+  editing: boolean;
 }
 
-export function RepoTopicsForm({ repo_topics, resourceId,is_admin,editing }: RepotopicsFormProps) {
+export function RepoTopicsForm({
+  repo_topics,
+  resourceId,
+  is_admin,
+  editing,
+}: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
 
   const [open, setOpen] = useState(false);
-
 
   const old_topics = topics.map((topic) => topic.topic.name);
   const removeTopic = (idx: number) => {
@@ -37,8 +40,6 @@ export function RepoTopicsForm({ repo_topics, resourceId,is_admin,editing }: Rep
 
   return (
     <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-
-
       {topics.map((topic, idx) => {
         return (
           <Chip
@@ -51,14 +52,14 @@ export function RepoTopicsForm({ repo_topics, resourceId,is_admin,editing }: Rep
         );
       })}
 
-        <Chip
-          variant="outlined"
-          onClick={() => setOpen(true)}
-          className="hover:text-purple-600"
-          label="Add topic"
-          size="small"
-        />
-      
+      <Chip
+        variant="outlined"
+        onClick={() => setOpen(true)}
+        className="hover:text-purple-600"
+        label="Add topic"
+        size="small"
+      />
+
       <RepoTopicInput
         open={open}
         setOpen={setOpen}
@@ -90,11 +91,16 @@ interface RepoTopicInputProps {
   old_topics: string[];
 }
 
-export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTopicInputProps) {
+export function RepoTopicInput({
+  open,
+  setOpen,
+  resourceId,
+  old_topics,
+}: RepoTopicInputProps) {
   const [topics, setTopics] = useState<string[] | null>(old_topics);
   const [topic, setTopic] = useState("");
   const { open: opentoast, close } = useNotification();
-  const qc = useQueryClient()
+  const qc = useQueryClient();
   const theme = useTheme();
   const removeTopic = (idx: number) => {
     setTopics((prev) => {
@@ -120,7 +126,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
       });
       close?.("update-topics-success");
     },
-    onError(error:any, variables, context) {
+    onError(error: any, variables, context) {
       opentoast?.({
         key: "delere-topics-error",
         type: "error",
@@ -144,11 +150,12 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
   return (
     <div className="w-full h-full flex items-center justify-center gap-2 rounded-lg">
       <MuiModal open={open} setOpen={setOpen}>
-        <Card 
-        sx={{
-        backgroundColor: theme.palette.background.paper
-        }}
-        className=" w-full h-full p-5 flex flex-col gap-3 rounded-lg">
+        <Card
+          sx={{
+            backgroundColor: theme.palette.background.paper,
+          }}
+          className=" w-full h-full p-5 flex flex-col gap-3 rounded-lg"
+        >
           <div className="flex flex-wrap w-full h-full gap-2">
             {topics &&
               topics.map((topic, idx) => {
@@ -183,7 +190,7 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
             />
           </div>
 
-          {(topics&&topics.length>0) && (
+          {topics && topics.length > 0 && (
             <button
               onClick={() =>
                 mutation.mutate({
@@ -194,8 +201,13 @@ export function RepoTopicInput({ open, setOpen, resourceId, old_topics }: RepoTo
                 })
               }
               className="w-full rounded-md flex items-center justify-center p-2
-              border hover:border-purple-400 hover:text-purple-400">
-              {mutation.isLoading ? <Loader className="w-5 h-5 animate-spin" /> : "submit"}
+              border hover:border-purple-400 hover:text-purple-400"
+            >
+              {mutation.isLoading ? (
+                <Loader className="w-5 h-5 animate-spin" />
+              ) : (
+                "submit"
+              )}
             </button>
           )}
         </Card>

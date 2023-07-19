@@ -16,25 +16,29 @@ export function FollowButton({
   username,
   shouldFollowback,
 }: FollowButtonProps) {
-  const {open,close} =useNotification()
+  const { open, close } = useNotification();
   const mutation = useMutation({
     mutationFn: (vars: FollowUserMuation) => followOrUnfollowUser(vars),
-    onSuccess(data,{shouldFollow},context) {
+    onSuccess(data, { shouldFollow }, context) {
       open?.({
         key: "follow-viewer-success",
         type: "success",
         message: "Success",
-        description:shouldFollow?"successfully followed user":"successfully unfollowed user",
-      })
+        description: shouldFollow
+          ? "successfully followed user"
+          : "successfully unfollowed user",
+      });
     },
     onError(error: any, variables, context) {
       open?.({
         key: "follow-viewer-error",
         type: "error",
         message: "Error",
-        description:shouldFollow?"successfully following user: ":"error unfollowing viewer user: "+error?.message,
-      })
-    }
+        description: shouldFollow
+          ? "successfully following user: "
+          : "error unfollowing viewer user: " + error?.message,
+      });
+    },
   });
   if (shouldFollow) {
     return (

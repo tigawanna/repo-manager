@@ -9,7 +9,7 @@ export interface IViewerOneRepoViewer {
 export interface IViewerOneRepoRepository {
   id: string;
   name: string;
-  viewerPermission: "ADMIN" | "MAINTAIN" |"READ"|"WRITE"|"TRIAGE";
+  viewerPermission: "ADMIN" | "MAINTAIN" | "READ" | "WRITE" | "TRIAGE";
   nameWithOwner: string;
   isInOrganization: boolean;
   description: string;
@@ -30,60 +30,57 @@ export interface IViewerOneRepoRepository {
   hasIssuesEnabled: boolean;
   hasWikiEnabled: boolean;
 
-
-  defaultBranchRef: DefaultBranchRef
-  parent?: Parent
+  defaultBranchRef: DefaultBranchRef;
+  parent?: Parent;
 
   repositoryTopics: RepositoryTopics;
   languages: ILanguages;
 }
 
-
 export interface DefaultBranchRef {
-  target: Target
+  target: Target;
 }
 
 export interface Target {
-  history: History
+  history: History;
 }
 
 export interface History {
-  totalCount: number
-  nodes: HistoryNode[]
+  totalCount: number;
+  nodes: HistoryNode[];
 }
 
 export interface HistoryNode {
-  oid: string
-  committedDate: string
-  deletions: number
-  additions: number
+  oid: string;
+  committedDate: string;
+  deletions: number;
+  additions: number;
 }
 
 export interface Parent {
-  name: string
-  defaultBranchRef: ParentDefaultBranchRef
+  name: string;
+  defaultBranchRef: ParentDefaultBranchRef;
 }
 
 export interface ParentDefaultBranchRef {
-  target: ParentTarget
+  target: ParentTarget;
 }
 
 export interface ParentTarget {
-  history: ParentHistory
+  history: ParentHistory;
 }
 
 export interface ParentHistory {
-  totalCount: number
-  nodes: ParentHistoryNode[]
+  totalCount: number;
+  nodes: ParentHistoryNode[];
 }
 
 export interface ParentHistoryNode {
-  oid: string
-  committedDate: string
-  deletions: number
-  additions: number
+  oid: string;
+  committedDate: string;
+  deletions: number;
+  additions: number;
 }
-
 
 export interface RepositoryTopics {
   nodes: IRepositoryTopicsNode[];
@@ -102,12 +99,12 @@ export interface ITopic {
 }
 
 export interface ILanguages {
-  totalCount: number
-  nodes: ILanguagesNode[]
+  totalCount: number;
+  nodes: ILanguagesNode[];
 }
 
 export interface ILanguagesNode {
-  color: string
-  id: string
-  name: string
+  color: string;
+  id: string;
+  name: string;
 }

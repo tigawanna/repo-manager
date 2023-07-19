@@ -6,7 +6,9 @@ import { parseGQLError } from "@/utility/parse_gql_err_response";
 export async function getViewerRepositories() {
   try {
     // const data = sample_repos
-    const data = await gql_request_helper<IViewerQuery, Variables>({ document: ViewerQuery });
+    const data = await gql_request_helper<IViewerQuery, Variables>({
+      document: ViewerQuery,
+    });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
     // console.log("viewer repos response === ", data);
     return data;
@@ -42,7 +44,10 @@ const ViewerQuery = gql`
       status {
         id
       }
-      starredRepositories(first: 10,orderBy: { field:STARRED_AT, direction: DESC }) {
+      starredRepositories(
+        first: 10
+        orderBy: { field: STARRED_AT, direction: DESC }
+      ) {
         nodes {
           name
           nameWithOwner
@@ -54,7 +59,7 @@ const ViewerQuery = gql`
         }
         totalCount
       }
-      watching(first: 10,orderBy: { field: PUSHED_AT, direction: DESC }) {
+      watching(first: 10, orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes {
           name
           nameWithOwner
@@ -66,7 +71,7 @@ const ViewerQuery = gql`
         }
         totalCount
       }
-      gists(first: 10,orderBy: { field: CREATED_AT, direction: DESC }) {
+      gists(first: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
         nodes {
           name
           url
@@ -77,28 +82,28 @@ const ViewerQuery = gql`
       }
       following(first: 1) {
         totalCount
-              nodes {
-        avatarUrl
-        name
-        bio
-        id
-        login
-        email
-      }
+        nodes {
+          avatarUrl
+          name
+          bio
+          id
+          login
+          email
+        }
       }
       followers(first: 1) {
         totalCount
         nodes {
-        avatarUrl
-        name
-        bio
-        id
-        login
-        email
-      }
+          avatarUrl
+          name
+          bio
+          id
+          login
+          email
+        }
       }
 
-      repositories(first: 10,orderBy: { field: PUSHED_AT, direction: DESC }) {
+      repositories(first: 10, orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes {
           name
           nameWithOwner

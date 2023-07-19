@@ -13,54 +13,52 @@ import { UpdateViewer } from "../home/components/UpdateViewer";
 dayjs.extend(relativeTime);
 
 interface ProfileInfoProps {
-profile:Viewer
+  profile: Viewer;
 }
 
-export function ProfileInfo({profile}:ProfileInfoProps){
+export function ProfileInfo({ profile }: ProfileInfoProps) {
   // console.log("profile === ",profile);
-const user = profile
-const extradetails = {
+  const user = profile;
+  const extradetails = {
     company: user?.company,
     email: user?.email,
     location: user?.location,
     twitter: user?.twitterUsername,
   };
 
-
   const [yes, setYes] = useState<any>(user?.viewerIsFollowing);
-  const [open,setOpen]=useState(false)
-  
+  const [open, setOpen] = useState(false);
+
   const followMutation = useMutation({
-    mutationFn: async(variables:Variables) =>{
+    mutationFn: async (variables: Variables) => {
       const data = await gql_request_helper({
         document: FOLLOWUSER,
-        variables
+        variables,
       });
-      return data
-    }
-  })
+      return data;
+    },
+  });
   const unfollowMutation = useMutation({
-    mutationFn: async(variables:Variables) =>{
+    mutationFn: async (variables: Variables) => {
       const data = await gql_request_helper({
         document: UNFOLLOWUSER,
-        variables
+        variables,
       });
-      return data
-    }
+      return data;
+    },
+  });
 
-  })
-  
   // const [active, setActive] = useState<string>("");
   // const username = user?.login as string;
   const admin = user?.isViewer;
   //console.log("og user",admin)
   const followThem = (their_id: string) => {
     setYes(true);
-    followMutation.mutate({ input: { userId: their_id } })
+    followMutation.mutate({ input: { userId: their_id } });
   };
   const unfollowThem = (their_id: string) => {
     setYes(false);
-    unfollowMutation.mutate({  input: { userId: their_id } })
+    unfollowMutation.mutate({ input: { userId: their_id } });
   };
 
   // console.log("main user === ",user)
@@ -82,10 +80,15 @@ const extradetails = {
           <div
             className="text-[15px]  flex flex-col md:flex-row  items-center md:justify-evenly
           p-3  m-2 w-full 
-           font-sans  h-full">
+           font-sans  h-full"
+          >
             <div className="text-[15px] w-full ">
-              <div className=" text-[15px] md:text-xl font-bold  ">{user?.name}</div>
-              {user?.login && <div className="text-[15px] md:text-lg ">@{user?.login}</div>}
+              <div className=" text-[15px] md:text-xl font-bold  ">
+                {user?.name}
+              </div>
+              {user?.login && (
+                <div className="text-[15px] md:text-lg ">@{user?.login}</div>
+              )}
               <div className="text-[15px] max-w-[80%]">{user?.bio}</div>
               <div className="text-[15px]">
                 Joined {" :"} {dayjs(user?.createdAt).fromNow()}
@@ -93,10 +96,22 @@ const extradetails = {
             </div>
 
             <div className="text-[15px] w-full ">
-              <ProfileInfoItemWrapper valkey="email" value={extradetails?.email} />
-              <ProfileInfoItemWrapper valkey={"company"} value={extradetails?.company} />
-              <ProfileInfoItemWrapper valkey="location" value={extradetails?.location} />
-              <ProfileInfoItemWrapper valkey={"twitter"} value={extradetails?.twitter} />
+              <ProfileInfoItemWrapper
+                valkey="email"
+                value={extradetails?.email}
+              />
+              <ProfileInfoItemWrapper
+                valkey={"company"}
+                value={extradetails?.company}
+              />
+              <ProfileInfoItemWrapper
+                valkey="location"
+                value={extradetails?.location}
+              />
+              <ProfileInfoItemWrapper
+                valkey={"twitter"}
+                value={extradetails?.twitter}
+              />
             </div>
           </div>
           <EditButton onClick={() => setOpen(true)}>edit</EditButton>
@@ -112,14 +127,16 @@ const extradetails = {
                 <button
                   onClick={() => unfollowThem(user?.id as string)}
                   className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
-                  text-[12px] rounded-md p-[4px] m-[3px] h-fit w-full ">
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit w-full "
+                >
                   {"Unfollow"}
                 </button>
               ) : (
                 <button
                   onClick={() => followThem(user?.id as string)}
                   className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
-                  text-[12px] rounded-md p-[4px] m-[3px] h-fit ">
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit "
+                >
                   {user?.isFollowingViewer ? "Follow back" : "Follow"}
                 </button>
               )}
@@ -129,10 +146,10 @@ const extradetails = {
       </div>
     </div>
   );
-};
+}
 
 interface ProfileInfoItemWrapperProps {
-  value: string|null;
+  value: string | null;
   valkey: string;
 }
 
@@ -155,7 +172,7 @@ export const ProfileInfoItemWrapper: React.FC<ProfileInfoItemWrapperProps> = ({
       case "twitter":
         return <Twitter className="h-4 w-4" />;
       case "location":
-        return <MapPin className="h-4 w-4"/>;
+        return <MapPin className="h-4 w-4" />;
       default:
         return null;
     }
@@ -168,8 +185,3 @@ export const ProfileInfoItemWrapper: React.FC<ProfileInfoItemWrapperProps> = ({
     </div>
   );
 };
-
-
-
-
-

@@ -1,7 +1,6 @@
 import { Viewer } from "@/state/providers/home/viewr_query_types";
 import { Card, Typography, Chip, styled } from "@mui/material";
 
-
 interface StaredRepoStatCardsProps {
   profile: Viewer;
 }
@@ -28,7 +27,9 @@ export function StaredRepoStatCards({ profile }: StaredRepoStatCardsProps) {
     <div className="w-full  flex flex-col lg:flex-row p-2 gap-3">
       <CardWrapper elevation={2} className="flex flex-col md:flex-row  gap-3">
         <div className="min-w-fit ">
-          {repos.totalCount && <h3 className="text-6xl ">{repos.totalCount}</h3>}
+          {repos.totalCount && (
+            <h3 className="text-6xl ">{repos.totalCount}</h3>
+          )}
           {repos && <Title className="text-xl">Starred repos</Title>}
         </div>
 
@@ -44,10 +45,10 @@ export function StaredRepoStatCards({ profile }: StaredRepoStatCardsProps) {
             );
           })}
           {/* <Link className="text-sm " to={"/repos"}> */}
-            <Chip
-              variant="outlined"
-              label={<h3 className="text-xs hover:text-blue-600">...</h3>}
-            />
+          <Chip
+            variant="outlined"
+            label={<h3 className="text-xs hover:text-blue-600">...</h3>}
+          />
           {/* </Link> */}
         </div>
       </CardWrapper>

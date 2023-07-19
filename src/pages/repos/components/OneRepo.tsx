@@ -1,8 +1,15 @@
 import React from "react";
 import { Card, CardMedia, Tooltip } from "@mui/material";
-import { Building, Construction, Edit, GitFork, Loader, Lock } from "lucide-react";
+import {
+  Building,
+  Construction,
+  Edit,
+  GitFork,
+  Loader,
+  Lock,
+} from "lucide-react";
 import { MuiModal } from "@/components/shared/MuiModal";
-import { Chip,Stack } from "@mui/material";
+import { Chip, Stack } from "@mui/material";
 import { CardMenu } from "@/components/shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
 import { UpdateRepoForm } from "./UpdateRepoForm";
@@ -16,15 +23,13 @@ import { ErrorrMessageComponent } from "@/components/shared/Errorrmessage";
 import { StepBack } from "lucide-react";
 import { PackageJason } from "./PackageJason";
 
-
 interface OneRepoProps {}
 
 export function OneRepo({}: OneRepoProps) {
   const params = useParams();
 
-
-const [searchParams, setSearchParams] = useSearchParams();
-const nameWithOwner = searchParams.get("nameWithOwner");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const nameWithOwner = searchParams.get("nameWithOwner");
   React.useEffect(() => {
     document.title = `${nameWithOwner}`;
   }, [nameWithOwner]);
@@ -35,7 +40,7 @@ const nameWithOwner = searchParams.get("nameWithOwner");
     meta: { nameWithOwner },
   });
   const [open, setOpen] = React.useState<boolean>(false);
-    const [editing, setEditing] = React.useState(false);
+  const [editing, setEditing] = React.useState(false);
   const { data, isLoading, isError, error } = query;
 
   if (isLoading) {
@@ -48,7 +53,9 @@ const nameWithOwner = searchParams.get("nameWithOwner");
   if (isError) {
     return (
       <div className="w-full h-full min-h-screen flex items-center justify-center">
-        <Link to={".."}><StepBack/></Link>
+        <Link to={".."}>
+          <StepBack />
+        </Link>
         {/* @ts-expect-error */}
         <ErrorrMessageComponent error_message={query.error?.message} />
       </div>
@@ -71,9 +78,14 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                 href={repo?.url}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-purple-700 gap-2 ">
-                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo?.name}</h1>
-                <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo?.nameWithOwner}</h3>
+                className="hover:text-purple-700 gap-2 "
+              >
+                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">
+                  {repo?.name}
+                </h1>
+                <h3 className="w-full text-xl md:text-2xl font-bold p-1">
+                  {repo?.nameWithOwner}
+                </h3>
               </a>
 
               <ForksyncCheck repo={repo} />
@@ -83,7 +95,8 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                   href={"https://vscode.dev/" + repo?.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-blue-600 hover:text-purple-700 gap-2 text-sm border rounded-full p-1">
+                  className="text-blue-600 hover:text-purple-700 gap-2 text-sm border rounded-full p-1"
+                >
                   open in vscode
                 </a>
                 {repo.isFork && (
@@ -135,7 +148,8 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                           color: "blue",
                         },
                       }}
-                      onClick={() => setOpen(true)}>
+                      onClick={() => setOpen(true)}
+                    >
                       Edit
                     </MenuItem>
 
@@ -146,7 +160,8 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                           color: "red",
                         },
                       }}
-                      onClick={() => setOpen(true)}>
+                      onClick={() => setOpen(true)}
+                    >
                       Delete
                     </MenuItem>
                   </CardMenu>
@@ -170,7 +185,13 @@ const nameWithOwner = searchParams.get("nameWithOwner");
 
         <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
           {repo?.repositoryTopics.nodes.map((topic) => {
-            return <Chip key={topic.id} variant="outlined" label={topic.topic.name} />;
+            return (
+              <Chip
+                key={topic.id}
+                variant="outlined"
+                label={topic.topic.name}
+              />
+            );
           })}
         </div>
 
@@ -183,7 +204,7 @@ const nameWithOwner = searchParams.get("nameWithOwner");
       </div>
       <Stack gap={1}>
         <RepoLanguages repo={repo} />
-        <PackageJason repo={repo} editing={editing}/>
+        <PackageJason repo={repo} editing={editing} />
       </Stack>
 
       <MuiModal open={open} setOpen={setOpen}>

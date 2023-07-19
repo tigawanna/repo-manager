@@ -103,7 +103,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
           </Stack>
         </Stack>
       </Toolbar>
-      <TanstckIsFetching/>
+      <TanstckIsFetching />
     </AppBar>
   );
 };

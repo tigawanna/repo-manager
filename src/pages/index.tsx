@@ -27,7 +27,8 @@ export function AllRoutes({}: indexProps) {
               <Outlet />
             </ThemedLayoutV2>
           </Authenticated>
-        }>
+        }
+      >
         <Route index element={<HomePage />} />
 
         <Route path="/repos">
@@ -43,12 +44,12 @@ export function AllRoutes({}: indexProps) {
           <Authenticated fallback={<Outlet />}>
             <NavigateToResource />
           </Authenticated>
-        }>
+        }
+      >
         <Route
           path="/login"
           element={
             <div className="">
-             
               <AuthPage
                 type="login"
                 // providers={[
@@ -83,7 +84,10 @@ export function AllRoutes({}: indexProps) {
             />
           }
         />
-        <Route path="/forgot-password" element={<AuthPage type="forgotPassword" />} />
+        <Route
+          path="/forgot-password"
+          element={<AuthPage type="forgotPassword" />}
+        />
       </Route>
     </Routes>
   );

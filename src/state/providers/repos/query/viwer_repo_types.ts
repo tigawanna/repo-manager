@@ -33,61 +33,61 @@ export interface IRepositoriesNode {
   isEmpty: boolean;
   forkCount: number;
   isInOrganization: boolean;
-  defaultBranchRef: DefaultBranchRef
-  parent?: Parent
+  defaultBranchRef: DefaultBranchRef;
+  parent?: Parent;
 
   stargazerCount: number;
   viewerCanUpdateTopics: boolean;
   viewerCanAdminister: boolean;
   repositoryTopics: IRepositoryTopics;
-  
+
   hasIssuesEnabled: boolean;
   hasWikiEnabled: boolean;
 }
 
 export interface DefaultBranchRef {
-  target: Target
+  target: Target;
 }
 
 export interface Target {
-  history: History
+  history: History;
 }
 
 export interface History {
-  totalCount: number
-  nodes: HistoryNode[]
+  totalCount: number;
+  nodes: HistoryNode[];
 }
 
 export interface HistoryNode {
-  oid: string
-  committedDate: string
-  deletions: number
-  additions: number
+  oid: string;
+  committedDate: string;
+  deletions: number;
+  additions: number;
 }
 
 export interface Parent {
-  name: string
-  defaultBranchRef: ParentDefaultBranchRef
+  name: string;
+  defaultBranchRef: ParentDefaultBranchRef;
 }
 
 export interface ParentDefaultBranchRef {
-  target: ParentTarget
+  target: ParentTarget;
 }
 
 export interface ParentTarget {
-  history: ParentHistory
+  history: ParentHistory;
 }
 
 export interface ParentHistory {
-  totalCount: number
-  nodes: ParentHistoryNode[]
+  totalCount: number;
+  nodes: ParentHistoryNode[];
 }
 
 export interface ParentHistoryNode {
-  oid: string
-  committedDate: string
-  deletions: number
-  additions: number
+  oid: string;
+  committedDate: string;
+  deletions: number;
+  additions: number;
 }
 
 export interface IRepositoryTopics {

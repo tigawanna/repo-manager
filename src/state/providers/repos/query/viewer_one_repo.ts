@@ -11,14 +11,17 @@ export interface OneRepoQueryVariables extends Variables {
 export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
   try {
     // const data = sample_repos
-    const data = await gql_request_helper<IViewerOneRepo,OneRepoQueryVariables>({
+    const data = await gql_request_helper<
+      IViewerOneRepo,
+      OneRepoQueryVariables
+    >({
       document: ViewerOneRepositoryQuery,
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
     console.log("viewer one repo response === ", data);
     return data;
-  } catch (error:any) {
+  } catch (error: any) {
     const error_string = parseGQLError(error.response);
     console.log("error getting viewer oe repo", error_string);
     throw new Error(error_string);
@@ -26,8 +29,8 @@ export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
 }
 
 export const ViewerOneRepositoryQuery = gql`
-  query viewerRepository($name: String!,$login: String!) {
-  user(login: $login) {
+  query viewerRepository($name: String!, $login: String!) {
+    user(login: $login) {
       repository(name: $name) {
         id
         name
@@ -38,21 +41,21 @@ export const ViewerOneRepositoryQuery = gql`
         openGraphImageUrl
         updatedAt
         homepageUrl
-    
+
         isFork
         isPrivate
         isTemplate
         isArchived
         isEmpty
-        
+
         forkCount
         stargazerCount
         viewerCanUpdateTopics
         viewerCanAdminister
         viewerPermission
-        
+
         hasWikiEnabled
-        hasIssuesEnabled,
+        hasIssuesEnabled
 
         defaultBranchRef {
           target {
@@ -69,7 +72,7 @@ export const ViewerOneRepositoryQuery = gql`
             }
           }
         }
-        
+
         parent {
           name
           defaultBranchRef {
@@ -101,18 +104,15 @@ export const ViewerOneRepositoryQuery = gql`
           }
         }
 
-      languages(first:20,orderBy:{field:SIZE,direction:DESC}){
-      totalCount
-      nodes{
-        color
-        id
-        name
+        languages(first: 20, orderBy: { field: SIZE, direction: DESC }) {
+          totalCount
+          nodes {
+            color
+            id
+            name
+          }
+        }
       }
     }
-
-
-      }
-    }
-    
   }
 `;

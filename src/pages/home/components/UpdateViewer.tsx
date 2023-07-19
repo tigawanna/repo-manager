@@ -1,4 +1,7 @@
-import { updateViewer, UpdateViewerInput } from "@/state/providers/profile/update-user";
+import {
+  updateViewer,
+  UpdateViewerInput,
+} from "@/state/providers/profile/update-user";
 import {
   Card,
   Checkbox,
@@ -84,7 +87,8 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
       //   e.preventDefault();
       //   console.log("new user input", input);
       // }}
-      className="w-full h-full flex flex-col items-center justify-center gap-3">
+      className="w-full h-full flex flex-col items-center justify-center gap-3"
+    >
       <Stack direction="row" spacing={2}>
         <TextField
           id="name"
@@ -112,7 +116,7 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
             multiline
             rows={4}
             className="w-full"
-           id={"bio"}
+            id={"bio"}
             name={"bio"}
             value={input.bio}
             onChange={handleChange}
@@ -182,7 +186,11 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
         </div>
       )}
       <SaveButton onClick={() => mutation.mutate(input)}>
-        {mutation.isLoading ? <Loader className="w-4 h-4 animate-spin" /> : "Update"}
+        {mutation.isLoading ? (
+          <Loader className="w-4 h-4 animate-spin" />
+        ) : (
+          "Update"
+        )}
       </SaveButton>
     </FormGroup>
     // </form>

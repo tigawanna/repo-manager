@@ -6,16 +6,16 @@ import { StaredRepoStatCards } from "./StaredRepoStatCards";
 import { GistsStatCards } from "./GistsStatCards";
 
 interface ViewerDetailsProps {
-profile:Viewer
+  profile: Viewer;
 }
 
-export function ViewerDetails({profile}:ViewerDetailsProps){
-return (
-  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-    <RepoStatCards profile={profile} />
-    <FollowStatsCard profile={profile}/>
-    <StaredRepoStatCards profile={profile}/>
-    <GistsStatCards profile={profile}/>
-  </div>
-);
+export function ViewerDetails({ profile }: ViewerDetailsProps) {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+      <RepoStatCards profile={profile} />
+      <FollowStatsCard profile={profile} />
+      <StaredRepoStatCards profile={profile} />
+      <GistsStatCards profile={profile} />
+    </div>
+  );
 }

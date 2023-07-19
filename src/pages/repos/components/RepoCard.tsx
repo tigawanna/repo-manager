@@ -13,10 +13,17 @@ import {
 } from "@mui/material";
 import { MuiModal } from "@/components/shared/MuiModal";
 import { CardMenu } from "@/components/shared/CardMenu";
-import { Star, GitFork, Lock, Building, Construction, Search } from "lucide-react";
+import {
+  Star,
+  GitFork,
+  Lock,
+  Building,
+  Construction,
+  Search,
+} from "lucide-react";
 import { ForksyncCheck } from "./ForksyncCheck";
-import {  IRepositoriesNode } from "@/state/providers/repos/query/viwer_repo_types";
-import {useNavigate} from "react-router-dom"
+import { IRepositoriesNode } from "@/state/providers/repos/query/viwer_repo_types";
+import { useNavigate } from "react-router-dom";
 
 export type ItemList = {
   id: string;
@@ -44,12 +51,11 @@ export function RepoCard({
   const [repo, setRepos] = React.useState(viewer_repos);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
-  const navigate = useNavigate()
- 
+  const navigate = useNavigate();
+
   const topics = repo.repositoryTopics.nodes;
   const stars = repo.stargazerCount;
   const forks = repo.forkCount;
-
 
   return (
     <Card
@@ -63,36 +69,42 @@ export function RepoCard({
         },
       }}
       className="sm:h-[350px] w-full sm:w-[45%] lg:w-[30%] flex flex-col  gap-0 "
-      variant="elevation">
+      variant="elevation"
+    >
       <div className="w-full flex flex-wrap lg:flex-row  justify-between p-3 gap-2 ">
         <div className="w-full flex justify-between items-center gap-2">
-          {editing && !repo.isInOrganization && repo.viewerPermission === "ADMIN" && (
-            <Checkbox
-              className="mr-1"
-              size="small"
-              sx={{
-                color: theme.palette.secondary.main,
-              }}
-              checked={selected}
-              onClick={() => {
-                if (selected) {
-                  unselectItem(repo);
-                } else {
-                  selectItem(repo);
-                }
-              }}
-            />
-          )}
+          {editing &&
+            !repo.isInOrganization &&
+            repo.viewerPermission === "ADMIN" && (
+              <Checkbox
+                className="mr-1"
+                size="small"
+                sx={{
+                  color: theme.palette.secondary.main,
+                }}
+                checked={selected}
+                onClick={() => {
+                  if (selected) {
+                    unselectItem(repo);
+                  } else {
+                    selectItem(repo);
+                  }
+                }}
+              />
+            )}
 
           <div className="w-[100%] flex  items-center justify-between">
             <div className="w-[100%] max-w-[60%] flex flex-col justify-between">
               <Tooltip title={repo.nameWithOwner}>
                 <Stack>
-              <h1 className=" text-lg font-bold line-clamp-1">{repo.name}</h1>
-              <h3 className="w-full text-xs flex line-clamp-1">{repo.nameWithOwner}</h3>
-
-                  </Stack>
-            </Tooltip>
+                  <h1 className=" text-lg font-bold line-clamp-1">
+                    {repo.name}
+                  </h1>
+                  <h3 className="w-full text-xs flex line-clamp-1">
+                    {repo.nameWithOwner}
+                  </h3>
+                </Stack>
+              </Tooltip>
             </div>
             <div className="flex  items-center gap-1">
               {repo.isFork && (
@@ -133,7 +145,8 @@ export function RepoCard({
                     color: "blue",
                   },
                 }}
-                onClick={() => setOpen(true)}>
+                onClick={() => setOpen(true)}
+              >
                 Edit
               </MenuItem>
 
@@ -144,7 +157,8 @@ export function RepoCard({
                     color: "red",
                   },
                 }}
-                onClick={() => setOpen(true)}>
+                onClick={() => setOpen(true)}
+              >
                 Delete
               </MenuItem>
             </CardMenu>
@@ -168,7 +182,8 @@ export function RepoCard({
         //   pathname: "/repos/show/" + repo.name,
         //   search: "?nameWithOwner=" + repo.nameWithOwner,
         // }}
-        className="flex flex-col h-full hover:brightness-[80%]">
+        className="flex flex-col h-full hover:brightness-[80%]"
+      >
         <CardMedia
           component="img"
           height={50}
@@ -178,7 +193,9 @@ export function RepoCard({
           width={50}
         />
         <CardContent style={{ padding: 1 }} className="w-fit p-1">
-          <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">{repo.description}</h4>
+          <h4 className="text-sm  line-clamp-1 p-1 px-2 font-light">
+            {repo.description}
+          </h4>
           <div className="flex  w-fit">
             {stars > 0 && (
               <div className="flex gap-1 text-sm items-center justify-center px-2">
@@ -198,9 +215,18 @@ export function RepoCard({
       </Card>
 
       <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-        {topics.length < 1 && <Chip variant="outlined" label={repo.name} size="small" />}
+        {topics.length < 1 && (
+          <Chip variant="outlined" label={repo.name} size="small" />
+        )}
         {topics.map((topic) => {
-          return <Chip key={topic.id} variant="outlined" label={topic.topic.name} size="small" />;
+          return (
+            <Chip
+              key={topic.id}
+              variant="outlined"
+              label={topic.topic.name}
+              size="small"
+            />
+          );
         })}
       </div>
 

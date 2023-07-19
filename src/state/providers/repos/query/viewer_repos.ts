@@ -68,7 +68,7 @@ export const ViewerRepositoriesQuery = gql`
             id
             name
             viewerPermission
-       
+
             nameWithOwner
             description
             url
@@ -91,40 +91,40 @@ export const ViewerRepositoriesQuery = gql`
             hasIssuesEnabled
             hasWikiEnabled
 
-          defaultBranchRef {
-          target {
-            ... on Commit {
-              history(first: 1) {
-                totalCount
-                nodes {
-                  oid
-                  committedDate
-                  deletions
-                  additions
-                }
-              }
-            }
-          }
-        }
-        
-        parent {
-          name
-          defaultBranchRef {
-            target {
-              ... on Commit {
-                history(first: 1) {
-                  totalCount
-                  nodes {
-                    oid
-                    committedDate
-                    deletions
-                    additions
+            defaultBranchRef {
+              target {
+                ... on Commit {
+                  history(first: 1) {
+                    totalCount
+                    nodes {
+                      oid
+                      committedDate
+                      deletions
+                      additions
+                    }
                   }
                 }
               }
             }
-          }
-        }
+
+            parent {
+              name
+              defaultBranchRef {
+                target {
+                  ... on Commit {
+                    history(first: 1) {
+                      totalCount
+                      nodes {
+                        oid
+                        committedDate
+                        deletions
+                        additions
+                      }
+                    }
+                  }
+                }
+              }
+            }
 
             repositoryTopics(first: 10) {
               nodes {

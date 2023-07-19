@@ -30,7 +30,9 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
   const query = useQuery(["repo-pkg-jason", repo.nameWithOwner], () =>
     get_repo_jason(repo.nameWithOwner)
   );
-  const repo_topics = new Set(repo.repositoryTopics.nodes.map((topic) => topic.topic.name));
+  const repo_topics = new Set(
+    repo.repositoryTopics.nodes.map((topic) => topic.topic.name)
+  );
   const [topics, setTopics] = useState(repo_topics);
   const { open: opentoast, close } = useNotification();
   const qc = useQueryClient();
@@ -126,8 +128,13 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
                 })
               }
               className="rounded-lg flex items-center justify-center px-2 py-1
-              border hover:border-purple-400 hover:text-purple-400">
-              {mutation.isLoading ? <Loader className="w-5 h-5 animate-spin" /> : "submit"}
+              border hover:border-purple-400 hover:text-purple-400"
+            >
+              {mutation.isLoading ? (
+                <Loader className="w-5 h-5 animate-spin" />
+              ) : (
+                "submit"
+              )}
             </button>
           )}
         </Card>
@@ -137,7 +144,8 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
         <AccordionSummary
           expandIcon={<ChevronDown />}
           aria-controls="panel1a-content"
-          id="panel1a-header">
+          id="panel1a-header"
+        >
           <Typography gap={5} variant="caption">
             Dependancies{" "}
             {editing && (
@@ -152,7 +160,8 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
                   ":hover": {
                     border: "1px solid" + theme.palette.secondary.main,
                     color: theme.palette.secondary.main,
-                    boxShadow: "1px 2px 1px 2px " + theme.palette.secondary.main,
+                    boxShadow:
+                      "1px 2px 1px 2px " + theme.palette.secondary.main,
                   },
                 }}
                 onClick={() => addAllTopics(repo_deps)}
@@ -177,7 +186,10 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
                       />
                     )}
                     {editing && (
-                      <X className="h-4 w-4 hover:text-red-700" onClick={() => removeTopic(dep)} />
+                      <X
+                        className="h-4 w-4 hover:text-red-700"
+                        onClick={() => removeTopic(dep)}
+                      />
                     )}
                   </div>
                 }
@@ -191,7 +203,8 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
         <AccordionSummary
           expandIcon={<ChevronDown />}
           aria-controls="panel1a-content"
-          id="panel1a-header">
+          id="panel1a-header"
+        >
           <Typography variant="caption">
             Dev Dependancies
             {editing && (
@@ -203,7 +216,8 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
                   ":hover": {
                     border: "1px solid" + theme.palette.secondary.main,
                     color: theme.palette.secondary.main,
-                    boxShadow: "1px 2px 1px 2px " + theme.palette.secondary.main,
+                    boxShadow:
+                      "1px 2px 1px 2px " + theme.palette.secondary.main,
                   },
                 }}
                 label="add all to topics"
@@ -231,7 +245,10 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
                       />
                     )}
                     {editing && (
-                      <X className="h-4 w-4 hover:text-red-700" onClick={() => removeTopic(dep)} />
+                      <X
+                        className="h-4 w-4 hover:text-red-700"
+                        onClick={() => removeTopic(dep)}
+                      />
                     )}
                   </div>
                 }

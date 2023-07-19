@@ -3,16 +3,16 @@ import type { PaletteOptions } from "@mui/material/styles";
 export const darkPalette: PaletteOptions = {
   mode: "dark",
   primary: {
-    main: '#3e2723',
-    light: '#5d4037',
-    dark: '#a1887f',
+    main: "#3e2723",
+    light: "#5d4037",
+    dark: "#a1887f",
   },
   secondary: {
-    main: '#62513a',
-    light: '#62513a',
-    dark: '#ffca28',
+    main: "#62513a",
+    light: "#62513a",
+    dark: "#ffca28",
   },
-  divider: '#d0aa5e',
+  divider: "#d0aa5e",
   background: {
     default: "#212121",
     paper: "#242424",

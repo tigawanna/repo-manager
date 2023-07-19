@@ -28,7 +28,9 @@ export function RepoStatCards({ profile }: RepoStatCardsProps) {
     <div className="w-full  flex flex-col lg:flex-row p-2 gap-3">
       <CardWrapper elevation={2} className="flex flex-col md:flex-row  gap-3">
         <div className="min-w-fit ">
-          {repos.totalCount && <h3 className="text-6xl ">{repos.totalCount}</h3>}
+          {repos.totalCount && (
+            <h3 className="text-6xl ">{repos.totalCount}</h3>
+          )}
           {repos && <Title className="text-xl">Repositories</Title>}
         </div>
 
@@ -46,7 +48,9 @@ export function RepoStatCards({ profile }: RepoStatCardsProps) {
           <Link className="text-sm " to={"/repos"}>
             <Chip
               variant="outlined"
-              label={<h3 className="text-xs hover:text-blue-600">shom more...</h3>}
+              label={
+                <h3 className="text-xs hover:text-blue-600">shom more...</h3>
+              }
             />
           </Link>
         </div>

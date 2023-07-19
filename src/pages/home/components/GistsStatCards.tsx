@@ -2,13 +2,12 @@ import { Viewer } from "@/state/providers/home/viewr_query_types";
 import { Card, Typography, Chip, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 
-
 interface GistsCardsProps {
   profile: Viewer;
 }
 
 export function GistsStatCards({ profile }: GistsCardsProps) {
-  const gists = profile.gists
+  const gists = profile.gists;
   // const gists = profile.gists
 
   const CardWrapper = styled(Card)(({ theme }) => ({
@@ -30,7 +29,9 @@ export function GistsStatCards({ profile }: GistsCardsProps) {
     <div className="w-full  flex flex-col lg:flex-row p-2 gap-3">
       <CardWrapper elevation={2} className="flex flex-col md:flex-row  gap-3">
         <div className="min-w-fit ">
-          {gists.totalCount && <h3 className="text-6xl ">{gists.totalCount}</h3>}
+          {gists.totalCount && (
+            <h3 className="text-6xl ">{gists.totalCount}</h3>
+          )}
           {gists && <Title className="text-xl">Gists</Title>}
         </div>
 
