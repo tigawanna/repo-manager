@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Checkbox, Stack, Typography, useTheme } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation,useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { TextField, Box } from "@mui/material";
 import {
@@ -15,6 +15,7 @@ interface UpdateRepoFormProps {
   input: IRepositoriesNode;
 }
 export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
+  const qc = useQueryClient();
   const [formData, setFormData] = useState<UpdateRepositoryInput>({
     name: input.name,
     description: input.description,
@@ -31,6 +32,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
       updateRepository(variables),
     onSuccess(data) {
       //console.log("succesfully updated repository", data);
+      qc.invalidateQueries(["repos"]);
       open?.({
         key: "update-repo-success",
         type: "success",
