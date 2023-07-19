@@ -167,14 +167,6 @@ const nameWithOwner = searchParams.get("nameWithOwner");
       <MuiModal open={open} setOpen={setOpen}>
         <UpdateRepoForm input={repo} />
       </MuiModal>
-      {/* {stars?.length>0&&<h2 className="text-xl font-bold p-2">stargazers</h2>}         */}
-      {/* <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2  gap-5">
-        {stars?.map((star) => {
-          return (
-            <GithubUserCard key={star.node.url} github_user={star.node as any}/>
-          )
-        })}
-      </div> */}
 
     </Card>
   );
