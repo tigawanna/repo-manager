@@ -1,8 +1,9 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Card, useTheme } from "@mui/material";
 import { ItemList } from "@/state/providers/repos/types";
 import { deleteRepos } from "@/state/providers/repos/mutation/deleteRepos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotification } from "@refinedev/core";
+
 
 interface DeleteRepoProps {
   selected: ItemList[];
@@ -12,6 +13,7 @@ interface DeleteRepoProps {
 
 export function DeleteRepo({ selected, setOpen, setSelected }: DeleteRepoProps) {
   const { open, close } = useNotification();
+  const theme = useTheme()
   const qc = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deleteRepos(selected),
@@ -39,11 +41,13 @@ export function DeleteRepo({ selected, setOpen, setSelected }: DeleteRepoProps) 
     },
   });
   return (
-    <div
-      style={{
+    <Card
+      sx={{
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: 7,
         border: mutation.isError ? "2px solid #990000" : "",
       }}
-      className="w-full flex flex-col items-center justify-center gap-5 bg-slate-950 rounded-lg p-2">
+      className="w-full flex flex-col items-center justify-center gap-5  p-2">
       <div className="w-full mt-6 flex flex-col gap-2 px-2">
         <div>
           <Typography variant="h6" fontSize="sm" sx={{ mb: 0.5 }}>
@@ -99,6 +103,6 @@ export function DeleteRepo({ selected, setOpen, setSelected }: DeleteRepoProps) 
           {mutation?.error?.message}
         </Typography>
       )}
-    </div>
+    </Card>
   );
 }
