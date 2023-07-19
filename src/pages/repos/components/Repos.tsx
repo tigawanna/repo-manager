@@ -197,8 +197,9 @@ export function Repos({}: ReposProps) {
                 )}
               </div>
               <MuiModal open={opendelete} setOpen={setOpenDelete}>
-                {/* @ts-expect-error */}
+              
                 <DeleteRepo
+                    //  @ts-expect-error
                   selected={selected}
                   setOpen={setOpenDelete}
                   setSelected={setSelected}
