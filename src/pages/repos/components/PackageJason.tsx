@@ -54,6 +54,29 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
       return new Set([...prev, ...new_topics]);
     });
   };
+    const mutation = useMutation({
+      mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
+      onSuccess(data, variables, context) {
+        qc.invalidateQueries(["repos"]);
+
+        opentoast?.({
+          key: "delere-topics-success",
+          type: "success",
+          message: "Success",
+          description: "Topics updated successfully",
+        });
+        close?.("update-topics-success");
+      },
+      onError(error: any, variables, context) {
+        opentoast?.({
+          key: "delere-topics-error",
+          type: "error",
+          message: "Error updating",
+          description: error?.message,
+        });
+        close?.("update-topics-error");
+      },
+    });
   if (query.isLoading) {
     return (
       <div className="w-full h-full min-h-screen flex items-center justify-center">
@@ -76,29 +99,7 @@ export function PackageJason({ repo, editing }: PackageJasonProps) {
   const repo_deps = Object.keys(data.dependencies);
   const repo_dev_deps = Object.keys(data.devDependencies);
 
-  const mutation = useMutation({
-    mutationFn: (vars: UpdateRepoTagsInput) => updateRepoTags(vars),
-    onSuccess(data, variables, context) {
-      qc.invalidateQueries(["repos"]);
 
-      opentoast?.({
-        key: "delere-topics-success",
-        type: "success",
-        message: "Success",
-        description: "Topics updated successfully",
-      });
-      close?.("update-topics-success");
-    },
-    onError(error: any, variables, context) {
-      opentoast?.({
-        key: "delere-topics-error",
-        type: "error",
-        message: "Error updating",
-        description: error?.message,
-      });
-      close?.("update-topics-error");
-    },
-  });
   const topics_arr = Array.from(topics);
   return (
     <Card className="w-full h-full flex flex-col items-center justify-center gap-1">
