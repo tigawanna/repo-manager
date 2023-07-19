@@ -136,7 +136,7 @@ export function RepoCard({
             </div>
           </div>
 
-          {repo.viewerPermission === "ADMIN" && (
+          {(repo.viewerPermission === "ADMIN"&&!selected) && (
             <CardMenu>
               <MenuItem
                 sx={{
