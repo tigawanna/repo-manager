@@ -17,7 +17,7 @@ interface ProfileInfoProps {
 }
 
 export function ProfileInfo({ profile }: ProfileInfoProps) {
-  // console.log("profile === ",profile);
+  // //console.log("profile === ",profile);
   const user = profile;
   const extradetails = {
     company: user?.company,
@@ -51,7 +51,7 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
   // const [active, setActive] = useState<string>("");
   // const username = user?.login as string;
   const admin = user?.isViewer;
-  //console.log("og user",admin)
+  ////console.log("og user",admin)
   const followThem = (their_id: string) => {
     setYes(true);
     followMutation.mutate({ input: { userId: their_id } });
@@ -61,7 +61,7 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
     unfollowMutation.mutate({ input: { userId: their_id } });
   };
 
-  // console.log("main user === ",user)
+  // //console.log("main user === ",user)
   return (
     <div className="h-full w-full dark-styles gap-1">
       <div className="w-full   p-2 flex-col-center gap-1">
@@ -157,13 +157,13 @@ export const ProfileInfoItemWrapper: React.FC<ProfileInfoItemWrapperProps> = ({
   valkey,
   value,
 }) => {
-  // console.log("kyett",valkey,value)
+  // //console.log("kyett",valkey,value)
   if (!value) {
     return null;
   }
 
   const WhatIcon = () => {
-    // console.log("kye",valkey,value)
+    // //console.log("kye",valkey,value)
     switch (valkey) {
       case "company":
         return <Building2 className="h-4 w-4" />;

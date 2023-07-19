@@ -18,7 +18,7 @@ export function GithubButton({}: GithubButtonProps) {
   const mutation = useMutation({
     mutationFn: loginPocketbaseUser,
     onSuccess(data, variables, context) {
-      console.log("data");
+      //console.log("data");
       qc.setQueryData(["gh-token"], data.access_token);
       localStorage.setItem("github_token", data.access_token);
       open?.({
@@ -31,7 +31,7 @@ export function GithubButton({}: GithubButtonProps) {
       // location.reload();
     },
     onError(error: any) {
-      console.log("error loggin in with github appp ", error);
+      //console.log("error loggin in with github appp ", error);
       open?.({
         key: "update-viewer-error",
         type: "error",
@@ -45,7 +45,7 @@ export function GithubButton({}: GithubButtonProps) {
   const add_pat_mutation = useMutation({
     mutationFn: async () => {
       const valid_token = await checkToken(input);
-      console.log("valid_token === ", valid_token);
+      //console.log("valid_token === ", valid_token);
       return valid_token;
     },
     onSuccess(data, variables, context) {

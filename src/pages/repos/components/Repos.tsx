@@ -31,7 +31,7 @@ export function Repos({}: ReposProps) {
     },
     isFork: false,
   });
-  // console.log("repovars === ",repovars)
+  // //console.log("repovars === ",repovars)
   const selectItem = (item: ItemList) => {
     setSelected((prev) => {
       if (!prev) {
@@ -92,7 +92,7 @@ export function Repos({}: ReposProps) {
   // const search_query = useQuery(["search", searchTerm], () => repoSearch({ query: searchTerm }), {
   //   enabled: searchTerm !== "",
   // });
-  //  console.log("search_query === ", search_query.data);
+  //  //console.log("search_query === ", search_query.data);
 
   const { data, isError, isLoading, error } = query;
 

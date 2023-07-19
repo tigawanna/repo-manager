@@ -14,14 +14,14 @@ export async function deleteRepos(repos: ItemList[]) {
       );
 
       if (response.statusText === "OK") {
-        console.log(`Repository ${repo.nameWithOwner} deleted successfully`);
+        //console.log(`Repository ${repo.nameWithOwner} deleted successfully`);
       } else {
-        console.log(`Failed to delete repository ${repo.nameWithOwner}`);
+        //console.log(`Failed to delete repository ${repo.nameWithOwner}`);
       }
       return response;
     }
   } catch (error) {
-    console.log("error deleting viewer repos", error);
+    //console.log("error deleting viewer repos", error);
     throw error;
   }
 }

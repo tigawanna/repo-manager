@@ -11,9 +11,9 @@ export async function loginPocketbaseUser() {
         provider: "github",
         scopes: ["user", "repo", "delete_repo"],
       });
-    console.log("pocketbase github user  === ", authData);
+    //console.log("pocketbase github user  === ", authData);
     if (authData?.meta?.accessToken) {
-      console.log("pocketbase github user  === ", authData?.meta?.accessToken);
+      //console.log("pocketbase github user  === ", authData?.meta?.accessToken);
       await pb.collection("devs").update<PBUser>(authData.record.id, {
         access_token: authData?.meta.accessToken,
         avatar: authData?.meta.avatarUrl ?? authData.record.avatar,
@@ -21,7 +21,7 @@ export async function loginPocketbaseUser() {
     }
     return pb.authStore.model as unknown as PBUser;
   } catch (error) {
-    console.log("error getting pocketbase github user ==== ", error);
+    //console.log("error getting pocketbase github user ==== ", error);
     throw error;
   }
 }

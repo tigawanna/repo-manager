@@ -112,11 +112,11 @@ export async function updateRepository(input: UpdateRepositoryInput) {
       UpdateRepositoryMutation,
       variables
     );
-    console.log("succesfull update === ", data);
+    //console.log("succesfull update === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error updating repository", error_string);
+    //console.log("error updating repository", error_string);
     throw new Error(error_string);
   }
 }

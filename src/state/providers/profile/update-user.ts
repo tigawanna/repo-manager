@@ -20,7 +20,7 @@ export async function updateViewer(input: UpdateViewerInput) {
         Authorization: `Bearer ${token ?? import.meta.env.VITE_GH_PAT}`,
       },
     });
-    console.log("User updated successfully:", response.data);
+    //console.log("User updated successfully:", response.data);
   } catch (error) {
     // @ts-expect-error
     console.error("Error updating user:", error.response.data);

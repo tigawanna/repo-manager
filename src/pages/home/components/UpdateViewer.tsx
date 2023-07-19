@@ -85,7 +85,7 @@ export function UpdateViewer({ viewer, setOpen }: UpdateViewerProps) {
       }}
       // onSubmit={(e) => {
       //   e.preventDefault();
-      //   console.log("new user input", input);
+      //   //console.log("new user input", input);
       // }}
       className="w-full h-full flex flex-col items-center justify-center gap-3"
     >

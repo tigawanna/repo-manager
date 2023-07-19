@@ -10,11 +10,11 @@ export async function getViewerRepositories() {
       document: ViewerQuery,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    // console.log("viewer repos response === ", data);
+    // //console.log("viewer repos response === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error getting viewer repos", error_string);
+    //console.log("error getting viewer repos", error_string);
     throw new Error(error_string);
   }
 }

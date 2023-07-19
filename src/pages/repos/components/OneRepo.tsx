@@ -64,7 +64,7 @@ export function OneRepo({}: OneRepoProps) {
   if (!data) {
     return <div className="min-h-screen w-full  flex flex-col">no data</div>;
   }
-  // console.log("data === ",data)
+  // //console.log("data === ",data)
   const repo = data?.data?.user?.repository;
   const topics = repo?.repositoryTopics?.nodes;
 
@@ -184,7 +184,7 @@ export function OneRepo({}: OneRepoProps) {
         <h4 className="text-sm md:text-base  p-2">{repo?.description}</h4>
 
         <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
-          {repo?.repositoryTopics.nodes.map((topic) => {
+          {topics.map((topic) => {
             return (
               <Chip
                 key={topic.id}

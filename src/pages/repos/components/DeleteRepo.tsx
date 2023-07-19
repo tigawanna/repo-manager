@@ -21,7 +21,7 @@ export function DeleteRepo({
   const mutation = useMutation({
     mutationFn: () => deleteRepos(selected),
     onSuccess: () => {
-      console.log("succesfully deleted repos");
+      //console.log("succesfully deleted repos");
       qc.invalidateQueries(["repos"]);
       setSelected(null);
       open?.({

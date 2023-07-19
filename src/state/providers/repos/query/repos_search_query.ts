@@ -9,11 +9,11 @@ export async function repoSearch(variables: Pick<IRepoSearchInput, "query">) {
       document: REPOS_SEARCH_QUERY,
       variables,
     });
-    // console.log("search results === ",data)
+    // //console.log("search results === ",data)
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error geting search results", error_string);
+    //console.log("error geting search results", error_string);
     throw new Error(error_string);
   }
 }

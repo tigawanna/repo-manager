@@ -19,11 +19,11 @@ export async function getViewerOneRepository(variables: OneRepoQueryVariables) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    console.log("viewer one repo response === ", data);
+    //console.log("viewer one repo response === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error getting viewer oe repo", error_string);
+    //console.log("error getting viewer oe repo", error_string);
     throw new Error(error_string);
   }
 }

@@ -17,7 +17,7 @@ export function HomePage({}: HomePageProps) {
     //  localStorage.setItem("github_token",data);
     // },
     onError(error: any) {
-      // console.log("error message testing ==",error.message);
+      // //console.log("error message testing ==",error.message);
       localStorage.removeItem("github_token");
       open?.({
         type: "error",
@@ -26,7 +26,7 @@ export function HomePage({}: HomePageProps) {
       });
     },
   });
-  // console.log("query === ",query.data)
+  // //console.log("query === ",query.data)
 
   if (query.isLoading) {
     return (

@@ -13,7 +13,7 @@ export function ViewerHomepage({}: ViewerHomepageProps) {
     queryKey: ["viewer"],
     queryFn: getViewerRepositories,
     onError(err: any) {
-      //   console.log("error message test ==",err.message.data);
+      //   //console.log("error message test ==",err.message.data);
     },
   });
 
@@ -33,7 +33,7 @@ export function ViewerHomepage({}: ViewerHomepageProps) {
     );
   }
   const data = query.data;
-  // console.log("data === ",data)
+  // //console.log("data === ",data)
   const viewer_detaills = data.viewer;
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-1">

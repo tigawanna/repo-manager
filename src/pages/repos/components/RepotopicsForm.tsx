@@ -9,7 +9,7 @@ import { useNotification } from "@refinedev/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { Check, Edit, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface RepotopicsFormProps {
   repo_topics: IRepositoryTopicsNode[];
@@ -25,7 +25,9 @@ export function RepoTopicsForm({
   editing,
 }: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
-
+  useEffect(() => {
+    setTopics(repo_topics);
+  },[repo_topics])
   const [open, setOpen] = useState(false);
 
   const old_topics = topics.map((topic) => topic.topic.name);

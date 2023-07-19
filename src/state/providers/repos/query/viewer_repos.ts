@@ -20,7 +20,7 @@ export interface RepoQueryVariables extends Variables {
 }
 
 export async function getViewerRepositories(variables: RepoQueryVariables) {
-  // console.log("variables == ",variables)
+  // //console.log("variables == ",variables)
   try {
     // const data = sample_repos
     const data = await gql_request_helper<
@@ -31,11 +31,11 @@ export async function getViewerRepositories(variables: RepoQueryVariables) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    // console.log("viewer repos response === ", data);
+    // //console.log("viewer repos response === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error gettingviewer repos", error_string);
+    //console.log("error gettingviewer repos", error_string);
     throw new Error(error_string);
   }
 }

@@ -36,11 +36,11 @@ export async function updateRepoTags(variables: UpdateRepoTagsInput) {
       variables,
     });
     // const { data } = useQuery(ViewerRepositoriesQuery, { variables });
-    console.log("update repo tags response === ", data);
+    //console.log("update repo tags response === ", data);
     return data;
   } catch (error: any) {
     const error_string = parseGQLError(error.response);
-    console.log("error updating repo tags", error_string);
+    //console.log("error updating repo tags", error_string);
     throw new Error(error_string);
   }
 }

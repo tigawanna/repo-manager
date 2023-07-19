@@ -22,18 +22,18 @@ export async function followOrUnfollowUser({
     });
 
     if (response.status === 204) {
-      console.log(
+      //console.log(
         `You have ${shouldFollow ? "followed" : "unfollowed"} ${username}.`
       );
       return `You have ${
         shouldFollow ? "followed" : "unfollowed"
       } ${username}.`;
     } else {
-      console.log(`An error occurred: ${response.data.message}`);
+      //console.log(`An error occurred: ${response.data.message}`);
       throw response;
     }
   } catch (error: any) {
-    console.log(`An error occurred: ${error.message}`);
+    //console.log(`An error occurred: ${error.message}`);
     throw error;
   }
 }

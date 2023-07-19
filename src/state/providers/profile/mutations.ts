@@ -24,6 +24,6 @@ export const UNFOLLOWUSER = gql`
 //     });
 //     return data;
 //   } catch (error: any) {
-//     console.log("error unfollowing user === ", error.message); // Handle the error if the mutation fails
+//     //console.log("error unfollowing user === ", error.message); // Handle the error if the mutation fails
 // }
 // }

@@ -41,7 +41,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({ profile }) => {
     unfollowMutation.mutate({ input: { userId: their_id } });
   };
 
-  // console.log("dev.login",dev.login)
+  // //console.log("dev.login",dev.login)
   return (
     <div className="h-44 w-[99%] md:w-[31%] lg:w-[25%] m-2 md:m-2">
       <div

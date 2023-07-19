@@ -18,19 +18,19 @@ export async function get_repo_jason(owner_repo: string) {
     if (data && "message" in data) {
       return null;
     }
-    // console.log("repo kg json data  == ",data);
+    // //console.log("repo kg json data  == ",data);
 
     if (data && data.encoding === "base64" && data.content) {
       const stringBuffer = Buffer.from(data.content, data.encoding).toString();
       const pgkjson = (await JSON.parse(stringBuffer)) as DecodedPackageJson;
 
       const pkg_json = await modifyPackageJson(pgkjson);
-      console.log("pkg json == ", pkg_json);
+      //console.log("pkg json == ", pkg_json);
       return pkg_json;
     }
     return;
   } catch (error) {
-    console.log("error getting package.json", error);
+    //console.log("error getting package.json", error);
     throw error;
   }
 }
@@ -89,7 +89,7 @@ export function pkgTypeCondition(pkg: RequiredDecodedPackageJson): {
 export async function modifyPackageJson(pgkjson: DecodedPackageJson) {
   if ("name" in pgkjson) {
     const typeCondition = pkgTypeCondition(pgkjson);
-    console.log("typeCondition", typeCondition);
+    //console.log("typeCondition", typeCondition);
     pgkjson["pkg_type"] = typeCondition.pkg_type;
 
     const alldeps = Object.keys(pgkjson.dependencies)

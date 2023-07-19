@@ -30,7 +30,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
     mutationFn: (variables: UpdateRepositoryInput) =>
       updateRepository(variables),
     onSuccess(data) {
-      console.log("succesfully updated repository", data);
+      //console.log("succesfully updated repository", data);
       open?.({
         key: "update-repo-success",
         type: "success",
@@ -40,7 +40,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
       close?.("update-repo-success");
     },
     onError(error: any) {
-      console.log("error updating repository", error);
+      //console.log("error updating repository", error);
       open?.({
         key: "update-repo-error",
         type: "error",
