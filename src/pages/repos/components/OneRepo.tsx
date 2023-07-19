@@ -35,6 +35,7 @@ const nameWithOwner = searchParams.get("nameWithOwner");
     meta: { nameWithOwner },
   });
   const [open, setOpen] = React.useState<boolean>(false);
+    const [editing, setEditing] = React.useState(false);
   const { data, isLoading, isError, error } = query;
 
   if (isLoading) {
@@ -74,6 +75,7 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                 <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo?.name}</h1>
                 <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo?.nameWithOwner}</h3>
               </a>
+
               <ForksyncCheck repo={repo} />
 
               <div className="w-full flex flex-wrap gap-2">
@@ -101,10 +103,29 @@ const nameWithOwner = searchParams.get("nameWithOwner");
                   </Tooltip>
                 )}
 
-                {repo.viewerPermission === "ADMIN" && (
+                {/* {repo.viewerPermission === "ADMIN" && (
                   <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
-                )}
+                )} */}
 
+                {repo.viewerPermission === "ADMIN" && (
+                  <Tooltip title="toggle editing mode">
+                    <Edit
+                      className="h-5 w-5 hover:text-purple-600"
+                      onClick={() => setEditing(!editing)}
+                    />
+                  </Tooltip>
+                )}
+                {editing && (
+                  <Tooltip title="editing mode is now on">
+                    <Chip
+                      sx={{
+                        color: "blue",
+                      }}
+                      label="editing mode"
+                      variant="outlined"
+                    />
+                  </Tooltip>
+                )}
                 {repo.viewerPermission === "ADMIN" && (
                   <CardMenu>
                     <MenuItem
@@ -156,18 +177,18 @@ const nameWithOwner = searchParams.get("nameWithOwner");
         <RepoTopicsForm
           repo_topics={topics}
           resourceId={repo.id}
+          editing={editing}
           is_admin={repo.viewerPermission === "ADMIN"}
         />
       </div>
       <Stack gap={1}>
-      <RepoLanguages repo={repo} />
-      <PackageJason repo={repo}/>
+        <RepoLanguages repo={repo} />
+        <PackageJason repo={repo} editing={editing}/>
       </Stack>
 
       <MuiModal open={open} setOpen={setOpen}>
         <UpdateRepoForm input={repo} />
       </MuiModal>
-
     </Card>
   );
 }

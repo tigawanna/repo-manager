@@ -16,11 +16,12 @@ interface RepotopicsFormProps {
   repo_topics: IRepositoryTopicsNode[];
   resourceId: string;
   is_admin: boolean;
+  editing:boolean;
 }
 
-export function RepoTopicsForm({ repo_topics, resourceId,is_admin }: RepotopicsFormProps) {
+export function RepoTopicsForm({ repo_topics, resourceId,is_admin,editing }: RepotopicsFormProps) {
   const [topics, setTopics] = useState(repo_topics);
-  const [editing, setEditing] = useState(false);
+
   const [open, setOpen] = useState(false);
 
 
@@ -36,9 +37,7 @@ export function RepoTopicsForm({ repo_topics, resourceId,is_admin }: RepotopicsF
 
   return (
     <div className="w-full  min-h-[50px]  flex flex-wrap gap-1  border-t p-2  scrollbar-thin overflow-x-scroll">
-   {is_admin&&<Tooltip title="Edit topics">
-       <Edit className="h-5 w-5 hover:text-purple-600" onClick={() => setEditing(!editing)} />
-      </Tooltip>}
+
 
       {topics.map((topic, idx) => {
         return (
