@@ -160,11 +160,11 @@ export function Repos({}: ReposProps) {
             >
               <Edit
                 onClick={() => setEditing(!editing)}
-                className={
-                  editing
-                    ? "h-5 w-5 text-purple-600"
-                    : "h-5 w-5 hover:text-purple-600"
-                }
+                className="h-5 w-5  hover:text-orange-500"
+                style={{
+                  color:editing?"orange":theme.palette.primary.main
+              }}
+   
               />
               {editing && (
                 <Checkbox
